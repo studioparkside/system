@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+<title>Kickoff — [Client Name]</title>
+<!-- TEMPLATE: Kickoff. Lifted from Boulder B-Sides, bsides/kickoff.
+     Placeholder copy is in brackets. The four system blocks are verbatim
+     from system/index.html. Page-specific rules go below BASE END. -->
+<link rel="stylesheet" href="https://system.studioparkside.co/tokens.css">
+<link rel="stylesheet" href="https://system.studioparkside.co/parkside.css">
+<style>
+/* ---- Page-specific rules ---- */
+
+
+</style>
+<link rel="stylesheet" href="https://system.studioparkside.co/print.css">
+</head>
+<body>
+
+<!-- Studio Parkside logo, defined once and reused below -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="sp-logo" viewBox="0 0 1499.4 151">
+    <g>
+      <path d="M150.6,23.6v19.5c0,.7-.6,1.2-1.2,1.2h-15.8v10.7h15.8c.7,0,1.2.6,1.2,1.2v66.6c0,19.2,8.2,26.1,31.5,26.1s17.3-.1,24.6-.4v-10.4h-10.3c-8.8,0-13.6-2.3-13.6-14.3l.2-67.6c0-.7.6-1.2,1.2-1.2h22.5v-10.7h-22.5c-.7,0-1.2-.6-1.2-1.2V11.7l-32.4,11.8Z"/>
+      <path d="M320.9,148.7V44.3h-32.4v53.1c0,24.5-8.1,39.1-21.6,39.1s-16.2-3-16.2-22.9V44.3h-32.4v65.5c0,26,13.4,41,36.8,41s26.6-6.5,32.7-18.2c.3-.5.8-.8,1.4-.6.6.1,1,.6,1,1.2v15.6h30.7Z"/>
+      <path d="M0,106.9c3.5,27.9,26.8,43.9,64.1,43.9s61.5-24.2,61.5-46.6-22.5-37-46.7-42.9l-18.3-4.4c-16.8-4-24.3-10.7-24.3-21.8s11.8-22.9,28.1-22.9,25.8,9.6,27,27.1h32.1C120.4,15.7,97.9,1.1,64.5,1.1S6.4,24.8,6.4,47.1s12.5,33.3,44.6,41.4l15.8,4c13.8,3.5,27.8,9.1,27.8,24.7s-12.2,22.5-30.4,22.5-30.2-11.6-31.4-32.8H0Z"/>
+      <path d="M575,151c34.4,0,58.4-22.6,58.4-55s-24.6-54.2-58.4-54.2-58.4,18.6-58.4,54.2,24,55,58.4,55ZM575,51.5c20.7,0,23.1,25.4,23.1,44.5s-2.6,45.4-23.1,45.4-23.1-25.9-23.1-45.4,2.6-44.5,23.1-44.5Z"/>
+      <rect x="468.5" width="33.6" height="26.5"/>
+      <rect x="469.1" y="44.3" width="32.4" height="104.4"/>
+      <path d="M414.3,56.1c0,.5-.4,1-.9,1.2-.5.2-1.1,0-1.4-.5-7-9.8-17.7-14.8-32-14.8-28.6,0-47.1,21.2-47.1,54s18.1,55,47.3,55,26.2-6.4,33.4-18.5c.3-.5.9-.7,1.4-.6.5.1.9.6.9,1.2v15.6h30.7V0h-32.4v56.1ZM390.6,136.9c-14.8,0-22.2-13.8-22.2-40.9s7.4-39.9,22-39.9,24.6,16.4,24.6,39.9-10.2,40.9-24.4,40.9Z"/>
+    </g>
+    <g>
+      <path d="M1170.7,84.4l-10.9-2.7c-13.4-3.4-20.7-6.8-20.7-15.3s7.5-14.9,19.1-14.9,17.2,6.7,18.2,19.3h28.9c-2.5-17.9-20.4-29-47.1-29s-46.2,13.9-46.2,33.8,9.5,25.4,32.9,30.9l10.7,2.5c16.4,3.9,23.4,9.1,23.4,17.4s-8.1,15.1-21.2,15.1-19.7-8.3-20.5-22.9h-29.5c2.6,20.9,20.3,32.4,50.1,32.4s49.2-10.8,49.2-35.1-13.9-26-36.2-31.6Z"/>
+      <path d="M955.2,92c0-15.8,6.5-23.5,19.9-23.5s9.9.5,15.8,1.3v-25.6c-2-.2-4.1-.3-5.9-.3-9.8,0-17,3.9-22.5,12.2-2.9,4.3-5.1,8.9-6.3,13.5-.2.6-.7,1-1.4.9-.6,0-1.1-.6-1.1-1.2v-25h-30.9v104.4h32.4v-56.7Z"/>
+      <path d="M876.8,131.7c.5.1.9.6.9,1.1l.8,15.8h29.4l-.4-8.5c-.3-6.6-.6-10.6-.6-13.3l.2-42.6c0-12.7-3.4-22.7-10.3-29.7-8.2-8.3-21.4-12.5-39-12.5-26.2,0-46.2,13.4-49.2,32.8h29.9c.9-15,7.7-23.3,19.2-23.3s18,7.8,18,24.6v6.1c0,.6-.4,1.1-1,1.2l-19.7,3.4c-37.2,6.4-50.4,15.6-50.4,34.9s19.5,29.2,36.1,29.2,27.4-6.4,34.6-18.5c.3-.5.8-.7,1.4-.6ZM853.8,136.1c-10.3,0-17-7-17-17.8s11.6-21.4,37.7-23.7c.3,0,.7,0,1,.3.3.2.4.6.4.9v9.4c0,21.2-11.4,30.9-22,30.9Z"/>
+      <path d="M1483.2,117c-4,13.3-14.8,21.2-29.1,21.2s-29.4-15.2-29.4-40.7.6-1.2,1.2-1.2h73.5v-3.2c0-30.1-22.4-51-54.4-51s-55,19-55,54.2,29.3,54.8,58.4,54.8,45.1-12.7,50.7-34h-16ZM1445,51.7c5,0,9.1,1.6,12.2,4.7,5.1,5.1,7.5,14.2,7.4,27.8,0,.7-.6,1.2-1.2,1.2h-37.4c-.3,0-.7-.1-.9-.4-.2-.2-.4-.6-.4-.9.4-21.6,7.3-32.5,20.4-32.5Z"/>
+      <path d="M736.8,4.2h-50.8v144.5h35.1v-55.5c0-.7.6-1.2,1.2-1.2h14.5c30.7,0,67.2-7.7,67.2-44.5s-22.6-43.3-67.2-43.3ZM735.2,80.2h-12.8c-.7,0-1.2-.6-1.2-1.2V17.2c0-.7.6-1.2,1.2-1.2h12.8c20.1,0,31.7,11.6,31.7,31.7s-11.3,32.5-31.7,32.5Z"/>
+      <rect x="1219.3" y="44.3" width="32.4" height="104.4"/>
+      <path d="M1377.9,148.7V0h-32.4v56.1c0,.5-.4,1-.9,1.2-.5.2-1.1,0-1.4-.5-7-9.8-17.7-14.8-32-14.8-28.6,0-47.1,21.2-47.1,54s18.1,55,47.3,55,26.2-6.4,33.4-18.5c.3-.5.9-.7,1.4-.6.5.1.9.6.9,1.2v15.6h30.7ZM1321.8,136.9c-14.8,0-22.2-13.8-22.2-40.9s7.4-39.9,22-39.9,24.6,16.4,24.6,39.9-10.2,40.9-24.4,40.9Z"/>
+      <path d="M999.9,0v148.7h32.4v-38c0-.3.1-.7.4-.9l13.9-13c.3-.3.7-.4,1.1-.3.4,0,.7.3.9.7l24.7,51.6h35.7l-36.3-75.3c-.2-.5-.1-1.1.3-1.5l29.4-27.7h-18.2l-49.6,47.3c-.4.3-.9.4-1.4.2-.5-.2-.8-.6-.8-1.1V0h-32.4Z"/>
+      <rect x="1218.6" width="33.6" height="26.5"/>
+    </g>
+  </symbol>
+</svg>
+
+<header class="siteheader">
+  <svg class="logo" role="img" aria-label="Studio Parkside"><use href="#sp-logo"/></svg>
+  <div class="header-right">
+    <div class="pill-group">
+      <span class="pill filled">[Client Name]</span>
+      <span class="pill meta">Shared 00/00</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="stack">
+
+  <!-- Hero -->
+  <div class="card dark hero">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <h1>[Client Name] [project name]<span class="h1-sub">Kickoff</span></h1>
+      </div>
+      <nav class="toc" aria-label="Contents">
+        <a href="#s01"><span class="toc-num">01</span> Project brief</a>
+        <a href="#s02"><span class="toc-num">02</span> Scope of work</a>
+        <a href="#s03"><span class="toc-num">03</span> Project schedule</a>
+        <a href="#s04"><span class="toc-num">04</span> From your team</a>
+        <a href="#s05"><span class="toc-num">05</span> Open questions</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section class="card" id="s01">
+    <div class="section-grid">
+      <div class="rail-number">01</div>
+      <div class="section-body">
+        <h2>Project brief</h2>
+        <div class="opening">
+          <p>Hi everyone, this page is what we'll go through together.</p>
+          <p>[One or two sentences on what the meeting covers and what comes back next.]</p>
+        </div>
+
+        <hr class="sub-rule">
+
+        <div class="label"><span class="lnum">01-01</span>Creative brief</div>
+        <p>[Who sent the brief and who wrote it.]</p>
+
+        <div class="docpanel">
+          <div class="docbar">
+            <span class="dname">[Document title]</span>
+            <span class="dmeta">[Organization]</span>
+          </div>
+          <object class="docframe" data="../_assets/[brief].pdf#view=FitH" type="application/pdf" aria-label="[Client Name] creative brief">
+            <div class="docfall">The brief opens in a new tab with the link below.</div>
+          </object>
+        </div>
+        <div class="plink"><a href="../_assets/[brief].pdf" target="_blank" rel="noopener">Open the creative brief <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+
+        <div class="note">
+          <h5>The brief and the scope of work</h5>
+          <p>[Anything the brief names that sits outside the scope, stated as fact.]</p>
+          <p>Section 02 is the full list of what the project covers. Anything outside it we can talk about separately.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="card" id="s02">
+    <div class="section-grid">
+      <div class="rail-number">02</div>
+      <div class="section-body">
+        <h2>Scope of work</h2>
+        <p>The phases run in the order below. Every phase ends with a review meeting. I bring finished work, we go through it together, and then we move to the next phase. Small edits are handled inline and shown within the next presentation or deliverable.</p>
+
+        <div class="label group"><span class="lnum">01</span>Kickoff</div>
+        <p>[One line on the phase.]</p>
+        <div class="duo">
+          <div class="panel">
+            <div class="plab">Includes</div>
+            <ul class="plist">
+              <li><strong>Kickoff meeting.</strong> With everyone on your project team, covering:
+                <ul>
+                  <li>The scope of work, the schedule, and how we work together</li>
+                  <li>The creative brief and materials your team provided</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="panel">
+            <div class="plab">You get</div>
+            <ul class="plist">
+              <li><strong>Project brief.</strong> A written summary of the kickoff.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="label group"><span class="lnum">02</span>[Phase name]</div>
+        <p>[One line on the phase.]</p>
+        <div class="duo">
+          <div class="panel">
+            <div class="plab">Includes</div>
+            <ul class="plist">
+              <li><strong>[Item].</strong> [Short phrase.]</li>
+              <li><strong>Review meeting.</strong> [What this meeting covers.]</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <div class="plab">You get</div>
+            <ul class="plist">
+              <li><strong>[Deliverable].</strong> [Short phrase.]</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="label group"><span class="lnum">03</span>[Phase name]</div>
+        <p>[One line on the phase.]</p>
+        <div class="duo">
+          <div class="panel">
+            <div class="plab">Includes</div>
+            <ul class="plist">
+              <li><strong>[Item].</strong> [Short phrase.]</li>
+              <li><strong>Review meeting.</strong> [What this meeting covers.]</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <div class="plab">You get</div>
+            <ul class="plist">
+              <li><strong>[Deliverable].</strong> [Short phrase.]</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note">
+          <h5>Your project team</h5>
+          <p>[Names] approve direction[, with Name coordinating]. Those people stay involved from kickoff through completion. If someone new joins partway through and their input changes approved direction, that becomes a change in scope and I'll quote the adjustment before the project continues.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="card" id="s03">
+    <div class="section-grid">
+      <div class="rail-number">03</div>
+      <div class="section-body">
+        <h2>Project schedule</h2>
+        <p>[Duration] from kickoff to the walkthrough, built around a one business day turnaround on each deliverable.</p>
+
+        <div class="rows sched">
+          <div class="row">
+            <div class="row-text"><strong>Kickoff meeting.</strong> [What it covers.]</div>
+            <div class="row-when">00/00</div>
+          </div>
+          <div class="row">
+            <div class="row-text"><strong>Project brief.</strong> The written summary of this meeting.</div>
+            <div class="row-when">00/00</div>
+          </div>
+          <div class="row">
+            <div class="row-text"><strong>[Review].</strong> [What gets shown.]</div>
+            <div class="row-when">00/00</div>
+          </div>
+          <div class="row">
+            <div class="row-text"><strong>Walkthrough and final delivery.</strong> We go through [what gets shown] together, and the files go out the same day. The walkthrough closes the project.</div>
+            <div class="row-when">00/00</div>
+          </div>
+        </div>
+
+        <div class="note">
+          <h5>Schedule changes</h5>
+          <p>Phase dates can shift with availability. [Anything the client owes that moves a date.]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="card" id="s04">
+    <div class="section-grid">
+      <div class="rail-number">04</div>
+      <div class="section-body">
+        <h2>From your team</h2>
+        <p>[One line on when these get settled.]</p>
+
+        <div class="rows">
+          <div class="row">
+            <div class="row-num">04-01</div>
+            <div class="row-text"><strong>Blackout dates.</strong> Any days when [names] are unavailable. I'll build the review meetings around them.</div>
+          </div>
+          <div class="row">
+            <div class="row-num">04-02</div>
+            <div class="row-text"><strong>[Asset].</strong> [What it is and when it's due.]</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="card" id="s05">
+    <div class="section-grid">
+      <div class="rail-number">05</div>
+      <div class="section-body">
+        <h2>Open questions</h2>
+        <p>I've included my recommendation where I have one.</p>
+
+        <div class="rows">
+          <div class="row">
+            <div class="row-num">05-01</div>
+            <div class="row-text"><strong>[Topic].</strong> [The question, with what they said inside it. My recommendation if I have one.]</div>
+          </div>
+          <div class="row">
+            <div class="row-num">05-02</div>
+            <div class="row-text"><strong>[Topic].</strong> [The question.]</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="botbar">
+    <svg class="logo" role="img" aria-label="Studio Parkside"><use href="#sp-logo"/></svg>
+    <div class="pill-group">
+      <span class="pill light">[Project name]</span>
+      <span class="pill meta">Kickoff</span>
+    </div>
+  </footer>
+
+</div>
+</main>
+
+</body>
+</html>

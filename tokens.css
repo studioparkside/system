@@ -1,0 +1,88 @@
+/* Studio Parkside system tokens, v2 neutral shell.
+   Live at https://system.studioparkside.co/tokens.css. Every page on
+   the system links here. Edit this file to change color, type, or
+   spacing everywhere at once. */
+
+/* ============================================================
+   PARKSIDE SYSTEM TOKENS v2 — START
+   This block is identical in every page built on the system.
+   To roll out a change, replace everything between the START
+   and END markers in each file. Nothing outside the markers
+   should be edited to change color, type scale, or spacing.
+
+   v2 is the neutral shell. Sources, in order: Boulder Events
+   Calendar mood board, Boulder B-Sides kickoff, Alpine Modern
+   Round 1 comments. v1, the warm cream family, is archived.
+   ============================================================ */
+:root{
+  color-scheme:light;
+
+  /* Surfaces. Cards sit a step off white so nested panels read forward. */
+  --ground:#F0F1F2;        /* page background, sits behind cards */
+  --card:#FAFBFB;          /* default card surface */
+  --panel:#FFFFFF;         /* rows, panels, notes, anything nested in a card */
+  --paper:#FFFFFF;         /* text and fills on the dark card */
+  --deep:#000000;          /* the dark card */
+
+  /* Neutral. For anything a client is asked to judge. */
+  --neutral-white:#FFFFFF;
+  --neutral-black:#000000;
+
+  /* Ink ramp */
+  --ink:#000000;
+  --ink-soft:#5B5D5F;      /* body on panels and secondary copy */
+  --ink-muted:#676A6D;     /* labels and captions, around 5:1 on card. The
+                              lightest ink that still reads as text, in every
+                              skin. A skin may change the value, never the
+                              meaning. */
+  --muted:#A3A6A9;         /* decorative only, 2.2:1. Placeholder slots,
+                              finished steps. Never a label. */
+
+  /* Lines */
+  --outline:#E2E4E6;       /* card, panel, and pill edges */
+  --hairline:#E9EAEC;      /* rules between rows */
+  --group-rule:#8E9194;    /* opens a group. Heavier than a row hairline,
+                              lighter than ink. */
+  --hairline-strong:#000000;
+  --hairline-light:rgba(255,255,255,0.30);  /* rules on the dark card */
+
+  /* Accents. One per page at most. Gold takes ink, blue takes white. */
+  --accent-gold:#F9BC15;   /* ink on gold, 10.0:1. Never white. */
+  --accent-blue:#2278CE;   /* white on blue, 4.5:1. Never ink. */
+
+  /* Header glass, the ground at 62% */
+  --glass:rgba(240,241,242,0.62);
+  --glass-solid:rgba(240,241,242,0.96);
+
+  /* Geometry */
+  --radius:28px;           /* cards */
+  --radius-md:20px;        /* panels, rows, tiles, notes */
+  --radius-sm:12px;        /* chips, small notes */
+  --maxw:1120px;
+  --pad:12px;              /* page gutter and the gap between cards */
+  --cardpad-y:64px;
+  --cardpad-x:72px;
+  --header-h:96px;
+
+  /* Type. Body is 19px. Every other size is set against it. */
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;
+  --t-display:clamp(48px,6.6vw,92px);   /* hero title */
+  --t-section:clamp(32px,3.8vw,46px);   /* section heading */
+  --t-rail:32px;                        /* section rail number */
+  --t-sub:27px;                         /* panel heading, sequence step */
+  --t-label:22px;                       /* subhead inside a section */
+  --t-body:19px;
+  --t-small:17.5px;                     /* notes, panel copy */
+  --t-num:17px;                         /* reference numbers and dates */
+  --t-caption:15.5px;                   /* captions under tiles */
+  --t-toc:14.5px;                       /* hero contents list */
+  --t-pill:14px;
+}
+@media(max-width:820px){
+  :root{ --radius:22px; --pad:8px; --cardpad-y:40px; --cardpad-x:26px; --header-h:68px;
+    --t-body:17.5px; --t-label:19.5px; }
+}
+
+/* ============================================================
+   PARKSIDE SYSTEM TOKENS v2 — END
+   ============================================================ */

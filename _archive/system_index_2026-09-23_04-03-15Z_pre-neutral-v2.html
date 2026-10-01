@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio Parkside — System Reference</title>
+<style>
+/* ============================================================
+   PARKSIDE SYSTEM TOKENS v1 — START
+   This block is identical in every page built on the system.
+   To roll out a change, replace everything between the START
+   and END markers in each file. Nothing outside the markers
+   should be edited to change color, type scale, or spacing.
+   ============================================================ */
+:root{
+  /* Surfaces, warm cream family */
+  --ground:#E7E4DC;        /* page background, sits behind cards */
+  --card:#F6F4EE;          /* default card surface */
+  --card-bright:#FCFBF7;   /* hero rows, and reference image tiles */
+  --paper:#F5F2EA;         /* text on inverted surfaces */
+
+  /* Ink ramp */
+  --ink:#1C1B18;           /* 15.7:1 on card */
+  --ink-soft:#55524B;      /* 7.1:1 on card, body and secondary */
+  --ink-muted:#6E695F;     /* 5.0:1 on card, labels and captions. This is the
+                              lightest step that still reads as text, in every
+                              skin. A skin may change the value, never the
+                              meaning. Decorative greys get their own name. */
+
+  /* Hairlines, alpha so they sit on any surface */
+  --hairline:rgba(28,27,24,0.16);
+  --hairline-strong:rgba(28,27,24,0.85);
+  --hairline-light:rgba(245,242,234,0.28);
+
+  /* Neutral. White is a surface you choose, black is for judging only. */
+  --neutral-white:#FFFFFF;
+  --neutral-black:#000000;
+
+  /* Accents. One per page at most. Gold takes ink, blue takes white. */
+  --accent-gold:#F9BC15;   /* ink on gold, 10.0:1. Never white. */
+  --accent-blue:#2278CE;   /* white on blue, 4.5:1. Never ink. */
+
+  /* Header glass. The ground color at 58%, so the tint stays in family. */
+  --glass:rgba(231,228,220,0.58);
+  --glass-solid:rgba(231,228,220,0.95);
+
+  /* Geometry */
+  --radius:28px;
+  --radius-sm:14px;
+  --maxw:1120px;
+  --pad:clamp(12px,2vw,20px);
+  --cardpad:clamp(30px,5vw,72px);
+  --header-h:96px;
+
+  /* Type */
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;
+  --t-display:clamp(46px,8.5vw,108px);
+  --t-section:clamp(34px,5.2vw,66px);
+  --t-rail:32px;
+  --t-sub:29px;
+  --t-body:21px;
+  --t-small:18px;
+  --t-label:16px;
+}
+@media(max-width:760px){
+  :root{ --radius:22px; --radius-sm:12px; --header-h:68px; }
+}
+
+/* --- Dark. Every visit opens on the reader's system setting. The theme
+       toggle in the header flips it for that visit only, nothing is stored,
+       so the next visit matches the device again. The same values appear
+       twice below: once under the system setting, unless the toggle has
+       forced light, and once for the toggle forcing dark. Change both
+       together. Structure is unchanged, only the ground and the ink ramp
+       swap. Dark runs neutral in every skin, because a darkened cream reads
+       as a stain rather than a ground. --ink-muted stays the lightest step
+       that still reads as text, 6.1:1 on --card here.
+
+       One thing this block cannot fix. --accent-gold takes ink, and ink is
+       white in dark mode, which is the pairing the system forbids. A page
+       using gold in dark mode has to hold a fixed dark foreground on the gold
+       itself rather than inheriting --ink. Blue is unaffected, it takes white
+       in both. --- */
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    /* Surfaces */
+    --ground:#0E0F10;
+    --card:#17181A;
+    --card-bright:#1C1E20;
+    --paper:#0E0F10;         /* text on inverted surfaces, so .card.rev flips */
+
+    /* Ink ramp */
+    --ink:#FFFFFF;
+    --ink-soft:#B0B3B6;      /* 8.4:1 on card */
+    --ink-muted:#94979A;     /* 6.1:1 on card */
+
+    /* Hairlines */
+    --hairline:rgba(255,255,255,0.18);
+    --hairline-strong:rgba(255,255,255,0.80);
+    --hairline-light:rgba(14,15,16,0.32);
+
+    --glass:rgba(14,15,16,0.66);
+    --glass-solid:rgba(14,15,16,0.96);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  /* Surfaces */
+  --ground:#0E0F10;
+  --card:#17181A;
+  --card-bright:#1C1E20;
+  --paper:#0E0F10;         /* text on inverted surfaces, so .card.rev flips */
+
+  /* Ink ramp */
+  --ink:#FFFFFF;
+  --ink-soft:#B0B3B6;      /* 8.4:1 on card */
+  --ink-muted:#94979A;     /* 6.1:1 on card */
+
+  /* Hairlines */
+  --hairline:rgba(255,255,255,0.18);
+  --hairline-strong:rgba(255,255,255,0.80);
+  --hairline-light:rgba(14,15,16,0.32);
+
+  --glass:rgba(14,15,16,0.66);
+  --glass-solid:rgba(14,15,16,0.96);
+  color-scheme:dark;
+}
+/* ============================================================
+   PARKSIDE SYSTEM TOKENS v1 — END
+   ============================================================ */
+
+
+/* ============================================================
+   PARKSIDE SYSTEM BASE v1 — START
+   Shared structure. Page-specific rules go below the END marker.
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ground);color:var(--ink);font-family:var(--font);
+  font-size:var(--t-body);line-height:1.55;-webkit-font-smoothing:antialiased;
+  letter-spacing:-0.005em;padding:var(--pad);
+  padding-top:calc(var(--header-h) + var(--pad));
+}
+a{color:inherit;text-decoration:none}
+
+.stack{max-width:var(--maxw);margin:0 auto;display:flex;flex-direction:column;gap:var(--pad)}
+
+/* --- Fixed header. Sits over the page and blurs what passes beneath it.
+       Background is the ground color at 58%, so the tint stays in family. --- */
+.siteheader{
+  position:fixed;top:0;left:0;right:0;z-index:60;height:var(--header-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 34px;
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(26px) saturate(165%);
+  backdrop-filter:blur(26px) saturate(165%);
+  border-bottom:1px solid rgba(28,27,24,0.10);
+}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .siteheader{background:var(--glass-solid)}
+}
+.siteheader .sp-logo{height:22px;width:auto;display:block}
+@media(max-width:760px){
+  .siteheader{padding:0 18px}
+  .siteheader .sp-logo{height:17px}
+}
+
+/* --- Card, the only container --- */
+.card{background:var(--card);border-radius:var(--radius);padding:var(--cardpad)}
+.card.bright{background:var(--card-bright)}
+.card.white{background:var(--neutral-white)}
+.card.slim{padding:22px 36px}
+.card.rev{background:var(--ink);color:var(--paper)}
+.card.rev .label,.card.rev .muted{color:rgba(245,242,234,.62)}
+.card.rev .rows > div{border-color:var(--hairline-light)}
+.card.rev .rail-number{color:var(--paper)}
+.card.rev .pill{border-color:var(--hairline-light);color:var(--paper)}
+.card.rev .pill.solid{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+
+/* --- Type roles ---
+   Labels are sentence case at reading size. No tracked-out small caps
+   anywhere in the system, including above headlines. --- */
+.label{font-size:var(--t-label);letter-spacing:-.005em;color:var(--ink-muted);font-weight:600;line-height:1.3}
+.display{font-size:var(--t-display);line-height:1.0;font-weight:700;letter-spacing:-.035em}
+.section-head{font-size:var(--t-section);line-height:1.04;font-weight:700;letter-spacing:-.03em}
+.sub{font-size:var(--t-sub);line-height:1.2;font-weight:700;letter-spacing:-.025em}
+.body{font-size:var(--t-body);line-height:1.5;color:var(--ink-soft);max-width:64ch}
+.small{font-size:var(--t-small);line-height:1.5;color:var(--ink-soft);max-width:60ch}
+.muted{color:var(--ink-muted)}
+.mono-num{font-variant-numeric:tabular-nums}
+
+/* --- Pill --- */
+.pill{display:inline-block;font-size:15px;font-weight:600;letter-spacing:-.005em;
+  padding:8px 18px 7px;border-radius:30px;border:1px solid var(--hairline);color:var(--ink-soft);line-height:1.15}
+.pill.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+/* Third tier, for metadata that sits in a pill row without claiming a place in
+   it. Dates, counts, versions. Drops the container rather than the contrast,
+   so it stays legible and still shares the row's padding and baseline. */
+.pill.meta{border-color:transparent;color:var(--ink-muted);font-weight:500;
+  font-variant-numeric:tabular-nums}
+.card.rev .pill.meta{border-color:transparent;color:rgba(245,242,234,.62)}
+.pill-row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* --- Theme toggle. Top right corner of the header, after the pill group and
+       outside it, so the group keeps its two pills. Round, outline only, one
+       icon at a time: a moon while the page is light, a sun while it is dark.
+       Needs the PARKSIDE SYSTEM THEME script at the end of the body. --- */
+.header-right{display:flex;align-items:center;gap:14px}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;
+  padding:0;border:1px solid var(--hairline);border-radius:999px;background:transparent;color:var(--ink);
+  cursor:pointer;transition:border-color .2s ease}
+.theme-toggle:hover{border-color:var(--hairline-strong)}
+.theme-toggle:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.theme-toggle svg{width:17px;height:17px;display:block}
+.theme-toggle .i-sun{display:none}
+:root[data-theme="dark"] .theme-toggle .i-sun{display:block}
+:root[data-theme="dark"] .theme-toggle .i-moon{display:none}
+
+/* --- Numbered left rail --- */
+.section-grid{display:grid;grid-template-columns:56px 1fr;gap:24px;align-items:baseline}
+.rail-number{font-size:var(--t-rail);font-weight:400;letter-spacing:-.03em;line-height:1;
+  color:var(--ink);font-variant-numeric:tabular-nums;
+  position:sticky;top:calc(var(--header-h) + 24px)}
+
+/* --- Hairline rows --- */
+.rows{display:flex;flex-direction:column}
+.rows > div{padding:19px 0;border-top:1px solid var(--hairline);display:grid;
+  grid-template-columns:1fr auto;gap:24px;align-items:baseline}
+.rows > div:first-child{border-top:1px solid var(--hairline-strong)}
+.rows.flat > div{grid-template-columns:1fr}
+.row-text{max-width:58ch;color:var(--ink-soft);font-size:var(--t-small)}
+
+/* --- Expanding block --- */
+details.block{border-top:1px solid var(--hairline);}
+details.block summary{list-style:none;cursor:pointer;padding:19px 0;display:flex;
+  justify-content:space-between;align-items:center;gap:20px;font-weight:600}
+details.block summary::-webkit-details-marker{display:none}
+details.block summary .tog{font-size:var(--t-label);letter-spacing:-.005em;color:var(--ink-muted)}
+details.block[open] summary .tog::after{content:" \2013"}
+details.block:not([open]) summary .tog::after{content:" +"}
+.block-body{padding:2px 0 26px;color:var(--ink-soft);font-size:var(--t-small);max-width:58ch}
+
+/* --- Process steps --- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.step{border-top:2px solid var(--hairline);padding-top:15px}
+.step.done{border-top-color:var(--hairline-strong)}
+.step.now{border-top-color:var(--accent-gold)}
+.step .no{font-size:17px;font-weight:600;letter-spacing:-.005em;color:var(--ink-muted);font-variant-numeric:tabular-nums}
+.step h4{font-size:25px;font-weight:700;margin:10px 0 8px;letter-spacing:-.025em;line-height:1.1}
+.step p{font-size:17px;color:var(--ink-soft);line-height:1.45}
+
+/* --- Footer grid --- */
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.fgrid .label{display:block;margin-bottom:12px}
+.fgrid .v{font-size:18px;line-height:1.6;color:var(--ink-soft)}
+.fbottom{display:flex;justify-content:space-between;margin-top:44px;font-size:var(--t-label);
+  letter-spacing:-.005em;color:var(--ink-muted)}
+
+/* --- Reference tile, mood boards.
+       Near-white so page warmth does not tint the example. --- */
+.tilegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px}
+.tile{position:relative;background:var(--card-bright);border:1px solid var(--hairline);
+  border-radius:var(--radius-sm);aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.tile img{width:100%;height:100%;object-fit:contain;padding:14px}
+.tile figcaption{position:absolute;left:0;top:0;font-size:14px;font-weight:600;color:var(--ink-muted);
+  background:var(--card);border-right:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+  border-top-left-radius:var(--radius-sm);padding:6px 11px;font-variant-numeric:tabular-nums}
+.tile.ph{background:repeating-linear-gradient(135deg,#FCFBF7 0 9px,#F4F1E9 9px 18px);border-style:dashed}
+.tile.ph .phl{font-size:15px;color:var(--ink-muted);letter-spacing:-.005em}
+
+/* --- Swatch, mood boards.
+       Chip sits on pure neutral so the cream ground cannot skew it. --- */
+.swatchset{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.sw{border:1px solid var(--hairline);border-radius:var(--radius-sm);overflow:hidden;background:var(--neutral-white)}
+.sw.on-black{background:var(--neutral-black);border-color:rgba(255,255,255,.22)}
+.sw .chip{height:118px;margin:16px 16px 0;border-radius:6px}
+.sw .m{padding:13px 16px 18px;font-size:15px;letter-spacing:-.005em;color:#6B6B6B;line-height:1.4}
+.sw .m b{display:block;font-size:18px;letter-spacing:-.015em;color:#111;margin-bottom:4px;font-weight:600}
+.sw.on-black .m{color:#9a9a9a}
+.sw.on-black .m b{color:#fff}
+/* ============================================================
+   PARKSIDE SYSTEM BASE v1 — END
+   ============================================================ */
+
+
+/* ---- Reference page only, not part of the system ---- */
+.metarow{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.metarow .val{font-size:var(--t-sub);font-weight:700;margin-top:9px;letter-spacing:-.025em;line-height:1.15}
+.speclabel{font-size:24px;letter-spacing:-.025em;color:var(--ink);
+  font-weight:700;border-bottom:1px solid var(--hairline);padding-bottom:14px;margin:52px 0 22px}
+.speclabel:first-of-type{margin-top:0}
+.note{font-size:17px;line-height:1.5;color:var(--ink-muted);max-width:62ch;margin-top:14px}
+.scale-row{display:grid;grid-template-columns:210px 1fr;gap:28px;align-items:baseline;
+  padding:20px 0;border-top:1px solid var(--hairline)}
+.scale-row .k{font-size:17px;color:var(--ink-muted);letter-spacing:-.005em;font-weight:600}
+.demo{border:1px dashed var(--hairline);border-radius:var(--radius-sm);padding:24px}
+.demo + .demo{margin-top:10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.copyblock{border-top:1px solid var(--hairline);padding:20px 0}
+.copyblock .label{display:block;margin-bottom:9px}
+.copyblock p{font-size:var(--t-small);color:var(--ink-soft);max-width:64ch}
+.gap-lg{margin-top:40px}
+.gap-md{margin-top:24px}
+.gap-sm{margin-top:14px}
+
+@media(max-width:860px){
+  .section-grid{grid-template-columns:1fr;gap:6px}
+  .rail-number{font-size:28px;line-height:1}
+  .steps,.fgrid,.metarow{grid-template-columns:1fr 1fr}
+  .two{grid-template-columns:1fr}
+  .scale-row{grid-template-columns:1fr;gap:8px}
+  .rows > div{grid-template-columns:1fr}
+}
+
+/* ============================================================
+   PARKSIDE SYSTEM PRINT v1 — START
+   Proposals get saved as PDFs after approval. Cream grounds
+   either lay down a full page of ink or get dropped by the
+   printer, and dropped grounds leave the alpha hairlines with
+   nothing to sit on. This flattens to white and darkens the
+   rules so the structure survives.
+   ============================================================ */
+@media print{
+  :root,:root[data-theme]{
+    color-scheme:light;
+    --ground:#FFFFFF; --card:#FFFFFF; --card-bright:#FFFFFF; --paper:#FFFFFF;
+    --hairline:rgba(0,0,0,0.28); --hairline-strong:rgba(0,0,0,0.85);
+    --ink:#000000; --ink-soft:#2B2B2B; --ink-muted:#4A4A4A;
+    --glass:#FFFFFF; --glass-solid:#FFFFFF;
+    --radius:0; --radius-sm:0; --cardpad:0;
+    --t-body:11.5pt; --t-small:10.5pt; --t-label:10pt;
+    --t-display:36pt; --t-section:23pt; --t-rail:20pt; --t-sub:15pt;
+  }
+  body{background:#fff;padding:0;padding-top:0;font-size:11.5pt;line-height:1.45}
+  .siteheader{position:static;height:auto;background:#fff;backdrop-filter:none;
+    -webkit-backdrop-filter:none;border-bottom:1.5pt solid #000;padding:0 0 10pt;margin-bottom:16pt}
+  .siteheader .sp-logo{height:15pt}
+  .rail-number{position:static}
+  .card.white{background:#fff}
+  .speclabel{font-size:14pt;margin:24pt 0 10pt}
+  .note{font-size:9.5pt}
+  .step h4{font-size:13pt} .step p,.step .no{font-size:10pt}
+  .fgrid .v{font-size:10.5pt}
+  .pill{font-size:9pt;padding:4px 11px 3px}
+  .sw .m{font-size:9pt} .sw .m b{font-size:10.5pt}
+  .stack{max-width:none;gap:0}
+  .card{padding:0 0 22pt;border-radius:0;break-inside:avoid}
+  .card.rev{background:#fff;color:#000;border:1.5pt solid #000;padding:14pt;break-inside:avoid}
+  .card.rev .label,.card.rev .muted{color:#4A4A4A}
+  .card.rev .pill.solid{background:#000;color:#fff}
+  .siteheader{background:#fff;border-bottom:1.5pt solid #000;border-radius:0;padding:0 0 12pt}
+  .rail-number{color:#000}
+  .tile,.sw{break-inside:avoid}
+  details.block{border-top:1px solid rgba(0,0,0,.28)}
+  details.block .block-body{display:block !important}
+  details.block summary .tog{display:none}
+  .step,.rows > div,.scale-row,.copyblock{break-inside:avoid}
+  h1,h2,h3,h4,.display,.section-head,.sub{break-after:avoid}
+  .no-print{display:none !important}
+  .theme-toggle{display:none !important}
+  @page{margin:14mm}
+}
+/* ============================================================
+   PARKSIDE SYSTEM PRINT v1 — END
+   ============================================================ */
+</style>
+</head>
+<body id="top">
+
+<!-- ===== FIXED HEADER, outside the stack ===== -->
+<header class="siteheader">
+  <a href="#top" aria-label="Studio Parkside"><svg class="sp-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 379 152">
+    <path d="M227,121l-5-1.3c-6.1-1.6-9.5-3.1-9.5-7s3.4-6.8,8.7-6.8,7.9,3.1,8.3,8.8h13.3c-1.1-8.2-9.3-13.3-21.6-13.3s-21.2,6.4-21.2,15.5,4.4,11.6,15,14.2l4.9,1.2c7.5,1.8,10.7,4.2,10.7,8s-3.7,6.9-9.7,6.9-9-3.8-9.4-10.5h-13.5c1.2,9.6,9.3,14.8,22.9,14.8s22.5-5,22.5-16.1-6.3-11.9-16.6-14.5Z"/>
+    <path d="M128.3,124.5c0-7.2,3-10.8,9.1-10.8s4.5.2,7.2.6v-11.7c-.9,0-1.9-.1-2.7-.1-4.5,0-7.8,1.8-10.3,5.6-1.4,2-2.3,4.1-2.9,6.2,0,.3-.3.4-.6.4-.3,0-.5-.3-.5-.6v-11.5h-14.2v47.8h14.8v-26Z"/>
+    <path d="M92.3,142.7c.2,0,.4.3.4.5l.4,7.2h13.5l-.2-3.9c-.2-3-.3-4.9-.3-6.1v-19.5c.1-5.8-1.5-10.4-4.6-13.6-3.8-3.8-9.8-5.7-17.9-5.7-12,0-21.2,6.1-22.5,15h13.7c.4-6.9,3.5-10.7,8.8-10.7s8.3,3.6,8.3,11.2v2.8c0,.3-.2.5-.5.6l-9,1.5c-17,3-23.1,7.1-23.1,16s8.9,13.4,16.6,13.4,12.5-2.9,15.9-8.5c.1-.2.4-.3.6-.3ZM81.8,144.7c-4.7,0-7.8-3.2-7.8-8.2s5.3-9.8,17.3-10.9c.2,0,.3,0,.4.1.1.1.2.3.2.4v4.3c0,9.7-5.2,14.1-10.1,14.1Z"/>
+    <path d="M370.1,135.9c-1.8,6.1-6.8,9.7-13.3,9.7s-13.5-7-13.5-18.7.3-.6.6-.6h33.7v-1.4c0-13.8-10.2-23.4-24.9-23.4s-25.2,8.7-25.2,24.8,13.4,25.1,26.7,25.1,20.7-5.8,23.2-15.6h-7.3ZM352.6,106c2.3,0,4.2.7,5.6,2.2,2.3,2.4,3.4,6.5,3.4,12.8,0,.3-.3.6-.6.6h-17.1c-.2,0-.3,0-.4-.2-.1-.1-.2-.3-.2-.4.2-9.9,3.3-14.9,9.3-14.9Z"/>
+    <path d="M28.2,84.2H4.9v66.2h16.1v-25.4c0-.3.3-.6.6-.6h6.6c14,0,30.8-3.5,30.8-20.4s-10.4-19.8-30.8-19.8ZM27.5,119.1h-5.9c-.3,0-.6-.3-.6-.6v-28.3c0-.3.3-.6.6-.6h5.9c9.2,0,14.5,5.3,14.5,14.5s-5.2,14.9-14.5,14.9Z"/>
+    <rect x="249.2" y="102.6" width="14.8" height="47.8"/>
+    <path d="M321.8,150.4v-68.1h-14.8v25.7c0,.2-.2.5-.4.5-.2,0-.5,0-.6-.2-3.2-4.5-8.1-6.8-14.6-6.8-13.1,0-21.6,9.7-21.6,24.7s8.3,25.2,21.7,25.2,12-2.9,15.3-8.5c.1-.2.4-.3.6-.3.2,0,.4.3.4.6v7.1h14.1ZM296.2,145c-6.8,0-10.2-6.3-10.2-18.8s3.4-18.3,10.1-18.3,11.2,7.5,11.2,18.3-4.7,18.8-11.2,18.8Z"/>
+    <g>
+      <rect x="214.6" y=".5" width="15.4" height="12.1"/>
+      <path d="M69,11.3v8.9c0,.3-.3.6-.6.6h-7.2v4.9h7.2c.3,0,.6.3.6.6v30.5c0,8.8,3.8,11.9,14.4,11.9s7.9,0,11.3-.2v-4.7h-4.7c-4.1,0-6.2-1-6.2-6.5v-31c0-.3.4-.6.7-.6h10.3v-4.9h-10.3c-.3,0-.6-.3-.6-.6V5.9l-14.8,5.4Z"/>
+      <path d="M147,68.6V20.8h-14.8v24.3c0,11.2-3.7,17.9-9.9,17.9s-7.4-1.4-7.4-10.5v-31.8h-14.8v30c0,11.9,6.1,18.8,16.8,18.8s12.2-3,15-8.3c.1-.2.4-.4.6-.3.3,0,.4.3.4.6v7.1h14.1Z"/>
+      <path d="M0,49.5c1.6,12.8,12.3,20.1,29.4,20.1s28.2-11.1,28.2-21.4-10.3-16.9-21.4-19.6l-8.4-2c-7.7-1.8-11.1-4.9-11.1-10s5.4-10.5,12.9-10.5,11.8,4.4,12.4,12.4h14.7C55.1,7.7,44.8,1,29.6,1S2.9,11.8,2.9,22.1s5.7,15.2,20.4,19l7.2,1.8c6.3,1.6,12.7,4.2,12.7,11.3s-5.6,10.3-13.9,10.3-13.9-5.3-14.4-15H0Z"/>
+      <path d="M263.4,69.7c15.7,0,26.7-10.4,26.7-25.2s-11.2-24.8-26.7-24.8-26.7,8.5-26.7,24.8,11,25.2,26.7,25.2ZM263.4,24.1c9.5,0,10.6,11.6,10.6,20.4s-1.2,20.8-10.6,20.8-10.6-11.9-10.6-20.8,1.2-20.4,10.6-20.4Z"/>
+      <rect x="214.9" y="20.8" width="14.8" height="47.8"/>
+      <path d="M189.8,26.2c0,.2-.2.5-.4.5-.2,0-.5,0-.6-.2-3.2-4.5-8.1-6.8-14.6-6.8-13.1,0-21.6,9.7-21.6,24.7s8.3,25.2,21.7,25.2,12-2.9,15.3-8.5c.1-.2.4-.3.6-.3.2,0,.4.3.4.6v7.1h14.1V.5h-14.8v25.7ZM178.9,63.2c-6.8,0-10.2-6.3-10.2-18.8s3.4-18.3,10.1-18.3,11.2,7.5,11.2,18.3-4.7,18.8-11.2,18.8Z"/>
+    </g>
+    <path d="M148.7,82.3v68.1h14.8v-17.4c0-.2,0-.3.2-.4l6.3-6c.1-.1.3-.2.5-.1.2,0,.3.2.4.3l11.3,23.6h16.3l-16.6-34.5c-.1-.2,0-.5.1-.7l13.5-12.7h-8.3l-22.7,21.7c-.2.2-.4.2-.6.1-.2,0-.3-.3-.3-.5v-41.6h-14.8Z"/>
+    <rect x="248.9" y="82.3" width="15.4" height="12.1"/>
+  </svg></a>
+  <div class="header-right">
+    <div class="pill-row">
+      <span class="pill">System v1</span>
+      <span class="pill">Proposal</span>
+      <span class="pill">Mood board</span>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode">
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="stack">
+
+<!-- ===== HERO ===== -->
+<section class="card bright">
+  <div class="metarow">
+    <div><span class="label">Document</span><div class="val">System reference</div></div>
+    <div><span class="label">Version</span><div class="val">v1</div></div>
+    <div><span class="label">Covers</span><div class="val">Proposals, mood boards</div></div>
+    <div><span class="label">Source</span><div class="val">Vert, Campminder, Parallel Path</div></div>
+  </div>
+  <h1 class="display gap-lg">One system, two page types.</h1>
+  <p class="body gap-md">Every component on this page, rendered once, in the warm cream family already running across the Vert, Campminder brands, and Parallel Path proposals. Open it next to whatever you are building and match against it.</p>
+  <p class="small gap-sm">The token block and the base rules at the top of the stylesheet sit between START and END markers. To roll a change across every page, replace what is between the markers. Nothing outside them controls color, type scale, or spacing.</p>
+</section>
+
+<!-- ===== 01 FOUNDATIONS ===== -->
+<section class="card">
+  <div class="section-grid">
+    <div class="rail-number">01</div>
+    <div>
+      <span class="label">Foundations</span>
+      <h2 class="section-head gap-sm">Color, and where neutral belongs</h2>
+      <p class="body gap-md">Cream is the page. Pure white and pure black appear only where something is being judged, which is color swatches and reference art. Using them as page surfaces breaks the family.</p>
+
+      <div class="speclabel">Surfaces</div>
+      <div class="swatchset">
+        <div class="sw"><div class="chip" style="background:#E7E4DC;border:1px solid rgba(0,0,0,.1)"></div><div class="m"><b>Ground</b>#E7E4DC &middot; page</div></div>
+        <div class="sw"><div class="chip" style="background:#F6F4EE;border:1px solid rgba(0,0,0,.1)"></div><div class="m"><b>Card</b>#F6F4EE &middot; 15.7:1</div></div>
+        <div class="sw"><div class="chip" style="background:#FCFBF7;border:1px solid rgba(0,0,0,.1)"></div><div class="m"><b>Card bright</b>#FCFBF7 &middot; 16.7:1</div></div>
+        <div class="sw"><div class="chip" style="background:#F5F2EA;border:1px solid rgba(0,0,0,.1)"></div><div class="m"><b>Paper</b>#F5F2EA &middot; on ink</div></div>
+      </div>
+
+      <div class="speclabel">Ink ramp</div>
+      <div class="swatchset">
+        <div class="sw"><div class="chip" style="background:#1C1B18"></div><div class="m"><b>Ink</b>#1C1B18 &middot; 15.7:1 AAA</div></div>
+        <div class="sw"><div class="chip" style="background:#55524B"></div><div class="m"><b>Ink soft</b>#55524B &middot; 7.1:1 AAA</div></div>
+        <div class="sw"><div class="chip" style="background:#6E695F"></div><div class="m"><b>Ink muted</b>#6E695F &middot; 5.0:1 AA</div></div>
+      </div>
+      <p class="note">Ratios measured against Card. Ink muted is the floor. Anything lighter fails AA at label sizes, which is where it would get used.</p>
+
+      <div class="speclabel">Accents</div>
+      <div class="swatchset">
+        <div class="sw"><div class="chip" style="background:#F9BC15"></div><div class="m"><b>Gold</b>#F9BC15 &middot; ink on gold, 10.0:1</div></div>
+        <div class="sw"><div class="chip" style="background:#2278CE"></div><div class="m"><b>Blue</b>#2278CE &middot; white on blue, 4.5:1</div></div>
+      </div>
+      <div class="two gap-sm">
+        <div class="demo" style="background:#F9BC15;border:none;color:#1C1B18">
+          <p class="sub">Ink on gold</p>
+          <p class="small" style="color:rgba(28,27,24,.82);margin-top:8px">Ink on this gold is 10.0:1, the strongest pairing in the system. White on it is 1.8:1 and unreadable at any size, so gold takes ink only.</p>
+        </div>
+        <div class="demo" style="background:#2278CE;border:none;color:#fff">
+          <p class="sub">White on blue</p>
+          <p class="small" style="color:rgba(255,255,255,.86);margin-top:8px">White on this blue is 4.5:1, which clears AA with nothing to spare. Any lighter and body copy on blue stops being legal. Ink on it is 3.8:1, large text only.</p>
+        </div>
+      </div>
+      <p class="note">One accent per page. Gold is doing the work on this one, marking the current step in the process row. Blue is held in reserve. The blue is as bright as it can go while white still clears AA on it, so treat #2278CE as the ceiling rather than a starting point.</p>
+
+      <div class="speclabel">Surface options, side by side</div>
+      <div class="two">
+        <div class="demo" style="background:var(--card);border:none"><p class="sub">Card</p><p class="small" style="margin-top:6px">#F6F4EE, the default</p></div>
+        <div class="demo" style="background:var(--neutral-white);border:1px solid var(--hairline)"><p class="sub">White</p><p class="small" style="margin-top:6px">#FFFFFF, when you want a break</p></div>
+      </div>
+      <p class="note">White is a surface you can choose, unlike black. It reads as a clean break in a run of cream cards and works when a section is dense with reference art or data. Use it for one or two sections, never for the whole page, or the cream stops meaning anything.</p>
+
+      <div class="speclabel">The same chips on black</div>
+      <div class="swatchset">
+        <div class="sw on-black"><div class="chip" style="background:#E7E4DC"></div><div class="m"><b>Ground</b>#E7E4DC</div></div>
+        <div class="sw on-black"><div class="chip" style="background:#F6F4EE"></div><div class="m"><b>Card</b>#F6F4EE</div></div>
+        <div class="sw on-black"><div class="chip" style="background:#FCFBF7"></div><div class="m"><b>Card bright</b>#FCFBF7</div></div>
+        <div class="sw on-black"><div class="chip" style="background:#F5F2EA"></div><div class="m"><b>Paper</b>#F5F2EA</div></div>
+      </div>
+      <p class="note">On a mood board, show a proposed palette on both. A client judging a color against warm cream alone is judging it wrong.</p>
+
+      <div class="speclabel">Hairlines</div>
+      <div class="rows flat">
+        <div><div class="row-text"><strong>hairline</strong> &nbsp; rgba(28,27,24,0.16) &nbsp; default rule</div></div>
+        <div><div class="row-text"><strong>hairline-strong</strong> &nbsp; rgba(28,27,24,0.85) &nbsp; opens a set, sits above the first row</div></div>
+        <div><div class="row-text"><strong>hairline-light</strong> &nbsp; rgba(245,242,234,0.28) &nbsp; rules inside an inverted card</div></div>
+      </div>
+      <p class="note">Alpha, not hex. An alpha hairline sits correctly on any surface. A hex hairline only works on the one background it was mixed for, which is what breaks the moment a section inverts or a client theme swaps in.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 TYPE ===== -->
+<section class="card">
+  <div class="section-grid">
+    <div class="rail-number">02</div>
+    <div>
+      <span class="label">Foundations</span>
+      <h2 class="section-head gap-sm">Type scale</h2>
+      <p class="body gap-md">System font stack throughout. Seven roles, and nothing outside them. Every size is fluid so there is no breakpoint to maintain.</p>
+
+      <div class="scale-row"><div class="k">Display</div><div class="display">Brand Strategy</div></div>
+      <div class="scale-row"><div class="k">Section head</div><div class="section-head">The question this answers</div></div>
+      <div class="scale-row"><div class="k">Rail number</div><div class="rail-number" style="color:var(--ink)">01</div></div>
+      <div class="scale-row"><div class="k">Sub</div><div class="sub">Positioning and Plan</div></div>
+      <div class="scale-row"><div class="k">Body</div><div class="body">A written recommendation you can act on with or without me. Positioning, customer definition, and a plan with budgets by channel.</div></div>
+      <div class="scale-row"><div class="k">Small</div><div class="small">Deliverables, row copy, expanding block contents, and anything set inside a list.</div></div>
+      <div class="scale-row"><div class="k">Eyebrow</div><div class="label">Per the approved proposal</div></div>
+
+      <p class="note gap-md">Line length is held separately from the wrap. The container is 1120px, body copy is capped at 64ch, and row copy at 58ch. The wrap sizes the layout, a separate cap sizes the reading.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 COMPONENTS ===== -->
+<section class="card">
+  <div class="section-grid">
+    <div class="rail-number">03</div>
+    <div>
+      <span class="label">Shared</span>
+      <h2 class="section-head gap-sm">Components</h2>
+      <p class="body gap-md">Used by both page types. A proposal and a mood board differ in their body, not their parts.</p>
+
+      <div class="speclabel">Pills</div>
+      <div class="demo"><div class="pill-row">
+        <span class="pill">3 to 4 weeks</span>
+        <span class="pill">Scoped after Phase 01</span>
+        <span class="pill solid">Included</span>
+        <span class="pill meta">Shared 8/19</span>
+      </div></div>
+      <p class="note">Outline by default. Solid for one thing per page at most. Meta for the things that label the page rather than the work, which is where the shared date sits.</p>
+
+      <div class="speclabel">Hairline rows</div>
+      <div class="demo"><div class="rows">
+        <div><div class="row-text">Kickoff, 30 minutes</div><span class="label">Included</span></div>
+        <div><div class="row-text">Two 60 minute working sessions</div><span class="label">Included</span></div>
+        <div><div class="row-text">Review of the current brand, site, and campaign work</div><span class="label">Included</span></div>
+      </div></div>
+      <p class="note">The first row carries the strong rule. Stacked rows instead of jammed columns.</p>
+
+      <div class="speclabel">Expanding block</div>
+      <div class="demo">
+        <details class="block" open>
+          <summary><span>Includes</span><span class="tog">Detail</span></summary>
+          <div class="block-body">Scope detail lives in here so the page stays short. Phases each get one. Everything inside prints expanded, since a collapsed block in a PDF is a hole.</div>
+        </details>
+        <details class="block">
+          <summary><span>How it runs</span><span class="tog">Detail</span></summary>
+          <div class="block-body">Contact days, one point of contact, a check in at month three, and work outside the scope quoted before it starts.</div>
+        </details>
+      </div>
+
+      <div class="speclabel">Inverted section</div>
+      <div class="demo" style="padding:0;border:none">
+        <div class="card rev">
+          <span class="label">Worth deciding together</span>
+          <h3 class="sub gap-sm">Inversion is a component, not a mode.</h3>
+          <p class="small gap-sm" style="color:rgba(245,242,234,.78)">Use it once or twice in a page for weight. A closing call to action, a single statement, a footer. Rules inside it switch to hairline-light automatically. There is no global dark mode, which keeps what you are looking at and what the client is looking at the same thing.</p>
+          <div class="pill-row gap-md"><span class="pill">Hairline light</span><span class="pill solid">Approve</span></div>
+        </div>
+      </div>
+
+      <div class="speclabel">Process steps</div>
+      <div class="demo"><div class="steps">
+        <div class="step done"><div class="no">01</div><h4>Kickoff</h4><p>Scope confirmed and schedule set.</p></div>
+        <div class="step now"><div class="no">02</div><h4>Visual direction</h4><p>Mood board, one round of edits.</p></div>
+        <div class="step"><div class="no">03</div><h4>Approve</h4><p>One direction carries forward.</p></div>
+        <div class="step"><div class="no">04</div><h4>Delivery</h4><p>Files handed off. Project closes.</p></div>
+      </div></div>
+
+      <div class="speclabel">Footer</div>
+      <div class="demo">
+        <div class="fgrid">
+          <div><span class="label">Studio</span><div class="v">Studio Parkside&reg;<br>studioparkside.co</div></div>
+          <div><span class="label">Client</span><div class="v">Client name</div></div>
+          <div><span class="label">Contacts</span><div class="v">First Last<br>First Last</div></div>
+          <div><span class="label">Project</span><div class="v">Project name<br>Phase</div></div>
+        </div>
+        <div class="fbottom"><span>&copy; 2026 Studio Parkside</span><span>Proposal</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 PROPOSAL ===== -->
+<section class="card">
+  <div class="section-grid">
+    <div class="rail-number">04</div>
+    <div>
+      <span class="label">Page type</span>
+      <h2 class="section-head gap-sm">Proposal</h2>
+      <p class="body gap-md">Hero, the question, numbered phases with a fee and an expanding block each, terms, single call to action. No configurator, no running total, no selectable line items.</p>
+
+      <div class="speclabel">Assembled</div>
+      <div class="demo">
+        <div class="pill-row"><span class="pill">Brand Strategy</span><span class="pill">Proposal</span></div>
+        <h3 class="display gap-md" style="font-size:clamp(30px,4.4vw,52px)">Client Name</h3>
+        <p class="body gap-sm">Hello First, this covers how I would want to start, what it costs, and where it goes from there.</p>
+
+        <div class="gap-lg"></div>
+        <div class="section-grid">
+          <div class="rail-number">01</div>
+          <div>
+            <h4 class="sub">Positioning and Plan</h4>
+            <div class="pill-row gap-sm"><span class="pill">$00,000</span><span class="pill">3 to 4 weeks</span></div>
+            <p class="small gap-sm">A written recommendation you can act on with or without me.</p>
+            <div class="gap-md">
+              <details class="block"><summary><span>Includes</span><span class="tog">Detail</span></summary>
+                <div class="block-body">Kickoff, working sessions, competitive review, customer definition, positioning recommendation, and a scoped list of what to build next.</div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="note">Phase 01 is one number. Phase 02 shows a range. Phase 03 shows a floor written as "Starts at," never a range.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 MOOD BOARD, on white ===== -->
+<section class="card white">
+  <div class="section-grid">
+    <div class="rail-number">05</div>
+    <div>
+      <span class="label">Page type &middot; shown on the white surface</span>
+      <h2 class="section-head gap-sm">Mood board</h2>
+      <p class="body gap-md">Same shell, three extra parts. Reference tiles, specimen blocks, and swatch rows. Everything a client is asked to judge sits on a neutral surface.</p>
+      <p class="small">This whole section is running on white rather than cream, which is the case white earns. A page dense with reference art benefits from the cleaner ground, and the cream cards above and below still frame it.</p>
+      <p class="small gap-sm">Mood board shells run neutral, not cream. The client is there to judge their own material, so the page recedes rather than carrying Parkside warmth. Ground #F1F1F0, white cards, outline #E3E3E3, hairline #EAEAEA, soft ink #5C5C5C, muted #A5A5A5. Cream stays on proposals, where the client is judging Parkside. The neutral-surface rule already applied to tiles and swatches extends to the whole page. Boulder Events Calendar is the reference.</p>
+
+      <div class="speclabel">Reference tiles</div>
+      <div class="tilegrid">
+        <figure class="tile ph"><span class="phl">01-01</span><figcaption>01-01</figcaption></figure>
+        <figure class="tile ph"><span class="phl">01-02</span><figcaption>01-02</figcaption></figure>
+        <figure class="tile ph"><span class="phl">01-03</span><figcaption>01-03</figcaption></figure>
+        <figure class="tile ph"><span class="phl">01-04</span><figcaption>01-04</figcaption></figure>
+        <figure class="tile ph"><span class="phl">01-05</span><figcaption>01-05</figcaption></figure>
+        <figure class="tile ph"><span class="phl">01-06</span><figcaption>01-06</figcaption></figure>
+      </div>
+      <p class="note">Near-white, not cream, so the page ground does not tint the example. Numbered captions so a client can say "not 01-04" instead of describing it.</p>
+
+      <div class="speclabel">Specimen block</div>
+      <div class="demo" style="background:var(--card-bright)">
+        <div class="rows flat" style="margin-bottom:20px"><div style="padding-top:0"><div class="row-text"><strong>Typeface name</strong> &nbsp;&middot;&nbsp; Weight and width &nbsp;&middot;&nbsp; Tracking</div></div></div>
+        <div class="display" style="font-size:clamp(30px,6vw,64px)">Aa Bb Cc</div>
+        <p class="small gap-md">Specimens sit on the ground being proposed for the client's page, not on neutral. Showing a typeface on pure white when the page will be cream tells the client something untrue.</p>
+      </div>
+
+      <div class="speclabel">Proposed palette</div>
+      <div class="two">
+        <div>
+          <p class="label" style="margin-bottom:10px">On white</p>
+          <div class="swatchset">
+            <div class="sw"><div class="chip" style="background:#F9BC15"></div><div class="m"><b>Gold</b>#F9BC15</div></div>
+            <div class="sw"><div class="chip" style="background:#2278CE"></div><div class="m"><b>Blue</b>#2278CE</div></div>
+          </div>
+        </div>
+        <div>
+          <p class="label" style="margin-bottom:10px">On black</p>
+          <div class="swatchset">
+            <div class="sw on-black"><div class="chip" style="background:#F9BC15"></div><div class="m"><b>Gold</b>#F9BC15</div></div>
+            <div class="sw on-black"><div class="chip" style="background:#2278CE"></div><div class="m"><b>Blue</b>#2278CE</div></div>
+          </div>
+        </div>
+      </div>
+      <p class="note">Both grounds, side by side. This is the version of neutral that earns its place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 COPY ===== -->
+<section class="card">
+  <div class="section-grid">
+    <div class="rail-number">06</div>
+    <div>
+      <span class="label">Structural copy</span>
+      <h2 class="section-head gap-sm">Language that repeats</h2>
+      <p class="body gap-md">These carry business consequence and should not be rewritten from scratch each time. Voice rules live in the writing style profile. These are the structures.</p>
+
+      <div class="copyblock"><span class="label">Before approving</span>
+        <p>This proposal is based on our conversation to date. Please carefully review the deliverables outlined below. If anything doesn't look right, let me know before approving.</p></div>
+      <div class="copyblock"><span class="label">Your project team</span>
+        <p>Please make sure everyone who approves direction is involved from the start. If someone new joins partway through and their input changes approved direction, that becomes a change in scope and I'll quote the adjustment before anything gets redone.</p></div>
+      <div class="copyblock"><span class="label">Project phases</span>
+        <p>Approving a phase closes it. The direction you approve carries forward into the phases that follow.</p></div>
+      <div class="copyblock"><span class="label">Worth deciding together</span>
+        <p>A four column grid of open questions, numbered 01 to 04, placed after the brief and before the body. It puts the unknowns in the client's court early rather than surfacing them as problems later.</p></div>
+      <div class="copyblock"><span class="label">What would be most useful at the review</span>
+        <p>Tell me what you do not want. The colors to stay away from, the words that feel wrong, the references that miss. That is faster and more useful than telling me what works.</p></div>
+      <div class="copyblock"><span class="label">Parking lot</span>
+        <p>Numbered list of what was raised and set aside, each with a reason and a tag for where it came from. Framed as parked, not rejected. Protects scope without reading as a series of refusals.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NOTES ===== -->
+<section class="card rev">
+  <span class="label">How to use this</span>
+  <h2 class="section-head gap-sm" style="max-width:20ch">Change the block, not the page.</h2>
+  <div class="rows gap-md" style="max-width:70ch">
+    <div><div class="row-text" style="color:rgba(245,242,234,.78)">Copy the TOKENS and BASE blocks into any new page, between the markers.</div><span class="label">01</span></div>
+    <div><div class="row-text" style="color:rgba(245,242,234,.78)">To roll out a change, edit here first, look at it, then replace the marked blocks everywhere.</div><span class="label">02</span></div>
+    <div><div class="row-text" style="color:rgba(245,242,234,.78)">Shipped and approved pages freeze. Updates land on the next project, fixes excepted.</div><span class="label">03</span></div>
+    <div><div class="row-text" style="color:rgba(245,242,234,.78)">Client-branded pages sit outside the system. Structure can be borrowed, tokens are theirs.</div><span class="label">04</span></div>
+    <div><div class="row-text" style="color:rgba(245,242,234,.78)">Print stylesheet flattens cream to white and darkens rules. Use Save as PDF to check.</div><span class="label">05</span></div>
+  </div>
+</section>
+
+<footer class="card slim">
+  <div class="fbottom" style="margin-top:0">
+    <span>&copy; 2026 Studio Parkside</span>
+    <span>System reference v1</span>
+  </div>
+</footer>
+
+</div>
+<!-- ============================================================
+     PARKSIDE SYSTEM THEME v1 — START
+     Opens on the reader's system setting and follows it until the
+     toggle is clicked. Nothing is stored, so every visit starts
+     from the device again. Copy verbatim, just before </body>.
+     ============================================================ -->
+<script>
+(function(){
+  var root=document.documentElement, mq=window.matchMedia('(prefers-color-scheme: dark)'), chosen=false;
+  var btn=document.querySelector('.theme-toggle');
+  function apply(t){
+    root.setAttribute('data-theme',t);
+    if(btn) btn.setAttribute('aria-label', t==='dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  apply(mq.matches ? 'dark' : 'light');
+  var onChange=function(e){ if(!chosen) apply(e.matches ? 'dark' : 'light'); };
+  if(mq.addEventListener) mq.addEventListener('change',onChange); else if(mq.addListener) mq.addListener(onChange);
+  if(btn) btn.addEventListener('click',function(){
+    chosen=true;
+    apply(root.getAttribute('data-theme')==='dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+<!-- ============================================================
+     PARKSIDE SYSTEM THEME v1 — END
+     ============================================================ -->
+</body></html>

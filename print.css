@@ -1,0 +1,47 @@
+/* Studio Parkside system print rules, v2 neutral shell.
+   Live at https://system.studioparkside.co/print.css. Links after the
+   page's own <style> block so print overrides page rules on paper. */
+
+/* ============================================================
+   PARKSIDE SYSTEM PRINT v2 — START
+   Pages get saved as PDFs. This flattens
+   every surface to white, darkens the rules so the structure
+   survives on paper, and opens everything that was collapsed.
+   ============================================================ */
+@media print{
+  :root{
+    --ground:#FFFFFF; --card:#FFFFFF; --panel:#FFFFFF; --paper:#FFFFFF; --deep:#FFFFFF;
+    --ink:#000000; --ink-soft:#2B2B2B; --ink-muted:#4A4A4A; --muted:#6E6E6E;
+    --outline:rgba(0,0,0,0.28); --hairline:rgba(0,0,0,0.22); --group-rule:rgba(0,0,0,0.55);
+    --hairline-strong:#000000; --hairline-light:rgba(0,0,0,0.28);
+    --glass:#FFFFFF; --glass-solid:#FFFFFF;
+    --radius:0; --radius-md:4px; --radius-sm:3px; --pad:0; --cardpad-y:0; --cardpad-x:0;
+    --t-body:11.5pt; --t-small:10.5pt; --t-label:13pt; --t-num:10pt; --t-caption:9.5pt; --t-toc:9.5pt; --t-pill:9pt;
+    --t-display:34pt; --t-section:22pt; --t-rail:18pt; --t-sub:14pt;
+  }
+  body{background:#fff;padding:0;padding-top:0;line-height:1.45}
+  .stack{max-width:none;gap:0}
+  .siteheader{position:static;height:auto;background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;
+    border-bottom:1.5pt solid #000;padding:0 0 10pt;margin-bottom:16pt}
+  .siteheader .logo{height:13pt}
+  .pages,.no-print{display:none !important}
+  .pill{font-size:9pt;padding:3px 10px 2px}
+  .pill.filled{background:#000;color:#fff}
+  .card{border:0;border-radius:0;padding:0 0 22pt;break-inside:auto}
+  .card.dark{background:#fff;color:#000;border:1.5pt solid #000;padding:14pt;margin-bottom:14pt;break-inside:avoid}
+  .card.dark .label,.card.dark a,.card.dark p,.hero .lede,h1 .h1-sub,.toc a,.toc-num{color:#000}
+  .card.dark .pill{border-color:#000;color:#000}
+  .card.dark .pill.filled{background:#000;color:#fff}
+  .toc a + a{border-color:rgba(0,0,0,.28)}
+  .rail-number{position:static}
+  .docframe{height:300pt}
+  .cta{border:1pt solid #000}
+  details.block .block-body{display:block !important}
+  details.block summary .tog{display:none}
+  h1,h2,h3,.label,.section-head{break-after:avoid}
+  .row,.plist li,.seqrow,.panel,.note,.tile,.swatch,.show,.shot,.varpair,.speclist > div{break-inside:avoid}
+  @page{margin:14mm}
+}
+/* ============================================================
+   PARKSIDE SYSTEM PRINT v2 — END
+   ============================================================ */

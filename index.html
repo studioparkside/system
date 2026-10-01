@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Studio Parkside — System Reference v2</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="parkside.css">
+<style>
+/* ---- Reference page only, not part of the system. Never copy these. ---- */
+.ref-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:40px}
+.ref-meta .k{font-size:15px;color:rgba(255,255,255,.62);font-weight:500}
+.ref-meta .v{font-size:19px;font-weight:600;margin-top:4px;letter-spacing:-.012em}
+.ref-spec{font-size:var(--t-label);letter-spacing:-.016em;font-weight:650;border-bottom:1px solid var(--hairline);
+  padding-bottom:14px;margin:64px 0 22px}
+.section-body h2 + p + .ref-spec,.section-body h2 + .ref-spec{margin-top:40px}
+.ref-note{font-size:16px;line-height:1.5;color:var(--ink-muted);max-width:62ch;margin-top:14px}
+.ref-demo{border:1px dashed var(--outline);border-radius:var(--radius-md);padding:28px;background:var(--card)}
+.ref-demo + .ref-demo{margin-top:10px}
+.ref-demo.flush{padding:0;border:0;background:transparent}
+.ref-scale{display:grid;grid-template-columns:190px 1fr;gap:28px;align-items:baseline;padding:20px 0;border-top:1px solid var(--hairline)}
+.ref-scale .k{font-size:16px;color:var(--ink-muted);font-weight:600}
+.ref-scale .k small{display:block;font-weight:400;font-variant-numeric:tabular-nums}
+.ref-copy{border-top:1px solid var(--hairline);padding:20px 0}
+.ref-copy .k{display:block;font-size:17px;font-weight:650;margin-bottom:8px}
+.ref-copy p{font-size:var(--t-small);color:var(--ink-soft);max-width:64ch;margin:0}
+.ref-header{border:1px solid var(--outline);border-radius:var(--radius-md);background:var(--glass-solid);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px}
+@media(max-width:820px){
+  .ref-meta{grid-template-columns:1fr 1fr}
+  .ref-scale{grid-template-columns:1fr;gap:6px}
+  .ref-header{flex-direction:column;align-items:flex-start}
+}
+</style>
+<link rel="stylesheet" href="print.css">
+</head>
+<body id="top">
+
+<!-- Studio Parkside logo, defined once and reused below -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="sp-logo" viewBox="0 0 1499.4 151">
+    <g>
+      <path d="M150.6,23.6v19.5c0,.7-.6,1.2-1.2,1.2h-15.8v10.7h15.8c.7,0,1.2.6,1.2,1.2v66.6c0,19.2,8.2,26.1,31.5,26.1s17.3-.1,24.6-.4v-10.4h-10.3c-8.8,0-13.6-2.3-13.6-14.3l.2-67.6c0-.7.6-1.2,1.2-1.2h22.5v-10.7h-22.5c-.7,0-1.2-.6-1.2-1.2V11.7l-32.4,11.8Z"/>
+      <path d="M320.9,148.7V44.3h-32.4v53.1c0,24.5-8.1,39.1-21.6,39.1s-16.2-3-16.2-22.9V44.3h-32.4v65.5c0,26,13.4,41,36.8,41s26.6-6.5,32.7-18.2c.3-.5.8-.8,1.4-.6.6.1,1,.6,1,1.2v15.6h30.7Z"/>
+      <path d="M0,106.9c3.5,27.9,26.8,43.9,64.1,43.9s61.5-24.2,61.5-46.6-22.5-37-46.7-42.9l-18.3-4.4c-16.8-4-24.3-10.7-24.3-21.8s11.8-22.9,28.1-22.9,25.8,9.6,27,27.1h32.1C120.4,15.7,97.9,1.1,64.5,1.1S6.4,24.8,6.4,47.1s12.5,33.3,44.6,41.4l15.8,4c13.8,3.5,27.8,9.1,27.8,24.7s-12.2,22.5-30.4,22.5-30.2-11.6-31.4-32.8H0Z"/>
+      <path d="M575,151c34.4,0,58.4-22.6,58.4-55s-24.6-54.2-58.4-54.2-58.4,18.6-58.4,54.2,24,55,58.4,55ZM575,51.5c20.7,0,23.1,25.4,23.1,44.5s-2.6,45.4-23.1,45.4-23.1-25.9-23.1-45.4,2.6-44.5,23.1-44.5Z"/>
+      <rect x="468.5" width="33.6" height="26.5"/>
+      <rect x="469.1" y="44.3" width="32.4" height="104.4"/>
+      <path d="M414.3,56.1c0,.5-.4,1-.9,1.2-.5.2-1.1,0-1.4-.5-7-9.8-17.7-14.8-32-14.8-28.6,0-47.1,21.2-47.1,54s18.1,55,47.3,55,26.2-6.4,33.4-18.5c.3-.5.9-.7,1.4-.6.5.1.9.6.9,1.2v15.6h30.7V0h-32.4v56.1ZM390.6,136.9c-14.8,0-22.2-13.8-22.2-40.9s7.4-39.9,22-39.9,24.6,16.4,24.6,39.9-10.2,40.9-24.4,40.9Z"/>
+    </g>
+    <g>
+      <path d="M1170.7,84.4l-10.9-2.7c-13.4-3.4-20.7-6.8-20.7-15.3s7.5-14.9,19.1-14.9,17.2,6.7,18.2,19.3h28.9c-2.5-17.9-20.4-29-47.1-29s-46.2,13.9-46.2,33.8,9.5,25.4,32.9,30.9l10.7,2.5c16.4,3.9,23.4,9.1,23.4,17.4s-8.1,15.1-21.2,15.1-19.7-8.3-20.5-22.9h-29.5c2.6,20.9,20.3,32.4,50.1,32.4s49.2-10.8,49.2-35.1-13.9-26-36.2-31.6Z"/>
+      <path d="M955.2,92c0-15.8,6.5-23.5,19.9-23.5s9.9.5,15.8,1.3v-25.6c-2-.2-4.1-.3-5.9-.3-9.8,0-17,3.9-22.5,12.2-2.9,4.3-5.1,8.9-6.3,13.5-.2.6-.7,1-1.4.9-.6,0-1.1-.6-1.1-1.2v-25h-30.9v104.4h32.4v-56.7Z"/>
+      <path d="M876.8,131.7c.5.1.9.6.9,1.1l.8,15.8h29.4l-.4-8.5c-.3-6.6-.6-10.6-.6-13.3l.2-42.6c0-12.7-3.4-22.7-10.3-29.7-8.2-8.3-21.4-12.5-39-12.5-26.2,0-46.2,13.4-49.2,32.8h29.9c.9-15,7.7-23.3,19.2-23.3s18,7.8,18,24.6v6.1c0,.6-.4,1.1-1,1.2l-19.7,3.4c-37.2,6.4-50.4,15.6-50.4,34.9s19.5,29.2,36.1,29.2,27.4-6.4,34.6-18.5c.3-.5.8-.7,1.4-.6ZM853.8,136.1c-10.3,0-17-7-17-17.8s11.6-21.4,37.7-23.7c.3,0,.7,0,1,.3.3.2.4.6.4.9v9.4c0,21.2-11.4,30.9-22,30.9Z"/>
+      <path d="M1483.2,117c-4,13.3-14.8,21.2-29.1,21.2s-29.4-15.2-29.4-40.7.6-1.2,1.2-1.2h73.5v-3.2c0-30.1-22.4-51-54.4-51s-55,19-55,54.2,29.3,54.8,58.4,54.8,45.1-12.7,50.7-34h-16ZM1445,51.7c5,0,9.1,1.6,12.2,4.7,5.1,5.1,7.5,14.2,7.4,27.8,0,.7-.6,1.2-1.2,1.2h-37.4c-.3,0-.7-.1-.9-.4-.2-.2-.4-.6-.4-.9.4-21.6,7.3-32.5,20.4-32.5Z"/>
+      <path d="M736.8,4.2h-50.8v144.5h35.1v-55.5c0-.7.6-1.2,1.2-1.2h14.5c30.7,0,67.2-7.7,67.2-44.5s-22.6-43.3-67.2-43.3ZM735.2,80.2h-12.8c-.7,0-1.2-.6-1.2-1.2V17.2c0-.7.6-1.2,1.2-1.2h12.8c20.1,0,31.7,11.6,31.7,31.7s-11.3,32.5-31.7,32.5Z"/>
+      <rect x="1219.3" y="44.3" width="32.4" height="104.4"/>
+      <path d="M1377.9,148.7V0h-32.4v56.1c0,.5-.4,1-.9,1.2-.5.2-1.1,0-1.4-.5-7-9.8-17.7-14.8-32-14.8-28.6,0-47.1,21.2-47.1,54s18.1,55,47.3,55,26.2-6.4,33.4-18.5c.3-.5.9-.7,1.4-.6.5.1.9.6.9,1.2v15.6h30.7ZM1321.8,136.9c-14.8,0-22.2-13.8-22.2-40.9s7.4-39.9,22-39.9,24.6,16.4,24.6,39.9-10.2,40.9-24.4,40.9Z"/>
+      <path d="M999.9,0v148.7h32.4v-38c0-.3.1-.7.4-.9l13.9-13c.3-.3.7-.4,1.1-.3.4,0,.7.3.9.7l24.7,51.6h35.7l-36.3-75.3c-.2-.5-.1-1.1.3-1.5l29.4-27.7h-18.2l-49.6,47.3c-.4.3-.9.4-1.4.2-.5-.2-.8-.6-.8-1.1V0h-32.4Z"/>
+      <rect x="1218.6" width="33.6" height="26.5"/>
+    </g>
+  </symbol>
+</svg>
+
+<header class="siteheader">
+  <a href="#top" aria-label="Studio Parkside"><svg class="logo" role="img" aria-label="Studio Parkside"><use href="#sp-logo"/></svg></a>
+  <div class="header-right">
+    <div class="pill-group">
+      <span class="pill filled">Studio Parkside</span>
+      <span class="pill meta">System v2</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="stack">
+
+  <!-- Hero -->
+  <div class="card dark hero">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <h1>Parkside System<span class="h1-sub">Reference v2</span></h1>
+        <p class="lede">Every token and component, rendered once on the neutral shell. Open it beside whatever you are building and match against it.</p>
+      </div>
+      <nav class="toc" aria-label="Contents">
+        <a href="#s01"><span class="toc-num">01</span> Color</a>
+        <a href="#s02"><span class="toc-num">02</span> Type scale</a>
+        <a href="#s03"><span class="toc-num">03</span> Components</a>
+        <a href="#s04"><span class="toc-num">04</span> Page types</a>
+        <a href="#s05"><span class="toc-num">05</span> Mood board parts</a>
+        <a href="#s06"><span class="toc-num">06</span> Structural copy</a>
+      </nav>
+    </div>
+    <div class="ref-meta">
+      <div><div class="k">Version</div><div class="v">v2, neutral shell</div></div>
+      <div><div class="k">Covers</div><div class="v">Every page type</div></div>
+      <div><div class="k">Built from</div><div class="v">Boulder Events Calendar, Boulder B-Sides, Alpine Modern</div></div>
+      <div><div class="k">Templates</div><div class="v">system/templates</div></div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section class="card">
+    <div class="section-body">
+      <h2>About this page</h2>
+      <p>Three blocks transfer to a client page byte for byte: TOKENS, BASE, and PRINT. Everything between their START and END markers is the system. Nothing outside them controls color, type, or spacing.</p>
+      <p>The component markup in sections 03 through 05 transfers too, along with the header and the footer. The classes starting <code>ref-</code> exist to display the system on this page and never go on a client page.</p>
+      <p>Each page type has a template in <code>system/templates</code>, built from these blocks with placeholder content. Start a new page from its template.</p>
+    </div>
+  </section>
+
+  <!-- 01 Color -->
+  <section class="card" id="s01">
+    <div class="section-grid">
+      <div class="rail-number">01</div>
+      <div class="section-body">
+        <h2>Color</h2>
+        <p>The neutral shell runs on every page type. The page recedes so the client judges their own material, and cards sit a step off white so nested panels read forward.</p>
+
+        <div class="ref-spec">Surfaces</div>
+        <div class="swatches five">
+          <div class="swatch"><div class="chip edge" style="background:#F0F1F2"></div><div class="sn">Ground</div><div class="sh">#F0F1F2</div></div>
+          <div class="swatch"><div class="chip edge" style="background:#FAFBFB"></div><div class="sn">Card</div><div class="sh">#FAFBFB</div></div>
+          <div class="swatch"><div class="chip edge" style="background:#FFFFFF"></div><div class="sn">Panel</div><div class="sh">#FFFFFF</div></div>
+          <div class="swatch"><div class="chip" style="background:#000000"></div><div class="sn">Deep</div><div class="sh">#000000</div></div>
+        </div>
+
+        <div class="ref-spec">Ink</div>
+        <div class="swatches five">
+          <div class="swatch"><div class="chip" style="background:#000000"></div><div class="sn">Ink</div><div class="sh">#000000</div></div>
+          <div class="swatch"><div class="chip" style="background:#5B5D5F"></div><div class="sn">Ink soft</div><div class="sh">#5B5D5F</div></div>
+          <div class="swatch"><div class="chip" style="background:#676A6D"></div><div class="sn">Ink muted</div><div class="sh">#676A6D</div></div>
+          <div class="swatch"><div class="chip" style="background:#A3A6A9"></div><div class="sn">Muted</div><div class="sh">#A3A6A9</div></div>
+        </div>
+        <p class="ref-note">Ink muted is the floor for text, around 5:1 on the card. Muted is decorative only: placeholder slots and finished steps, never a label.</p>
+
+        <div class="ref-spec">Lines</div>
+        <div class="swatches five">
+          <div class="swatch"><div class="chip" style="background:#E2E4E6"></div><div class="sn">Outline</div><div class="sh">#E2E4E6</div></div>
+          <div class="swatch"><div class="chip" style="background:#E9EAEC"></div><div class="sn">Hairline</div><div class="sh">#E9EAEC</div></div>
+          <div class="swatch"><div class="chip" style="background:#8E9194"></div><div class="sn">Group rule</div><div class="sh">#8E9194</div></div>
+          <div class="swatch"><div class="chip" style="background:#000000"></div><div class="sn">Hairline strong</div><div class="sh">#000000</div></div>
+        </div>
+        <p class="ref-note">Outline edges cards, panels, and pills. Hairline separates rows. Group rule opens a group of rows, heavier than a hairline and lighter than ink.</p>
+
+        <div class="ref-spec">Accents</div>
+        <div class="swatches">
+          <div class="swatch"><div class="chip" style="background:#F9BC15"></div><div class="sn">Gold</div><div class="sh">#F9BC15 · takes ink</div></div>
+          <div class="swatch"><div class="chip" style="background:#2278CE"></div><div class="sn">Blue</div><div class="sh">#2278CE · takes white</div></div>
+        </div>
+        <p class="ref-note">One accent per page at most. Gold takes ink and never white. Blue takes white and never ink.</p>
+
+        <p class="ref-note">Every page is light only. There is no dark mode and no theme toggle.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Type -->
+  <section class="card" id="s02">
+    <div class="section-grid">
+      <div class="rail-number">02</div>
+      <div class="section-body">
+        <h2>Type scale</h2>
+        <p>System font stack throughout. Body is 19px and every other size is set against it.</p>
+
+        <div class="ref-scale"><div class="k">Display<small>48-92px, 650</small></div><div style="font-size:clamp(40px,5vw,64px);line-height:1;letter-spacing:-.034em;font-weight:650">Client Name</div></div>
+        <div class="ref-scale"><div class="k">Section<small>32-46px, 600</small></div><div style="font-size:var(--t-section);font-weight:600;letter-spacing:-.024em;line-height:1.06">Project schedule</div></div>
+        <div class="ref-scale"><div class="k">Rail<small>32px, 400</small></div><div class="rail-number" style="position:static">01</div></div>
+        <div class="ref-scale"><div class="k">Sub<small>27px, 600</small></div><div style="font-size:var(--t-sub);font-weight:600;letter-spacing:-.02em;line-height:1.1">Brand character</div></div>
+        <div class="ref-scale"><div class="k">Label<small>22px, 650</small></div><div class="label" style="margin:0"><span class="lnum">01-01</span>Creative brief</div></div>
+        <div class="ref-scale"><div class="k">Opening<small>21-24px</small></div><div class="opening"><p style="margin:0">Hi everyone, this page is what we'll go through together.</p></div></div>
+        <div class="ref-scale"><div class="k">Body<small>19px</small></div><div>Every phase ends with a review meeting. I bring finished work, and we go through it together.</div></div>
+        <div class="ref-scale"><div class="k">Small<small>17.5px</small></div><div style="font-size:var(--t-small);color:var(--ink-soft)">Notes, panel copy, and anything set inside a list.</div></div>
+        <div class="ref-scale"><div class="k">Number<small>17px, tabular</small></div><div class="row-num">04-01 &nbsp; Tue 10/13</div></div>
+        <div class="ref-scale"><div class="k">Caption<small>15.5px</small></div><div style="font-size:var(--t-caption);color:var(--ink-soft)"><strong style="color:var(--ink)">03-01</strong> &middot; One color across a minimal page.</div></div>
+        <p class="ref-note">Body copy caps at 64ch and row copy at 58ch. The 1120px container sizes the layout and the cap sizes the reading. Reference numbers and dates sit at 17px with tightened tracking. The tiny tracked number style is retired.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Components -->
+  <section class="card" id="s03">
+    <div class="section-grid">
+      <div class="rail-number">03</div>
+      <div class="section-body">
+        <h2>Components</h2>
+        <p>Used by every page type. Pages differ in their body, not their parts.</p>
+
+        <div class="ref-spec">Header</div>
+        <div class="ref-header">
+          <svg class="logo" role="img" aria-label="Studio Parkside"><use href="#sp-logo"/></svg>
+          <div class="header-right">
+            <div class="pill-group"><span class="pill filled">Client Name</span><span class="pill meta">Shared 10/5</span></div>
+          </div>
+        </div>
+        <p class="ref-note">Two pills and nothing else: the client name on the filled tier, then the shared date on the meta tier. Mood boards get no Confidential pill.</p>
+
+        <div class="ref-spec">Pills</div>
+        <div class="ref-demo"><div class="pill-group" style="justify-content:flex-start">
+          <span class="pill filled">Client Name</span>
+          <span class="pill">Outline</span>
+          <span class="pill light">Project name</span>
+          <span class="pill meta">Shared 10/5</span>
+          <span class="pill done">Completed</span>
+          <span class="pill sm light">Approved in Round 1</span>
+        </div></div>
+        <p class="ref-note">Sentence case at every size. Filled names the page, once. Light for a secondary name. Meta for dates and steps. Done for a finished step. The small size marks an item inside a row.</p>
+
+        <div class="ref-spec">Labels and groups</div>
+        <div class="ref-demo">
+          <div class="section-body">
+            <div class="label" style="margin-top:0"><span class="lnum">01-01</span>Creative brief</div>
+            <p>A subhead inside a section, with an optional reference number.</p>
+            <div class="label group"><span class="lnum">02</span>Brand character</div>
+            <p>A group label opens a set on the group rule, with clear air above.</p>
+          </div>
+        </div>
+
+        <div class="ref-spec">Rows</div>
+        <div class="rows">
+          <div class="row"><div class="row-num">04-01</div><div class="row-text"><strong>Blackout dates.</strong> A bold lead-in, then a short phrase. The number is there so someone can cite the row out loud.</div></div>
+          <div class="row"><div class="row-num">04-02</div><div class="row-text"><strong>Poster copy.</strong> Due at the brand character meeting.</div></div>
+        </div>
+        <div class="rows sched">
+          <div class="row"><div class="row-text"><strong>Kickoff meeting.</strong> Schedule rows hang the date off the right.</div><div class="row-when">Mon 10/5</div></div>
+          <div class="row"><div class="row-text"><strong>Walkthrough and final delivery.</strong> We go through everything together, and the files go out the same day. The walkthrough closes the project.</div><div class="row-when">Thu 10/29</div></div>
+        </div>
+
+        <div class="ref-spec">Panels</div>
+        <div class="duo">
+          <div class="panel"><div class="plab">Includes</div><ul class="plist">
+            <li><strong>Kickoff meeting.</strong> With everyone on your project team, covering:<ul><li>The scope of work and the schedule</li><li>The materials your team provided</li></ul></li>
+            <li><strong>Review meeting.</strong> We go through it together.</li>
+          </ul></div>
+          <div class="panel"><div class="plab">You get</div><ul class="plist">
+            <li><strong>Project brief.</strong> A written summary of the kickoff.</li>
+          </ul></div>
+        </div>
+        <div class="duo">
+          <div class="panel"><h3>Functional</h3><p>A heading and a short description, when two options sit side by side.</p></div>
+          <div class="panel"><h3>Evocative</h3><p>Two columns is the maximum inside a section.</p></div>
+        </div>
+        <p class="ref-note">Two panels sit side by side, 24px apart, only when each holds a few short lines and the two have to be read together. Otherwise stack them in one column, duo one. A scope of work with long Includes and You get lists is stacked.</p>
+
+        <div class="ref-spec">Note</div>
+        <div class="note">
+          <h5>Schedule changes</h5>
+          <p>A fact attached to the item it touches, stated plainly.</p>
+        </div>
+
+        <div class="ref-spec">Links out</div>
+        <div class="ref-demo">
+          <div class="plink" style="margin-top:0"><a href="#top">Open the creative brief <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          <a class="filelink wide" href="#top"><span>Round 1 concepts</span><span class="ar" aria-hidden="true">&#8599;</span></a>
+        </div>
+        <p class="ref-note">A label naming the content and an angled arrow, on a hairline that darkens on hover. The address lives in the href and never in the copy.</p>
+
+        <div class="ref-spec">Document panel</div>
+        <div class="docpanel">
+          <div class="docbar"><span class="dname">Document title</span><span class="dmeta">Who wrote it</span></div>
+          <div class="docfall">The client's own PDF runs here at full width, with a link out below it.</div>
+        </div>
+
+        <div class="ref-spec">Expanding block</div>
+        <div class="ref-demo">
+          <details class="block" open><summary><span>Read the full Terms of Service</span><span class="tog">Detail</span></summary>
+            <div class="block-body">Long boilerplate sits in here. Everything inside prints open, since a collapsed block in a PDF is a hole.</div></details>
+        </div>
+
+        <div class="ref-spec">Project sequence</div>
+        <div class="seq">
+          <div class="seqrow done"><div class="sq">01</div><div><div class="sname">Kickoff</div><div class="sdesc">Scope confirmed and schedule set.</div></div><span class="pill done">Completed</span></div>
+          <div class="seqrow"><div class="sq">02</div><div><div class="sname">Mood board</div><div class="sdesc">The step this page is for.</div></div><span class="pill filled">In progress</span></div>
+          <div class="seqrow"><div class="sq">03</div><div><div class="sname">Prototype</div><div class="sdesc">The step after.</div></div><span class="pill">Up next</span></div>
+        </div>
+
+        <div class="ref-spec">Dark card and call to action</div>
+        <div class="card dark">
+          <h2>Ready to hand off</h2>
+          <p>One dark card at the bottom of the page, with one call to action.</p>
+          <a class="cta" href="#top">Download the files <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <div class="ref-spec">Footer</div>
+        <div class="ref-demo flush">
+          <div class="botbar" style="padding:0">
+            <svg class="logo" role="img" aria-label="Studio Parkside"><use href="#sp-logo"/></svg>
+            <div class="pill-group"><span class="pill light">Project name</span><span class="pill meta">Step</span></div>
+          </div>
+        </div>
+        <p class="ref-note">Logo left, two pills opposite: the project name on the light tier, then the step on the meta tier.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Page types -->
+  <section class="card" id="s04">
+    <div class="section-grid">
+      <div class="rail-number">04</div>
+      <div class="section-body">
+        <h2>Page types</h2>
+        <p>Every type shares the shell: header, dark hero with the contents beside the title, numbered section cards, footer. Each has a template.</p>
+
+        <div class="label group"><span class="lnum">01</span>Project index</div>
+        <p>Internal. One card listing each step as a numbered row with its shared date. Pending steps sit muted with no link. Marked noindex, nofollow, and never sent to a client.</p>
+        <div class="plink"><a href="templates/index/">Open the project index template <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+
+        <div class="label group"><span class="lnum">02</span>Proposal</div>
+        <p>Hero, project brief, scope of work, fees, schedule, out of scope, terms, and one call to action at the bottom. Phase 01 is a fixed number, Phase 02 a range, Phase 03 a floor written as "Starts at." No template yet. The proposal reference pages in CLAUDE.md still apply.</p>
+
+        <div class="label group"><span class="lnum">03</span>Kickoff</div>
+        <p>Carried into the kickoff meeting. Opening statement, the client's own brief in a document panel with a note on anything outside scope, the scope of work written out phase by phase with Includes and You get stacked, the schedule, what the client owes, and open questions with no written recommendation.</p>
+        <div class="plink"><a href="templates/kickoff/">Open the kickoff template <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+
+        <div class="label group"><span class="lnum">04</span>Mood board</div>
+        <p>An About card saying nothing is final, then one section per decision: name, layout, visual style, color, type, content. Project sequence and Parked close the page. The parts are in section 05.</p>
+        <div class="plink"><a href="templates/mood/">Open the mood board template <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+
+        <div class="label group"><span class="lnum">05</span>Comments</div>
+        <p>The client's comments on a round, compiled and answered item by item before the next one. An About card with notes and the earlier round linked as a file with page thumbnails, then one section per category of item rows.</p>
+        <div class="rows items">
+          <div class="colhead"><span>Deliverable and color</span><span>Artwork and notes</span></div>
+          <div class="row">
+            <div><div class="iname">Hot cup, 8oz</div><div class="imeta">White cup</div><span class="pill sm filled">Open question</span></div>
+            <div>
+              <ul class="ilist"><li>The direction for this item, one line per point</li><li>Printed in one color and black</li></ul>
+              <div class="inote">Earlier note, restated.<ul><li>Reference: the mood board layout grid</li><li class="q">A question for the call?</li></ul></div>
+            </div>
+          </div>
+          <div class="row">
+            <div><div class="iname">Hot cup, 12oz</div><div class="imeta">White cup</div><span class="pill sm light">Approved in Round 1</span></div>
+            <div><ul class="ilist"><li>Same design as the 8oz</li></ul></div>
+          </div>
+        </div>
+        <div class="plink"><a href="templates/comments/">Open the comments template <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+
+        <div class="label group"><span class="lnum">06</span>Identity presentation</div>
+        <p>The finished identity handed over. A cover image above the hero, then a recap of the references that led here, the primary mark positive and reversed, secondary applications, variations as pairs, applications in context, the brand kit, the sequence, and a dark download card.</p>
+        <div class="pair">
+          <div><div class="show"><span class="slot">Mark, positive</span></div><div class="showcap"><span><strong>Primary</strong> &middot; black</span><span>Wordmark</span></div></div>
+          <div><div class="show rev"><span class="slot">Mark, reversed</span></div><div class="showcap"><span><strong>Reversed</strong> &middot; white</span><span>Wordmark</span></div></div>
+        </div>
+        <div class="plink"><a href="templates/identity/">Open the identity presentation template <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+
+        <div class="label group"><span class="lnum">07</span>Landing page and brief</div>
+        <p>Same shell. Client-branded versions leave the system and keep only its structure.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 Mood board parts -->
+  <section class="card" id="s05">
+    <div class="section-grid">
+      <div class="rail-number">05</div>
+      <div class="section-body">
+        <h2>Mood board parts</h2>
+        <p>Anything a client is asked to judge sits on neutral white or black. Type specimens sit on the ground being proposed for their page.</p>
+
+        <div class="ref-spec">Reference tiles</div>
+        <div class="tiles">
+          <div class="tile"><figure><div class="frame"><span class="slot">Reference image</span></div><figcaption><strong>03-01</strong> &middot; Captions describe what the viewer is looking at, with no judgment attached.</figcaption></figure></div>
+          <div class="tile"><figure><div class="frame spec"><span class="slot">Type specimen</span></div><figcaption><strong>05-01</strong> &middot; <strong>Typeface name.</strong> Specimens on black.</figcaption></figure></div>
+        </div>
+        <div class="tiles four">
+          <div class="tile"><figure><div class="frame"><span class="slot">01-01</span></div><figcaption><strong>01-01</strong></figcaption></figure></div>
+          <div class="tile"><figure><div class="frame"><span class="slot">01-02</span></div><figcaption><strong>01-02</strong></figcaption></figure></div>
+          <div class="tile"><figure><div class="frame"><span class="slot">01-03</span></div><figcaption><strong>01-03</strong></figcaption></figure></div>
+          <div class="tile"><figure><div class="frame"><span class="slot">01-04</span></div><figcaption><strong>01-04</strong></figcaption></figure></div>
+        </div>
+        <p class="ref-note">Numbered captions so a client can say "not 03-04" instead of describing it. Add <code>ref</code> to a frame holding reference art so it sits on white, uncropped.</p>
+
+        <div class="ref-spec">Option boxes</div>
+        <div class="scan">
+          <div class="scanbox"><div class="st">Today</div><div class="sd">A short description</div></div>
+          <div class="scanbox"><div class="st">Tomorrow</div><div class="sd">A short description</div></div>
+        </div>
+
+        <div class="ref-spec">Name list</div>
+        <div class="namelist"><div><span>01</span>Candidate name</div><div><span>02</span>Candidate name</div></div>
+
+        <div class="ref-spec">Spec list</div>
+        <div class="speclist">
+          <div><div class="sk">Field</div><div class="sv">What it shows.</div><div class="snote">A data limit or contingency, stated as fact.</div></div>
+          <div><div class="sk">Field</div><div class="sv">What it shows.</div></div>
+        </div>
+
+        <div class="ref-spec">Color set</div>
+        <div class="colorsets">
+          <div class="colorset"><div class="cschip" style="background:#E8503F">Sandstone</div><div class="csimg"><span class="slot">Source photo</span></div><div class="cscap"><strong>04-01 &middot; Sandstone</strong> &middot; #E8503F<br>Where the color comes from.</div></div>
+          <div class="colorset"><div class="cschip" style="background:#2E96E0">Sky</div><div class="csimg"><span class="slot">Source photo</span></div><div class="cscap"><strong>04-02 &middot; Sky</strong> &middot; #2E96E0<br>Where the color comes from.</div></div>
+        </div>
+
+        <div class="ref-spec">Palette</div>
+        <div class="palcard"><div class="palgrid">
+          <div><div class="chip" style="background:#E8503F">Sandstone</div><div class="sh">#E8503F</div></div>
+          <div><div class="chip" style="background:#F09A2E">Amber</div><div class="sh">#F09A2E</div></div>
+          <div><div class="chip" style="background:#F2609E">Alpenglow</div><div class="sh">#F2609E</div></div>
+          <div><div class="chip" style="background:#2FAA8B">Pine</div><div class="sh">#2FAA8B</div></div>
+          <div><div class="chip" style="background:#2E96E0">Sky</div><div class="sh">#2E96E0</div></div>
+        </div></div>
+
+        <div class="ref-spec">Swatches on white and black</div>
+        <div class="swatches">
+          <div class="swatch"><div class="chip" style="background:#F9BC15"></div><div class="sn">Gold</div><div class="sh">#F9BC15</div></div>
+          <div class="swatch"><div class="chip" style="background:#2278CE"></div><div class="sn">Blue</div><div class="sh">#2278CE</div></div>
+          <div class="swatch on-black"><div class="chip" style="background:#F9BC15"></div><div class="sn">Gold</div><div class="sh">#F9BC15</div></div>
+          <div class="swatch on-black"><div class="chip" style="background:#2278CE"></div><div class="sn">Blue</div><div class="sh">#2278CE</div></div>
+        </div>
+        <p class="ref-note">Show a proposed palette on both. A client judging a color against one ground alone is judging it wrong.</p>
+
+        <div class="ref-spec">Specimen</div>
+        <div class="specimen" style="background:#F6EFE0;color:#191712;border-color:#E2E4E6">
+          <div class="spname">Typeface name</div><div class="spmeta" style="color:#5B5D5F">Weight and width</div>
+          <div class="aa">Aa Bb Cc</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Copy -->
+  <section class="card" id="s06">
+    <div class="section-grid">
+      <div class="rail-number">06</div>
+      <div class="section-body">
+        <h2>Structural copy</h2>
+        <p>These carry business consequence and should not be rewritten from scratch each time. Voice rules live in the writing style skill. These are the structures.</p>
+
+        <div class="ref-copy"><span class="k">Before approving</span>
+          <p>This proposal is based on our conversation to date. Please carefully review the deliverables outlined below. If anything doesn't look right, let me know before approving.</p></div>
+        <div class="ref-copy"><span class="k">Your project team</span>
+          <p>Please make sure everyone who approves direction is involved from the start. If someone new joins partway through and their input changes approved direction, that becomes a change in scope and I'll quote the adjustment before anything gets redone.</p></div>
+        <div class="ref-copy"><span class="k">Project phases</span>
+          <p>Approving a phase closes it. The direction you approve carries forward into the phases that follow.</p></div>
+        <div class="ref-copy"><span class="k">Worth deciding together</span>
+          <p>A four column grid of open questions, numbered 01 to 04, placed after the brief and before the body. It puts the unknowns in the client's court early rather than surfacing them as problems later.</p></div>
+        <div class="ref-copy"><span class="k">What would be most useful at the review</span>
+          <p>Tell me what you do not want. The colors to stay away from, the words that feel wrong, the references that miss. That is faster and more useful than telling me what works.</p></div>
+        <div class="ref-copy"><span class="k">Parking lot</span>
+          <p>Numbered list of what was raised and set aside, each with a reason and a tag for where it came from. Framed as parked, not rejected. Protects scope without reading as a series of refusals.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notes -->
+  <section class="card dark">
+    <h2>Change the block, not the page.</h2>
+    <div class="rows flat" style="margin-top:30px;max-width:70ch">
+      <div class="row" style="border-top:1px solid var(--hairline-light)"><div class="row-text" style="color:rgba(255,255,255,.78)">Start a new page from its template in system/templates. The four blocks are already in it.</div></div>
+      <div class="row" style="border-top:1px solid var(--hairline-light)"><div class="row-text" style="color:rgba(255,255,255,.78)">To roll out a change, edit this file first, look at it, then replace the marked blocks in the templates and the pages that should receive them.</div></div>
+      <div class="row" style="border-top:1px solid var(--hairline-light)"><div class="row-text" style="color:rgba(255,255,255,.78)">Shipped and approved pages freeze. Updates land on the next project, fixes excepted.</div></div>
+      <div class="row" style="border-top:1px solid var(--hairline-light)"><div class="row-text" style="color:rgba(255,255,255,.78)">Client-branded pages sit outside the system. Structure can be borrowed, tokens are theirs.</div></div>
+      <div class="row" style="border-top:1px solid var(--hairline-light)"><div class="row-text" style="color:rgba(255,255,255,.78)">The print block forces light, flattens to white, and opens everything. Use Save as PDF to check.</div></div>
+    </div>
+  </section>
+
+  <footer class="botbar">
+    <svg class="logo" role="img" aria-label="Studio Parkside"><use href="#sp-logo"/></svg>
+    <div class="pill-group"><span class="pill light">Parkside System</span><span class="pill meta">v2</span></div>
+  </footer>
+
+</div>
+</main>
+
+</body>
+</html>

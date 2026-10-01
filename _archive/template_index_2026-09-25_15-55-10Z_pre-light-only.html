@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>[Client Name] — Studio Parkside</title>
+<!-- TEMPLATE: Project index. Lifted from Boulder Events Calendar, Boulder
+     B-Sides, and Alpine Modern, which share it line for line. Internal.
+     Never sent to a client. Carries TOKENS only: no header, no toggle,
+     and dark mode follows the device through the tokens. -->
+<style>
+/* ============================================================
+   PARKSIDE SYSTEM TOKENS v2 — START
+   This block is identical in every page built on the system.
+   To roll out a change, replace everything between the START
+   and END markers in each file. Nothing outside the markers
+   should be edited to change color, type scale, or spacing.
+
+   v2 is the neutral shell. Sources, in order: Boulder Events
+   Calendar mood board, Boulder B-Sides kickoff, Alpine Modern
+   Round 1 comments. v1, the warm cream family, is archived.
+   ============================================================ */
+:root{
+  /* Surfaces. Cards sit a step off white so nested panels read forward. */
+  --ground:#F0F1F2;        /* page background, sits behind cards */
+  --card:#FAFBFB;          /* default card surface */
+  --panel:#FFFFFF;         /* rows, panels, notes, anything nested in a card */
+  --paper:#FFFFFF;         /* text and fills on the dark card */
+  --deep:#000000;          /* the dark card. Stays black in dark mode. */
+
+  /* Neutral. For anything a client is asked to judge. Fixed in every
+     theme, so a swatch or a reference image never shifts under it. */
+  --neutral-white:#FFFFFF;
+  --neutral-black:#000000;
+
+  /* Ink ramp */
+  --ink:#000000;
+  --ink-soft:#5B5D5F;      /* body on panels and secondary copy */
+  --ink-muted:#676A6D;     /* labels and captions, around 5:1 on card. The
+                              lightest ink that still reads as text, in every
+                              skin. A skin may change the value, never the
+                              meaning. */
+  --muted:#A3A6A9;         /* decorative only, 2.2:1. Placeholder slots,
+                              finished steps. Never a label. */
+
+  /* Lines */
+  --outline:#E2E4E6;       /* card, panel, and pill edges */
+  --hairline:#E9EAEC;      /* rules between rows */
+  --group-rule:#8E9194;    /* opens a group. Heavier than a row hairline,
+                              lighter than ink. */
+  --hairline-strong:#000000;
+  --hairline-light:rgba(255,255,255,0.30);  /* rules on the dark card */
+
+  /* Accents. One per page at most. Gold takes ink, blue takes white. */
+  --accent-gold:#F9BC15;   /* ink on gold, 10.0:1. Never white. */
+  --accent-blue:#2278CE;   /* white on blue, 4.5:1. Never ink. */
+
+  /* Header glass, the ground at 62% */
+  --glass:rgba(240,241,242,0.62);
+  --glass-solid:rgba(240,241,242,0.96);
+
+  /* Geometry */
+  --radius:28px;           /* cards */
+  --radius-md:20px;        /* panels, rows, tiles, notes */
+  --radius-sm:12px;        /* chips, small notes */
+  --maxw:1120px;
+  --pad:12px;              /* page gutter and the gap between cards */
+  --cardpad-y:64px;
+  --cardpad-x:72px;
+  --header-h:96px;
+
+  /* Type. Body is 19px. Every other size is set against it. */
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;
+  --t-display:clamp(48px,6.6vw,92px);   /* hero title */
+  --t-section:clamp(32px,3.8vw,46px);   /* section heading */
+  --t-rail:32px;                        /* section rail number */
+  --t-sub:27px;                         /* panel heading, sequence step */
+  --t-label:22px;                       /* subhead inside a section */
+  --t-body:19px;
+  --t-small:17.5px;                     /* notes, panel copy */
+  --t-num:17px;                         /* reference numbers and dates */
+  --t-caption:15.5px;                   /* captions under tiles */
+  --t-toc:14.5px;                       /* hero contents list */
+  --t-pill:14px;
+}
+@media(max-width:820px){
+  :root{ --radius:22px; --pad:8px; --cardpad-y:40px; --cardpad-x:26px; --header-h:68px;
+    --t-body:17.5px; --t-label:19.5px; }
+}
+
+/* --- Dark. Every visit opens on the reader's system setting. The theme
+       toggle in the header flips it for that visit only, nothing is stored.
+       The same values appear twice below: once under the system setting,
+       unless the toggle has forced light, and once for the toggle forcing
+       dark. Change both together. Structure is unchanged, only the ground,
+       the ink ramp, and the lines swap. The dark card stays black and gains
+       an outline. --neutral-white and --neutral-black never change.
+
+       Gold takes ink, and ink is white in dark mode, which is the pairing
+       the system forbids. A page using gold in dark mode holds a fixed dark
+       foreground on the gold itself rather than inheriting --ink. --- */
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E0F10;
+    --card:#17181A;
+    --panel:#1C1E20;
+    --ink:#FFFFFF;
+    --ink-soft:#B0B3B6;
+    --ink-muted:#94979A;
+    --muted:#6F7275;
+    --outline:rgba(255,255,255,0.13);
+    --hairline:rgba(255,255,255,0.10);
+    --group-rule:rgba(255,255,255,0.34);
+    --hairline-strong:rgba(255,255,255,0.80);
+    --hairline-light:rgba(255,255,255,0.22);
+    --glass:rgba(14,15,16,0.66);
+    --glass-solid:rgba(14,15,16,0.96);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E0F10;
+  --card:#17181A;
+  --panel:#1C1E20;
+  --ink:#FFFFFF;
+  --ink-soft:#B0B3B6;
+  --ink-muted:#94979A;
+  --muted:#6F7275;
+  --outline:rgba(255,255,255,0.13);
+  --hairline:rgba(255,255,255,0.10);
+  --group-rule:rgba(255,255,255,0.34);
+  --hairline-strong:rgba(255,255,255,0.80);
+  --hairline-light:rgba(255,255,255,0.22);
+  --glass:rgba(14,15,16,0.66);
+  --glass-solid:rgba(14,15,16,0.96);
+  color-scheme:dark;
+}
+/* ============================================================
+   PARKSIDE SYSTEM TOKENS v2 — END
+   ============================================================ */
+
+
+/* ---- Page-specific rules. The project index is plain on purpose. ---- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--ground); color: var(--ink); font-family: var(--font);
+  font-size: 19px; line-height: 1.62; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  padding: 12px; min-height: 100vh; display: flex; align-items: center;
+}
+.stack { max-width: 760px; width: 100%; margin: 0 auto; }
+.card { background: var(--card); border: 1px solid var(--outline); border-radius: var(--radius); padding: 56px 48px 40px; }
+h1 { font-size: 40px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 620; }
+.sub { color: var(--ink-muted); font-size: 17px; margin-top: 10px; }
+.rows { margin-top: 40px; }
+.row {
+  display: flex; align-items: baseline; gap: 20px; padding: 20px 0;
+  border-top: 1px solid var(--hairline); text-decoration: none; color: var(--ink);
+  transition: border-color 140ms ease;
+}
+.row:last-child { border-bottom: 1px solid var(--hairline); }
+a.row:hover { border-top-color: var(--ink); }
+a.row:last-child:hover { border-bottom-color: var(--ink); }
+a.row:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+.num { font-variant-numeric: tabular-nums; color: var(--ink-muted); font-size: 15px; min-width: 28px; }
+.label { flex: 1; font-weight: 560; }
+.note { color: var(--ink-muted); font-size: 15px; }
+.arrow { font-size: 15px; color: var(--ink-muted); transition: transform 140ms ease; }
+a.row:hover .arrow { transform: translate(2px, -2px); }
+.row.pending { color: var(--ink-muted); }
+.row.pending .label { font-weight: 400; }
+.foot { margin-top: 32px; color: var(--ink-muted); font-size: 15px; }
+@media (max-width: 640px) {
+  body { align-items: flex-start; }
+  .card { padding: 40px 26px 28px; }
+  h1 { font-size: 30px; }
+  .note { display: none; }
+}
+</style>
+</head>
+<body>
+  <div class="stack">
+    <div class="card">
+      <h1>[Client Name]</h1>
+      <p class="sub">Project Index</p>
+
+      <div class="rows">
+        <a class="row" href="[step]/">
+          <span class="num">01</span>
+          <span class="label">[Step]</span>
+          <span class="note">Shared 0/0</span>
+          <span class="arrow">&#8599;</span>
+        </a>
+        <a class="row" href="[step]/">
+          <span class="num">02</span>
+          <span class="label">[Step]</span>
+          <span class="note">Shared 0/0</span>
+          <span class="arrow">&#8599;</span>
+        </a>
+        <div class="row pending">
+          <span class="num">03</span>
+          <span class="label">[Step not yet shared]</span>
+          <span class="note"></span>
+          <span class="arrow"></span>
+        </div>
+      </div>
+
+      <p class="foot">Studio Parkside</p>
+    </div>
+  </div>
+</body>
+</html>

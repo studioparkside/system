@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>[Client Name] — Studio Parkside</title>
+<!-- TEMPLATE: Project index. Lifted from Boulder Events Calendar, Boulder
+     B-Sides, and Alpine Modern, which share it line for line. Internal.
+     Never sent to a client. Carries TOKENS only: no header, no toggle,
+     and dark mode follows the device through the tokens. -->
+<link rel="stylesheet" href="https://system.studioparkside.co/tokens.css">
+<style>
+/* ---- Page-specific rules. The project index is plain on purpose. ---- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--ground); color: var(--ink); font-family: var(--font);
+  font-size: 19px; line-height: 1.62; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  padding: 12px; min-height: 100vh; display: flex; align-items: center;
+}
+.stack { max-width: 760px; width: 100%; margin: 0 auto; }
+.card { background: var(--card); border: 1px solid var(--outline); border-radius: var(--radius); padding: 56px 48px 40px; }
+h1 { font-size: 40px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 620; }
+.sub { color: var(--ink-muted); font-size: 17px; margin-top: 10px; }
+.rows { margin-top: 40px; }
+.row {
+  display: flex; align-items: baseline; gap: 20px; padding: 20px 0;
+  border-top: 1px solid var(--hairline); text-decoration: none; color: var(--ink);
+  transition: border-color 140ms ease;
+}
+.row:last-child { border-bottom: 1px solid var(--hairline); }
+a.row:hover { border-top-color: var(--ink); }
+a.row:last-child:hover { border-bottom-color: var(--ink); }
+a.row:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+.num { font-variant-numeric: tabular-nums; color: var(--ink-muted); font-size: 15px; min-width: 28px; }
+.label { flex: 1; font-weight: 560; }
+.note { color: var(--ink-muted); font-size: 15px; }
+.arrow { font-size: 15px; color: var(--ink-muted); transition: transform 140ms ease; }
+a.row:hover .arrow { transform: translate(2px, -2px); }
+.row.pending { color: var(--ink-muted); }
+.row.pending .label { font-weight: 400; }
+.foot { margin-top: 32px; color: var(--ink-muted); font-size: 15px; }
+@media (max-width: 640px) {
+  body { align-items: flex-start; }
+  .card { padding: 40px 26px 28px; }
+  h1 { font-size: 30px; }
+  .note { display: none; }
+}
+/* Studio Parkside logo, on the ground above the card, aligned to the card's text. */
+.sp-brand { display: block; width: max-content; margin: 0 0 28px 48px; }
+.sp-brand svg { display: block; height: 17px; width: auto; aspect-ratio: 1499.4 / 151; fill: var(--ink); }
+@media (max-width: 640px) { .sp-brand { margin: 16px 0 22px 26px; } .sp-brand svg { height: 14px; } }
+.foot a { color: inherit; text-decoration: none; transition: color 140ms ease; }
+.foot a:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+  <div class="stack">
+    <a class="sp-brand" href="https://studioparkside.co" aria-label="Studio Parkside">
+      <svg viewBox="0 0 1499.4 151" role="img" aria-label="Studio Parkside">
+      <g>
+      <path d="M150.6,23.6v19.5c0,.7-.6,1.2-1.2,1.2h-15.8v10.7h15.8c.7,0,1.2.6,1.2,1.2v66.6c0,19.2,8.2,26.1,31.5,26.1s17.3-.1,24.6-.4v-10.4h-10.3c-8.8,0-13.6-2.3-13.6-14.3l.2-67.6c0-.7.6-1.2,1.2-1.2h22.5v-10.7h-22.5c-.7,0-1.2-.6-1.2-1.2V11.7l-32.4,11.8Z"/>
+      <path d="M320.9,148.7V44.3h-32.4v53.1c0,24.5-8.1,39.1-21.6,39.1s-16.2-3-16.2-22.9V44.3h-32.4v65.5c0,26,13.4,41,36.8,41s26.6-6.5,32.7-18.2c.3-.5.8-.8,1.4-.6.6.1,1,.6,1,1.2v15.6h30.7Z"/>
+      <path d="M0,106.9c3.5,27.9,26.8,43.9,64.1,43.9s61.5-24.2,61.5-46.6-22.5-37-46.7-42.9l-18.3-4.4c-16.8-4-24.3-10.7-24.3-21.8s11.8-22.9,28.1-22.9,25.8,9.6,27,27.1h32.1C120.4,15.7,97.9,1.1,64.5,1.1S6.4,24.8,6.4,47.1s12.5,33.3,44.6,41.4l15.8,4c13.8,3.5,27.8,9.1,27.8,24.7s-12.2,22.5-30.4,22.5-30.2-11.6-31.4-32.8H0Z"/>
+      <path d="M575,151c34.4,0,58.4-22.6,58.4-55s-24.6-54.2-58.4-54.2-58.4,18.6-58.4,54.2,24,55,58.4,55ZM575,51.5c20.7,0,23.1,25.4,23.1,44.5s-2.6,45.4-23.1,45.4-23.1-25.9-23.1-45.4,2.6-44.5,23.1-44.5Z"/>
+      <rect x="468.5" width="33.6" height="26.5"/>
+      <rect x="469.1" y="44.3" width="32.4" height="104.4"/>
+      <path d="M414.3,56.1c0,.5-.4,1-.9,1.2-.5.2-1.1,0-1.4-.5-7-9.8-17.7-14.8-32-14.8-28.6,0-47.1,21.2-47.1,54s18.1,55,47.3,55,26.2-6.4,33.4-18.5c.3-.5.9-.7,1.4-.6.5.1.9.6.9,1.2v15.6h30.7V0h-32.4v56.1ZM390.6,136.9c-14.8,0-22.2-13.8-22.2-40.9s7.4-39.9,22-39.9,24.6,16.4,24.6,39.9-10.2,40.9-24.4,40.9Z"/>
+      </g>
+      <g>
+      <path d="M1170.7,84.4l-10.9-2.7c-13.4-3.4-20.7-6.8-20.7-15.3s7.5-14.9,19.1-14.9,17.2,6.7,18.2,19.3h28.9c-2.5-17.9-20.4-29-47.1-29s-46.2,13.9-46.2,33.8,9.5,25.4,32.9,30.9l10.7,2.5c16.4,3.9,23.4,9.1,23.4,17.4s-8.1,15.1-21.2,15.1-19.7-8.3-20.5-22.9h-29.5c2.6,20.9,20.3,32.4,50.1,32.4s49.2-10.8,49.2-35.1-13.9-26-36.2-31.6Z"/>
+      <path d="M955.2,92c0-15.8,6.5-23.5,19.9-23.5s9.9.5,15.8,1.3v-25.6c-2-.2-4.1-.3-5.9-.3-9.8,0-17,3.9-22.5,12.2-2.9,4.3-5.1,8.9-6.3,13.5-.2.6-.7,1-1.4.9-.6,0-1.1-.6-1.1-1.2v-25h-30.9v104.4h32.4v-56.7Z"/>
+      <path d="M876.8,131.7c.5.1.9.6.9,1.1l.8,15.8h29.4l-.4-8.5c-.3-6.6-.6-10.6-.6-13.3l.2-42.6c0-12.7-3.4-22.7-10.3-29.7-8.2-8.3-21.4-12.5-39-12.5-26.2,0-46.2,13.4-49.2,32.8h29.9c.9-15,7.7-23.3,19.2-23.3s18,7.8,18,24.6v6.1c0,.6-.4,1.1-1,1.2l-19.7,3.4c-37.2,6.4-50.4,15.6-50.4,34.9s19.5,29.2,36.1,29.2,27.4-6.4,34.6-18.5c.3-.5.8-.7,1.4-.6ZM853.8,136.1c-10.3,0-17-7-17-17.8s11.6-21.4,37.7-23.7c.3,0,.7,0,1,.3.3.2.4.6.4.9v9.4c0,21.2-11.4,30.9-22,30.9Z"/>
+      <path d="M1483.2,117c-4,13.3-14.8,21.2-29.1,21.2s-29.4-15.2-29.4-40.7.6-1.2,1.2-1.2h73.5v-3.2c0-30.1-22.4-51-54.4-51s-55,19-55,54.2,29.3,54.8,58.4,54.8,45.1-12.7,50.7-34h-16ZM1445,51.7c5,0,9.1,1.6,12.2,4.7,5.1,5.1,7.5,14.2,7.4,27.8,0,.7-.6,1.2-1.2,1.2h-37.4c-.3,0-.7-.1-.9-.4-.2-.2-.4-.6-.4-.9.4-21.6,7.3-32.5,20.4-32.5Z"/>
+      <path d="M736.8,4.2h-50.8v144.5h35.1v-55.5c0-.7.6-1.2,1.2-1.2h14.5c30.7,0,67.2-7.7,67.2-44.5s-22.6-43.3-67.2-43.3ZM735.2,80.2h-12.8c-.7,0-1.2-.6-1.2-1.2V17.2c0-.7.6-1.2,1.2-1.2h12.8c20.1,0,31.7,11.6,31.7,31.7s-11.3,32.5-31.7,32.5Z"/>
+      <rect x="1219.3" y="44.3" width="32.4" height="104.4"/>
+      <path d="M1377.9,148.7V0h-32.4v56.1c0,.5-.4,1-.9,1.2-.5.2-1.1,0-1.4-.5-7-9.8-17.7-14.8-32-14.8-28.6,0-47.1,21.2-47.1,54s18.1,55,47.3,55,26.2-6.4,33.4-18.5c.3-.5.9-.7,1.4-.6.5.1.9.6.9,1.2v15.6h30.7ZM1321.8,136.9c-14.8,0-22.2-13.8-22.2-40.9s7.4-39.9,22-39.9,24.6,16.4,24.6,39.9-10.2,40.9-24.4,40.9Z"/>
+      <path d="M999.9,0v148.7h32.4v-38c0-.3.1-.7.4-.9l13.9-13c.3-.3.7-.4,1.1-.3.4,0,.7.3.9.7l24.7,51.6h35.7l-36.3-75.3c-.2-.5-.1-1.1.3-1.5l29.4-27.7h-18.2l-49.6,47.3c-.4.3-.9.4-1.4.2-.5-.2-.8-.6-.8-1.1V0h-32.4Z"/>
+      <rect x="1218.6" width="33.6" height="26.5"/>
+      </g>
+      </svg>
+    </a>
+    <div class="card">
+      <h1>[Client Name]</h1>
+      <p class="sub">Project Index</p>
+
+      <div class="rows">
+        <a class="row" href="[step]/">
+          <span class="num">01</span>
+          <span class="label">[Step]</span>
+          <span class="note">Shared 0/0</span>
+          <span class="arrow">&#8599;</span>
+        </a>
+        <a class="row" href="[step]/">
+          <span class="num">02</span>
+          <span class="label">[Step]</span>
+          <span class="note">Shared 0/0</span>
+          <span class="arrow">&#8599;</span>
+        </a>
+        <div class="row pending">
+          <span class="num">03</span>
+          <span class="label">[Step not yet shared]</span>
+          <span class="note"></span>
+          <span class="arrow"></span>
+        </div>
+      </div>
+
+      <p class="foot"><a href="https://studioparkside.co">Iconic brands&#8594;Studio Parkside</a></p>
+    </div>
+  </div>
+</body>
+</html>

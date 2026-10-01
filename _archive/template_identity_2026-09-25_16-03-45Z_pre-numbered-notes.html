@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>[Client Name] — Brand Identity — Studio Parkside</title>
+<!-- TEMPLATE: Identity presentation. The section order and parts come
+     from Tulagi and Boulder Mixtape, _retired/tulagi and
+     _retired/bouldermixtape. Both predate the system, so this is the
+     first build of the type on the neutral shell. Placeholder copy is
+     in brackets. Brand fonts for specimens load below BASE END. -->
+<style>
+/* ============================================================
+   PARKSIDE SYSTEM TOKENS v2 — START
+   This block is identical in every page built on the system.
+   To roll out a change, replace everything between the START
+   and END markers in each file. Nothing outside the markers
+   should be edited to change color, type scale, or spacing.
+
+   v2 is the neutral shell. Sources, in order: Boulder Events
+   Calendar mood board, Boulder B-Sides kickoff, Alpine Modern
+   Round 1 comments. v1, the warm cream family, is archived.
+   ============================================================ */
+:root{
+  color-scheme:light;
+
+  /* Surfaces. Cards sit a step off white so nested panels read forward. */
+  --ground:#F0F1F2;        /* page background, sits behind cards */
+  --card:#FAFBFB;          /* default card surface */
+  --panel:#FFFFFF;         /* rows, panels, notes, anything nested in a card */
+  --paper:#FFFFFF;         /* text and fills on the dark card */
+  --deep:#000000;          /* the dark card */
+
+  /* Neutral. For anything a client is asked to judge. */
+  --neutral-white:#FFFFFF;
+  --neutral-black:#000000;
+
+  /* Ink ramp */
+  --ink:#000000;
+  --ink-soft:#5B5D5F;      /* body on panels and secondary copy */
+  --ink-muted:#676A6D;     /* labels and captions, around 5:1 on card. The
+                              lightest ink that still reads as text, in every
+                              skin. A skin may change the value, never the
+                              meaning. */
+  --muted:#A3A6A9;         /* decorative only, 2.2:1. Placeholder slots,
+                              finished steps. Never a label. */
+
+  /* Lines */
+  --outline:#E2E4E6;       /* card, panel, and pill edges */
+  --hairline:#E9EAEC;      /* rules between rows */
+  --group-rule:#8E9194;    /* opens a group. Heavier than a row hairline,
+                              lighter than ink. */
+  --hairline-strong:#000000;
+  --hairline-light:rgba(255,255,255,0.30);  /* rules on the dark card */
+
+  /* Accents. One per page at most. Gold takes ink, blue takes white. */
+  --accent-gold:#F9BC15;   /* ink on gold, 10.0:1. Never white. */
+  --accent-blue:#2278CE;   /* white on blue, 4.5:1. Never ink. */
+
+  /* Header glass, the ground at 62% */
+  --glass:rgba(240,241,242,0.62);
+  --glass-solid:rgba(240,241,242,0.96);
+
+  /* Geometry */
+  --radius:28px;           /* cards */
+  --radius-md:20px;        /* panels, rows, tiles, notes */
+  --radius-sm:12px;        /* chips, small notes */
+  --maxw:1120px;
+  --pad:12px;              /* page gutter and the gap between cards */
+  --cardpad-y:64px;
+  --cardpad-x:72px;
+  --header-h:96px;
+
+  /* Type. Body is 19px. Every other size is set against it. */
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;
+  --t-display:clamp(48px,6.6vw,92px);   /* hero title */
+  --t-section:clamp(32px,3.8vw,46px);   /* section heading */
+  --t-rail:32px;                        /* section rail number */
+  --t-sub:27px;                         /* panel heading, sequence step */
+  --t-label:22px;                       /* subhead inside a section */
+  --t-body:19px;
+  --t-small:17.5px;                     /* notes, panel copy */
+  --t-num:17px;                         /* reference numbers and dates */
+  --t-caption:15.5px;                   /* captions under tiles */
+  --t-toc:14.5px;                       /* hero contents list */
+  --t-pill:14px;
+}
+@media(max-width:820px){
+  :root{ --radius:22px; --pad:8px; --cardpad-y:40px; --cardpad-x:26px; --header-h:68px;
+    --t-body:17.5px; --t-label:19.5px; }
+}
+
+/* ============================================================
+   PARKSIDE SYSTEM TOKENS v2 — END
+   ============================================================ */
+
+
+/* ============================================================
+   PARKSIDE SYSTEM BASE v2 — START
+   Shared structure and every component. Page-specific rules go
+   below the END marker. A page carries the whole block even when
+   it uses a few components, so the block stays byte for byte.
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--ground);color:var(--ink);font-family:var(--font);
+  font-size:var(--t-body);line-height:1.62;font-weight:400;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  padding:var(--pad);padding-top:calc(var(--header-h) + var(--pad));
+}
+a{color:var(--ink);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+.stack{max-width:var(--maxw);margin:0 auto;display:flex;flex-direction:column;gap:var(--pad)}
+
+/* --- Fixed glass header, full page width. Logo left, the pill group
+       on the right. --- */
+.siteheader{
+  position:fixed;top:0;left:0;right:0;z-index:60;height:var(--header-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 34px;
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(26px) saturate(165%);backdrop-filter:blur(26px) saturate(165%);
+  border-bottom:1px solid var(--outline);
+}
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  .siteheader{background:var(--glass-solid)}
+}
+.logo{display:block;height:17px;width:auto;aspect-ratio:1499.4 / 151;fill:var(--ink)}
+.siteheader .logo{height:19px}
+.header-right{display:flex;align-items:center;gap:14px}
+.pill-group{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+.pill-group.start{justify-content:flex-start}
+.section-body h2 + .pill-group.start{margin:-12px 0 26px}
+
+/* --- Pills. Four tiers. Filled for the one thing that names the page,
+       outline by default, light for a secondary name, meta for dates and
+       steps that label the page without claiming a place in the row.
+       Sentence case at every size. --- */
+.pill{display:inline-block;font-size:var(--t-pill);font-weight:600;letter-spacing:-.004em;line-height:1.3;
+  padding:7px 16px 6px;border:1px solid var(--hairline-strong);border-radius:999px;white-space:nowrap;color:var(--ink)}
+.pill.filled{background:var(--ink);border-color:var(--ink);color:var(--ground)}
+.pill.light{border-color:var(--outline);color:var(--ink-soft);font-weight:500}
+.pill.meta{border-color:transparent;color:var(--ink-muted);font-weight:500;font-variant-numeric:tabular-nums}
+.pill.done{border-color:var(--outline);color:var(--muted);font-weight:500}
+.pill.sm{font-size:13px;padding:5px 13px 4px}
+.card.dark .pill{border-color:rgba(255,255,255,.5);color:var(--paper)}
+.card.dark .pill.filled{background:var(--paper);border-color:var(--paper);color:var(--deep)}
+.card.dark .pill.meta{border-color:transparent;color:rgba(255,255,255,.62)}
+
+/* --- Card, the only container --- */
+.card{background:var(--card);border:1px solid var(--outline);border-radius:var(--radius);
+  padding:var(--cardpad-y) var(--cardpad-x)}
+.card.dark{background:var(--deep);border-color:var(--deep);color:var(--paper)}
+.card.dark a{color:var(--paper)}
+.card.dark .label{color:var(--paper)}
+
+/* --- Hero. Title and contents share the dark card. The contents list is
+       a narrow column beside the title, not a section of its own. --- */
+.hero{padding:88px var(--cardpad-x) 80px}
+.hero-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:64px}
+.hero-main{flex:1;min-width:0}
+h1{font-size:var(--t-display);line-height:.98;letter-spacing:-.034em;font-weight:650;max-width:14ch}
+h1 .h1-sub{display:block;font-weight:400;color:rgba(255,255,255,.45)}
+.hero .lede{margin-top:30px;font-size:20px;color:rgba(255,255,255,.66);letter-spacing:-.012em;max-width:46ch}
+.toc{display:flex;flex-direction:column;flex-shrink:0;min-width:320px;padding-top:6px}
+.toc a{display:flex;align-items:baseline;gap:14px;font-size:var(--t-toc);color:rgba(255,255,255,.72);
+  text-decoration:none;padding:10.5px 2px 9.5px;letter-spacing:-.005em}
+.toc a + a{border-top:1px solid var(--hairline-light)}
+.toc a:hover{color:var(--paper)}
+.toc a:focus-visible{outline-color:var(--paper)}
+.toc-num{font-weight:600;font-variant-numeric:tabular-nums;color:var(--paper);min-width:22px}
+
+/* --- Cover. A full-bleed image card above the hero, identity pages only. --- */
+.cover{border:1px solid var(--outline);border-radius:var(--radius);overflow:hidden;background:var(--panel);
+  aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* --- Numbered left rail. 32px, weight 400, in a 56px column, sticky, on
+       the section heading's baseline. --- */
+.section-grid{display:grid;grid-template-columns:56px 1fr;gap:24px;align-items:baseline}
+.rail-number{font-size:var(--t-rail);font-weight:400;line-height:1;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;position:sticky;top:calc(var(--header-h) + 24px)}
+.section-body{min-width:0}
+.section-body h2{font-size:var(--t-section);font-weight:600;letter-spacing:-.024em;line-height:1.06;
+  margin-bottom:30px;max-width:20ch}
+.section-body p{max-width:64ch;margin-bottom:25px}
+.section-body p:last-child{margin-bottom:0}
+.section-body p strong{font-weight:650}
+
+/* --- Opening statement, the first words on a page read aloud --- */
+.opening p{font-size:clamp(21px,2.2vw,24px);line-height:1.55;max-width:52ch;letter-spacing:-.014em}
+.sub-rule{border:0;border-top:1px solid var(--hairline);margin:40px 0 32px;max-width:64ch}
+
+/* --- Label. Sentence case at reading size. No tracked-out small caps
+       anywhere in the system, including above headlines. --- */
+.label{font-size:var(--t-label);font-weight:650;letter-spacing:-.016em;line-height:1.22;color:var(--ink);margin-bottom:14px}
+.section-body .label{margin-top:48px}
+.section-body h2 + .label,.section-body .sub-rule + .label{margin-top:5px}
+.section-body .label:first-child{margin-top:0}
+.label .lnum{color:var(--ink-soft);font-variant-numeric:tabular-nums;margin-right:10px;font-weight:600}
+.label.group{border-top:1px solid var(--group-rule);padding-top:22px}
+.section-body .label.group{margin-top:60px}
+.section-body .label.group:first-of-type{margin-top:34px}
+.notelist{max-width:64ch;list-style:none;padding-left:1.15em}
+.notelist li{position:relative;margin-bottom:11px}
+.notelist li:last-child{margin-bottom:0}
+.notelist li::before{content:"\00B7";position:absolute;left:-1.15em;color:var(--ink-muted)}
+
+/* --- Ruled rows, on a panel. Reference numbers at 17px, tabular, with
+       tightened tracking. --- */
+.rows{margin:26px 0;background:var(--panel);border:1px solid var(--outline);border-radius:var(--radius-md);
+  padding:6px 40px 6px 32px}
+.rows.flat{background:transparent;border:0;border-radius:0;padding:0}
+.row{display:grid;grid-template-columns:96px 1fr;gap:26px;padding:19px 0}
+.rows .row + .row{border-top:1px solid var(--hairline)}
+.section-body .rows:last-child{margin-bottom:0}
+.row-num{font-size:var(--t-num);font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;
+  padding-top:2px;white-space:nowrap}
+.row-text{max-width:58ch;line-height:1.5}
+.row-text strong{font-weight:650;letter-spacing:-.006em}
+.row-text p{margin:0}
+.row-text p + p{margin-top:10px}
+.rows.flat .row{grid-template-columns:1fr;gap:0}
+/* Schedule rows hang the date off the right so dates line up as a column. */
+.rows.sched .row{grid-template-columns:1fr auto;align-items:baseline}
+.row-when{font-size:var(--t-num);font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* --- Item rows, a deliverable on the left and its notes on the right.
+       Comments pages. A column head opens the set on a strong rule. --- */
+.rows.items{margin-top:26px}
+.colhead{display:grid;grid-template-columns:290px 1fr;gap:34px;padding:18px 0 14px;
+  font-size:var(--t-pill);font-weight:600;letter-spacing:-.004em;color:var(--ink-muted)}
+.rows.items .row{grid-template-columns:290px 1fr;gap:34px;padding:24px 0}
+.rows .colhead + .row{border-top:1px solid var(--hairline-strong)}
+.iname{font-size:23px;font-weight:650;letter-spacing:-.022em;line-height:1.18}
+.imeta{font-size:16.5px;color:var(--ink-muted);line-height:1.45;margin-top:7px}
+.iname + .imeta + .pill,.iname + .pill{margin-top:12px}
+.ilist{font-size:var(--t-small);line-height:1.5;max-width:58ch;list-style:none;padding-left:1.15em}
+.ilist li{position:relative;margin-bottom:6px}
+.ilist li:last-child{margin-bottom:0}
+.ilist li::before{content:"\00B7";position:absolute;left:-1.15em;color:var(--ink-muted)}
+.inote{font-size:16.5px;line-height:1.5;max-width:58ch;color:var(--ink-muted);
+  margin-top:14px;padding-top:13px;border-top:1px solid var(--hairline)}
+.inote ul{list-style:none;margin:6px 0 0;padding-left:1.15em}
+.inote li{position:relative;margin-bottom:5px}
+.inote li:last-child{margin-bottom:0}
+.inote li::before{content:"\00B7";position:absolute;left:-1.15em}
+.inote li.q{color:var(--ink);font-weight:600;margin-top:9px}
+/* Earlier-round reference, a small thumbnail that opens the source page. */
+.refshot{display:block;max-width:240px;margin-top:15px;text-decoration:none}
+.refshot img{display:block;width:100%;height:auto;aspect-ratio:16/9;border:1px solid var(--outline);
+  border-radius:7px;background:var(--neutral-white);transition:border-color .15s ease}
+.refshot .slot{display:block;aspect-ratio:16/9;border:1px solid var(--outline);border-radius:7px;background:var(--panel)}
+.refshot .cap{display:block;margin-top:7px;font-size:14px;color:var(--ink-muted);transition:color .15s ease}
+.refshot:hover img,.refshot:focus-visible img{border-color:var(--hairline-strong)}
+.refshot:hover .cap,.refshot:focus-visible .cap{color:var(--ink)}
+
+/* --- Page thumbnails, a disclosure under a file link --- */
+.pages{border-top:1px solid var(--hairline)}
+.pages > summary{display:flex;align-items:center;justify-content:space-between;gap:20px;list-style:none;cursor:pointer;
+  padding:18px 2px 17px;font-size:18px;font-weight:600;letter-spacing:-.012em;color:var(--ink)}
+.pages > summary::-webkit-details-marker{display:none}
+.pages > summary .chev{width:13px;height:13px;flex:none;color:var(--ink-muted);transition:transform .2s ease,color .15s ease}
+.pages[open] > summary .chev{transform:rotate(180deg)}
+.pages > summary:hover .chev{color:var(--ink)}
+.thumbgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:11px;padding:3px 0 26px}
+.thumbgrid a{display:block;border:1px solid var(--outline);border-radius:7px;overflow:hidden;
+  background:var(--neutral-white);transition:border-color .15s ease}
+.thumbgrid a:hover,.thumbgrid a:focus-visible{border-color:var(--hairline-strong)}
+.thumbgrid img{display:block;width:100%;height:auto;aspect-ratio:16/9}
+.thumbgrid .slot{display:block;aspect-ratio:16/9;background:var(--panel)}
+
+/* --- Panels. Two columns is the maximum inside a section. --- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:26px 0}
+.duo.one{grid-template-columns:1fr}
+.panel{background:var(--panel);border:1px solid var(--outline);border-radius:var(--radius-md);
+  padding:32px 34px 34px;display:flex;flex-direction:column}
+.panel h3{font-size:var(--t-sub);font-weight:600;letter-spacing:-.02em;line-height:1.1;margin-bottom:12px}
+.panel p{font-size:var(--t-small);line-height:1.5;color:var(--ink-soft);max-width:40ch;margin:0}
+.plab{font-size:17px;font-weight:650;letter-spacing:-.008em;margin-bottom:14px}
+.plist{list-style:none}
+.plist li{font-size:17px;color:var(--ink-soft);line-height:1.45;padding:11px 0;border-top:1px solid var(--hairline)}
+.plist li:first-child{border-top:0;padding-top:0}
+.plist li strong{color:var(--ink);font-weight:650;letter-spacing:-.006em}
+.plist li ul{list-style:none;margin:8px 0 0}
+.plist li ul li{border-top:0;padding:3px 0 0;font-size:16.5px}
+.plist li ul li::before{content:"\00B7\2002"}
+
+/* --- Option boxes, short named choices in a two-up grid --- */
+.scan{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:26px 0}
+.scanbox{background:var(--panel);border:1px solid var(--outline);border-radius:var(--radius-md);padding:30px 30px 32px}
+.scanbox .st{font-size:23px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.scanbox .sd{font-size:15.5px;color:var(--ink-soft);line-height:1.4;margin-top:9px}
+
+/* --- Note. A fact attached to the item it touches. --- */
+.note{border:1px solid var(--outline);border-radius:var(--radius-md);padding:30px 32px 32px;margin:26px 0}
+.note h5{font-size:var(--t-label);font-weight:650;letter-spacing:-.018em;line-height:1.2;margin-bottom:12px}
+.note p{font-size:var(--t-small);color:var(--ink-soft);line-height:1.5;max-width:66ch;margin:0}
+.note p + p{margin-top:13px}
+.note strong{color:var(--ink);font-weight:650}
+.section-body .note:last-child{margin-bottom:0}
+
+/* --- Links out. A label naming the content and a small angled arrow, on a
+       hairline that darkens on hover. Never a URL or a file path in copy.
+       .plink sits inline under a block. .filelink runs as a full row. --- */
+.plink{margin-top:22px}
+.plink a{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;
+  font-size:16.5px;font-weight:600;letter-spacing:-.006em;border-bottom:1px solid var(--outline);
+  padding-bottom:3px;transition:border-color 140ms ease}
+.plink a:hover{border-bottom-color:var(--ink)}
+.plink svg{width:12px;height:12px;flex:none;transition:transform 140ms ease}
+.plink a:hover svg{transform:translate(2px,-2px)}
+.filelink{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:64ch;margin-top:32px;
+  padding:18px 2px 17px;border-top:1px solid var(--hairline);text-decoration:none;
+  font-size:18px;font-weight:600;letter-spacing:-.012em;color:var(--ink);transition:border-color .15s ease}
+.filelink:hover,.filelink:focus-visible{border-top-color:var(--hairline-strong)}
+.filelink .ar{font-size:15px;color:var(--ink-muted);transition:color .15s ease}
+.filelink:hover .ar,.filelink:focus-visible .ar{color:var(--ink)}
+.filelink.wide{max-width:none}
+
+/* --- Document panel. A client's own document runs inside the page. --- */
+.docpanel{border:1px solid var(--outline);border-radius:var(--radius-md);overflow:hidden;background:var(--panel);margin:26px 0 0}
+.docbar{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:18px 26px 16px;
+  border-bottom:1px solid var(--outline);background:var(--card)}
+.docbar .dname{font-size:16.5px;font-weight:650;letter-spacing:-.008em}
+.docbar .dmeta{font-size:16.5px;color:var(--ink-soft);letter-spacing:-.006em}
+.docframe{display:block;width:100%;height:760px;border:0;background:var(--neutral-white)}
+.docfall{padding:40px 32px;font-size:var(--t-small);color:var(--ink-soft)}
+
+/* --- Expanding block. Terms of service and anything long. Prints open. --- */
+details.block{border-top:1px solid var(--hairline)}
+details.block summary{list-style:none;cursor:pointer;padding:19px 0;display:flex;justify-content:space-between;
+  align-items:center;gap:20px;font-weight:600}
+details.block summary::-webkit-details-marker{display:none}
+details.block summary .tog{font-size:var(--t-pill);color:var(--ink-muted);font-weight:500}
+details.block[open] summary .tog::after{content:" \2013"}
+details.block:not([open]) summary .tog::after{content:" +"}
+.block-body{padding:2px 0 26px;color:var(--ink-soft);font-size:var(--t-small);max-width:58ch}
+
+/* --- Project sequence. Step name left, status pill right.
+       Pills: .done for finished, .filled for now, outline for ahead. --- */
+.seq{margin-top:26px}
+.seqrow{display:grid;grid-template-columns:56px 1fr auto;gap:26px;align-items:baseline;padding:26px 0;border-top:1px solid var(--hairline)}
+.seqrow .sq{font-size:var(--t-num);font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+.seqrow .sname{font-size:var(--t-sub);font-weight:600;letter-spacing:-.02em;line-height:1.15}
+.seqrow .sdesc{font-size:16.5px;color:var(--ink-soft);line-height:1.45;margin-top:6px;max-width:52ch}
+.seqrow.done .sq,.seqrow.done .sname,.seqrow.done .sdesc{color:var(--muted)}
+
+/* --- Spec list. A field on the left, its note pushed to the right. --- */
+.speclist{margin:26px 0}
+.speclist > div{padding:22px 0;border-top:1px solid var(--hairline);display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:min-content 1fr;column-gap:72px;align-items:start}
+.speclist .sk{grid-column:1;font-size:17px;font-weight:650;letter-spacing:-.008em;line-height:1.3}
+.speclist .sv{grid-column:1;font-size:16px;line-height:1.45;color:var(--ink-soft);margin-top:3px;max-width:42ch}
+.speclist .snote{grid-column:2;grid-row:1 / span 2;justify-self:end;align-self:start;border:1px solid var(--outline);
+  border-radius:var(--radius-sm);padding:12px 15px 13px;font-size:13.5px;font-weight:500;line-height:1.5;color:var(--ink-soft);max-width:40ch}
+
+/* --- Name list. Large candidates with a reference number. --- */
+.namelist{margin:26px 0 0;max-width:64ch}
+.namelist div{display:grid;grid-template-columns:46px 1fr;gap:18px;align-items:baseline;padding:16px 0;
+  border-top:1px solid var(--hairline);font-size:25px;font-weight:600;letter-spacing:-.018em}
+.namelist div span{font-size:var(--t-num);font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* --- Reference tiles. Reference art sits on neutral and is never cropped.
+       Two across by default, four for square specimens. --- */
+.tiles{display:grid;grid-template-columns:1fr 1fr;column-gap:12px;row-gap:46px;margin:26px 0 12px}
+.tiles.four{grid-template-columns:repeat(4,1fr)}
+.tile figure{margin:0}
+.tile .frame{background:var(--panel);border:1px dashed var(--outline);border-radius:var(--radius-md);aspect-ratio:4/3;
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
+.tiles.four .tile .frame{aspect-ratio:1/1}
+.tile .frame img{width:100%;height:100%;object-fit:cover;display:block}
+.tile .frame .slot,.slot{font-size:15px;color:var(--muted);letter-spacing:-.005em}
+.tile .frame.ref{background:var(--neutral-white);border-style:solid;border-color:#E2E4E6;padding:14px}
+.tile .frame.ref img{object-fit:contain}
+.tile .frame.spec{background:var(--neutral-black);border-style:solid;border-color:var(--neutral-black)}
+.tile .frame.spec img{object-fit:contain}
+.tile figcaption{font-size:var(--t-caption);line-height:1.45;color:var(--ink-soft);padding:14px 44px 0 4px;max-width:44ch}
+.tile figcaption strong{color:var(--ink);font-weight:650;font-variant-numeric:tabular-nums}
+
+/* --- Swatches. Chips sit on pure neutral so the page ground cannot skew
+       them. Show a proposed palette on both white and black. --- */
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0}
+.swatches.five{grid-template-columns:repeat(5,1fr)}
+.swatch{background:var(--neutral-white);border:1px solid #E2E4E6;border-radius:var(--radius-md);padding:16px 16px 20px}
+.swatch .chip{height:84px;border-radius:var(--radius-sm)}
+.swatch .chip.edge{border:1px solid rgba(0,0,0,.1)}
+.swatch .sn{font-size:17px;font-weight:600;letter-spacing:-.012em;color:#000;margin-top:15px}
+.swatch .sh{font-size:15px;color:#5B5D5F;font-variant-numeric:tabular-nums;margin-top:2px}
+.swatch.on-black{background:var(--neutral-black);border-color:rgba(255,255,255,.22)}
+.swatch.on-black .sn{color:#FFF}
+.swatch.on-black .sh{color:#9A9A9A}
+/* Palette card. Chips carry their own name in black, the way they are used. */
+.palcard{background:var(--neutral-white);border:1px solid #E2E4E6;border-radius:var(--radius-md);padding:28px 28px 32px;margin:26px 0}
+.palgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.palgrid + .palgrid{margin-top:30px}
+.palgrid .chip{height:132px;border-radius:var(--radius-sm);display:flex;align-items:flex-end;padding:14px 15px 13px;
+  color:#000;font-size:16px;font-weight:600;letter-spacing:-.012em;line-height:1.2}
+.palcard .sh{font-size:15px;color:#5B5D5F;font-variant-numeric:tabular-nums;margin-top:11px}
+/* Color set, a chip over the photograph it was pulled from. */
+.colorsets{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:26px 0}
+.colorset{background:var(--neutral-white);border:1px solid #E2E4E6;border-radius:var(--radius-md);overflow:hidden}
+.cschip{height:92px;display:flex;align-items:flex-end;padding:0 22px 13px;color:#000;font-size:16px;font-weight:600;letter-spacing:-.012em}
+.csimg{aspect-ratio:4/3;background:var(--neutral-white);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.csimg img{width:100%;height:100%;object-fit:cover;display:block}
+.cscap{padding:15px 22px 19px;font-size:var(--t-caption);line-height:1.45;color:#5B5D5F}
+.cscap strong{color:#000;font-weight:650}
+
+/* --- Specimen. Sits on the ground being proposed for the client's page,
+       set by the page with an inline background. --- */
+.specimen{border:1px solid var(--outline);border-radius:var(--radius-md);padding:36px 34px 38px;margin:26px 0;background:var(--panel)}
+.specimen .spname{font-size:17px;font-weight:650;letter-spacing:-.008em}
+.specimen .spmeta{font-size:15.5px;color:var(--ink-soft);margin-top:3px}
+.specimen .aa{font-size:clamp(64px,9vw,120px);line-height:1;letter-spacing:-.03em;margin-top:28px}
+
+/* --- Mark display, identity pages. The mark sits large on neutral, then
+       reversed on black. A caption row names the application. --- */
+.show{border:1px solid #E2E4E6;background:var(--neutral-white);border-radius:var(--radius-md);display:flex;
+  align-items:center;justify-content:center;padding:76px 40px;margin-top:26px;min-height:260px}
+.show img{width:min(540px,82%);height:auto}
+.show.rev{background:var(--neutral-black);border-color:var(--neutral-black)}
+.show .slot{color:#A3A6A9}
+.showcap{display:flex;justify-content:space-between;gap:20px;margin-top:12px;font-size:var(--t-caption);color:var(--ink-soft)}
+.showcap strong{color:var(--ink);font-weight:650}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.pair .show{margin-top:0}
+/* Variation grid. Each item is a positive and reversed pair. */
+.vargrid{display:grid;grid-template-columns:1fr 1fr;gap:28px 12px;margin-top:26px}
+.varpair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.varpair > div{height:172px;padding:18px;border:1px solid #E2E4E6;border-radius:var(--radius-sm);
+  background:var(--neutral-white);display:flex;align-items:center;justify-content:center}
+.varpair > div.rev{background:var(--neutral-black);border-color:var(--neutral-black)}
+.varpair img{max-width:80%;max-height:104px;width:auto;height:auto}
+.varcap{font-size:var(--t-caption);color:var(--ink-soft);margin-top:10px}
+.varcap strong{color:var(--ink);font-weight:650}
+
+/* --- Shots. Mockups and application images, full width or two up.
+       Four up for small repeated formats like social posts. --- */
+.shots{display:grid;grid-template-columns:1fr;gap:12px;margin:26px 0}
+.shots.two{grid-template-columns:1fr 1fr}
+.shots.four{grid-template-columns:repeat(4,1fr)}
+.shot{margin:0;border:1px solid var(--outline);border-radius:var(--radius-md);overflow:hidden;background:var(--panel);
+  aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shotcap{font-size:var(--t-caption);color:var(--ink-soft);margin-top:10px;max-width:56ch}
+.shotcap strong{color:var(--ink);font-weight:650}
+
+/* --- Call to action on the dark card. One per page, at the bottom. --- */
+.cta{display:inline-flex;align-items:center;gap:10px;margin-top:34px;background:var(--paper);color:var(--deep);
+  font-size:16.5px;font-weight:650;letter-spacing:-.008em;padding:15px 28px 14px;border-radius:999px;
+  text-decoration:none;transition:background .15s ease}
+.card.dark .cta{color:var(--deep)}
+.cta:hover{background:#E9EAEC}
+.cta svg{width:12px;height:12px;flex:none}
+.card.dark h2{font-size:var(--t-section);font-weight:600;letter-spacing:-.024em;line-height:1.06;max-width:20ch}
+.card.dark p{color:rgba(255,255,255,.72);max-width:52ch;margin-top:16px}
+
+/* --- Footer. Logo left, pill group opposite: the project name on the
+       light tier, then the step on the meta tier. --- */
+.botbar{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 16px 40px;
+  font-size:16.5px;color:var(--ink-soft)}
+
+/* --- Mobile --- */
+@media(max-width:820px){
+  .siteheader{padding:0 18px}
+  .siteheader .logo{height:15px}
+  .header-right{gap:8px}
+  .siteheader .pill-group{flex-wrap:nowrap;gap:4px}
+  .siteheader .pill.meta{padding-left:6px;padding-right:6px}
+  .pill{font-size:11.5px;padding:5px 11px 4px}
+  .hero{padding:56px var(--cardpad-x) 52px}
+  .hero-grid{flex-direction:column;gap:0}
+  .hero .lede{font-size:18px;margin-top:22px}
+  .toc{min-width:0;width:100%;margin-top:36px;padding-top:24px;border-top:1px solid var(--hairline-light)}
+  .toc a{font-size:14px;padding:10px 0 9px;gap:12px}
+  .section-grid{grid-template-columns:1fr;gap:6px}
+  .rail-number{position:static;font-size:28px;margin-bottom:8px}
+  .opening p{font-size:19.5px}
+  .sub-rule{margin:32px 0 26px}
+  .section-body .label{margin-top:36px}
+  .section-body .label.group{margin-top:44px;padding-top:18px}
+  .rows{padding:2px 20px}
+  .row,.rows.items .row{grid-template-columns:1fr;gap:4px;padding:16px 0}
+  .rows.items .row{gap:12px}
+  .rows.sched .row{grid-template-columns:1fr}
+  .row-when{margin-top:4px}
+  .colhead{display:none}
+  .iname{font-size:21px}
+  .thumbgrid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .duo,.scan,.pair,.vargrid,.colorsets,.shots.two{grid-template-columns:1fr;gap:8px}
+  .panel{padding:28px 24px 30px}
+  .scanbox{padding:22px 20px 24px}
+  .note{padding:24px 22px 26px}
+  .docframe{height:460px}
+  .docbar{flex-direction:column;gap:4px;padding:16px 20px 14px}
+  .seqrow{grid-template-columns:44px 1fr;gap:6px 16px;padding:22px 0}
+  .seqrow .pill{grid-column:2;justify-self:start;margin-top:10px}
+  .seqrow .sname{font-size:22px}
+  .speclist > div{padding:17px 0;grid-template-columns:1fr}
+  .speclist .snote{grid-column:1;grid-row:auto;justify-self:stretch;margin-top:12px}
+  .namelist div{font-size:21px;grid-template-columns:38px 1fr;gap:12px}
+  .tiles,.tiles.four,.shots.four{grid-template-columns:1fr 1fr;gap:8px}
+  .tiles{row-gap:30px}
+  .tile figcaption{padding:12px 6px 0 2px}
+  .swatches,.swatches.five,.palgrid{grid-template-columns:1fr 1fr;gap:8px}
+  .palcard{padding:22px 20px 26px}
+  .palgrid .chip{height:96px}
+  .cschip{height:72px}
+  .show{padding:48px 24px;min-height:200px}
+  .varpair > div{height:132px}
+  .botbar{flex-direction:column;gap:14px;align-items:flex-start;padding:20px 8px 28px}
+  .botbar .pill-group{justify-content:flex-start}
+}
+/* ============================================================
+   PARKSIDE SYSTEM BASE v2 — END
+   ============================================================ */
+
+
+/* ---- Page-specific rules ---- */
+
+
+/* ============================================================
+   PARKSIDE SYSTEM PRINT v2 — START
+   Pages get saved as PDFs. This flattens
+   every surface to white, darkens the rules so the structure
+   survives on paper, and opens everything that was collapsed.
+   ============================================================ */
+@media print{
+  :root{
+    --ground:#FFFFFF; --card:#FFFFFF; --panel:#FFFFFF; --paper:#FFFFFF; --deep:#FFFFFF;
+    --ink:#000000; --ink-soft:#2B2B2B; --ink-muted:#4A4A4A; --muted:#6E6E6E;
+    --outline:rgba(0,0,0,0.28); --hairline:rgba(0,0,0,0.22); --group-rule:rgba(0,0,0,0.55);
+    --hairline-strong:#000000; --hairline-light:rgba(0,0,0,0.28);
+    --glass:#FFFFFF; --glass-solid:#FFFFFF;
+    --radius:0; --radius-md:4px; --radius-sm:3px; --pad:0; --cardpad-y:0; --cardpad-x:0;
+    --t-body:11.5pt; --t-small:10.5pt; --t-label:13pt; --t-num:10pt; --t-caption:9.5pt; --t-toc:9.5pt; --t-pill:9pt;
+    --t-display:34pt; --t-section:22pt; --t-rail:18pt; --t-sub:14pt;
+  }
+  body{background:#fff;padding:0;padding-top:0;line-height:1.45}
+  .stack{max-width:none;gap:0}
+  .siteheader{position:static;height:auto;background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;
+    border-bottom:1.5pt solid #000;padding:0 0 10pt;margin-bottom:16pt}
+  .siteheader .logo{height:13pt}
+  .pages,.no-print{display:none !important}
+  .pill{font-size:9pt;padding:3px 10px 2px}
+  .pill.filled{background:#000;color:#fff}
+  .card{border:0;border-radius:0;padding:0 0 22pt;break-inside:auto}
+  .card.dark{background:#fff;color:#000;border:1.5pt solid #000;padding:14pt;margin-bottom:14pt;break-inside:avoid}
+  .card.dark .label,.card.dark a,.card.dark p,.hero .lede,h1 .h1-sub,.toc a,.toc-num{color:#000}
+  .card.dark .pill{border-color:#000;color:#000}
+  .card.dark .pill.filled{background:#000;color:#fff}
+  .toc a + a{border-color:rgba(0,0,0,.28)}
+  .rail-number{position:static}
+  .docframe{height:300pt}
+  .cta{border:1pt solid #000}
+  details.block .block-body{display:block !important}
+  details.block summary .tog{display:none}
+  h1,h2,h3,.label,.section-head{break-after:avoid}
+  .row,.plist li,.seqrow,.panel,.note,.tile,.swatch,.show,.shot,.varpair,.speclist > div{break-inside:avoid}
+  @page{margin:14mm}
+}
+/* ============================================================
+   PARKSIDE SYSTEM PRINT v2 — END
+   ============================================================ */
+</style>
+</head>
+<body>
+
+<!-- Studio Parkside logo, defined once and reused below -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="sp-logo" viewBox="0 0 1499.4 151">
+    <g>
+      <path d="M150.6,23.6v19.5c0,.7-.6,1.2-1.2,1.2h-15.8v10.7h15.8c.7,0,1.2.6,1.2,1.2v66.6c0,19.2,8.2,26.1,31.5,26.1s17.3-.1,24.6-.4v-10.4h-10.3c-8.8,0-13.6-2.3-13.6-14.3l.2-67.6c0-.7.6-1.2,1.2-1.2h22.5v-10.7h-22.5c-.7,0-1.2-.6-1.2-1.2V11.7l-32.4,11.8Z"/>
+      <path d="M320.9,148.7V44.3h-32.4v53.1c0,24.5-8.1,39.1-21.6,39.1s-16.2-3-16.2-22.9V44.3h-32.4v65.5c0,26,13.4,41,36.8,41s26.6-6.5,32.7-18.2c.3-.5.8-.8,1.4-.6.6.1,1,.6,1,1.2v15.6h30.7Z"/>
+      <path d="M0,106.9c3.5,27.9,26.8,43.9,64.1,43.9s61.5-24.2,61.5-46.6-22.5-37-46.7-42.9l-18.3-4.4c-16.8-4-24.3-10.7-24.3-21.8s11.8-22.9,28.1-22.9,25.8,9.6,27,27.1h32.1C120.4,15.7,97.9,1.1,64.5,1.1S6.4,24.8,6.4,47.1s12.5,33.3,44.6,41.4l15.8,4c13.8,3.5,27.8,9.1,27.8,24.7s-12.2,22.5-30.4,22.5-30.2-11.6-31.4-32.8H0Z"/>
+      <path d="M575,151c34.4,0,58.4-22.6,58.4-55s-24.6-54.2-58.4-54.2-58.4,18.6-58.4,54.2,24,55,58.4,55ZM575,51.5c20.7,0,23.1,25.4,23.1,44.5s-2.6,45.4-23.1,45.4-23.1-25.9-23.1-45.4,2.6-44.5,23.1-44.5Z"/>
+      <rect x="468.5" width="33.6" height="26.5"/>
+      <rect x="469.1" y="44.3" width="32.4" height="104.4"/>
+      <path d="M414.3,56.1c0,.5-.4,1-.9,1.2-.5.2-1.1,0-1.4-.5-7-9.8-17.7-14.8-32-14.8-28.6,0-47.1,21.2-47.1,54s18.1,55,47.3,55,26.2-6.4,33.4-18.5c.3-.5.9-.7,1.4-.6.5.1.9.6.9,1.2v15.6h30.7V0h-32.4v56.1ZM390.6,136.9c-14.8,0-22.2-13.8-22.2-40.9s7.4-39.9,22-39.9,24.6,16.4,24.6,39.9-10.2,40.9-24.4,40.9Z"/>
+    </g>
+    <g>
+      <path d="M1170.7,84.4l-10.9-2.7c-13.4-3.4-20.7-6.8-20.7-15.3s7.5-14.9,19.1-14.9,17.2,6.7,18.2,19.3h28.9c-2.5-17.9-20.4-29-47.1-29s-46.2,13.9-46.2,33.8,9.5,25.4,32.9,30.9l10.7,2.5c16.4,3.9,23.4,9.1,23.4,17.4s-8.1,15.1-21.2,15.1-19.7-8.3-20.5-22.9h-29.5c2.6,20.9,20.3,32.4,50.1,32.4s49.2-10.8,49.2-35.1-13.9-26-36.2-31.6Z"/>
+      <path d="M955.2,92c0-15.8,6.5-23.5,19.9-23.5s9.9.5,15.8,1.3v-25.6c-2-.2-4.1-.3-5.9-.3-9.8,0-17,3.9-22.5,12.2-2.9,4.3-5.1,8.9-6.3,13.5-.2.6-.7,1-1.4.9-.6,0-1.1-.6-1.1-1.2v-25h-30.9v104.4h32.4v-56.7Z"/>
+      <path d="M876.8,131.7c.5.1.9.6.9,1.1l.8,15.8h29.4l-.4-8.5c-.3-6.6-.6-10.6-.6-13.3l.2-42.6c0-12.7-3.4-22.7-10.3-29.7-8.2-8.3-21.4-12.5-39-12.5-26.2,0-46.2,13.4-49.2,32.8h29.9c.9-15,7.7-23.3,19.2-23.3s18,7.8,18,24.6v6.1c0,.6-.4,1.1-1,1.2l-19.7,3.4c-37.2,6.4-50.4,15.6-50.4,34.9s19.5,29.2,36.1,29.2,27.4-6.4,34.6-18.5c.3-.5.8-.7,1.4-.6ZM853.8,136.1c-10.3,0-17-7-17-17.8s11.6-21.4,37.7-23.7c.3,0,.7,0,1,.3.3.2.4.6.4.9v9.4c0,21.2-11.4,30.9-22,30.9Z"/>
+      <path d="M1483.2,117c-4,13.3-14.8,21.2-29.1,21.2s-29.4-15.2-29.4-40.7.6-1.2,1.2-1.2h73.5v-3.2c0-30.1-22.4-51-54.4-51s-55,19-55,54.2,29.3,54.8,58.4,54.8,45.1-12.7,50.7-34h-16ZM1445,51.7c5,0,9.1,1.6,12.2,4.7,5.1,5.1,7.5,14.2,7.4,27.8,0,.7-.6,1.2-1.2,1.2h-37.4c-.3,0-.7-.1-.9-.4-.2-.2-.4-.6-.4-.9.4-21.6,7.3-32.5,20.4-32.5Z"/>
+      <path d="M736.8,4.2h-50.8v144.5h35.1v-55.5c0-.7.6-1.2,1.2-1.2h14.5c30.7,0,67.2-7.7,67.2-44.5s-22.6-43.3-67.2-43.3ZM735.2,80.2h-12.8c-.7,0-1.2-.6-1.2-1.2V17.2c0-.7.6-1.2,1.2-1.2h12.8c20.1,0,31.7,11.6,31.7,31.7s-11.3,32.5-31.7,32.5Z"/>
+      <rect x="1219.3" y="44.3" width="32.4" height="104.4"/>
+      <path d="M1377.9,148.7V0h-32.4v56.1c0,.5-.4,1-.9,1.2-.5.2-1.1,0-1.4-.5-7-9.8-17.7-14.8-32-14.8-28.6,0-47.1,21.2-47.1,54s18.1,55,47.3,55,26.2-6.4,33.4-18.5c.3-.5.9-.7,1.4-.6.5.1.9.6.9,1.2v15.6h30.7ZM1321.8,136.9c-14.8,0-22.2-13.8-22.2-40.9s7.4-39.9,22-39.9,24.6,16.4,24.6,39.9-10.2,40.9-24.4,40.9Z"/>
+      <path d="M999.9,0v148.7h32.4v-38c0-.3.1-.7.4-.9l13.9-13c.3-.3.7-.4,1.1-.3.4,0,.7.3.9.7l24.7,51.6h35.7l-36.3-75.3c-.2-.5-.1-1.1.3-1.5l29.4-27.7h-18.2l-49.6,47.3c-.4.3-.9.4-1.4.2-.5-.2-.8-.6-.8-1.1V0h-32.4Z"/>
+      <rect x="1218.6" width="33.6" height="26.5"/>
+    </g>
+  </symbol>
+</svg>
+
+<header class="siteheader">
+  <svg class="logo" role="img" aria-label="Studio Parkside"><use href="#sp-logo"/></svg>
+  <div class="header-right">
+    <div class="pill-group">
+      <span class="pill filled">[Client Name]</span>
+      <span class="pill meta">Shared 0/0</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="stack">
+
+  <!-- Cover -->
+  <figure class="cover"><span class="slot">Cover image, the identity in its setting</span></figure>
+
+  <!-- Hero -->
+  <div class="card dark hero">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <h1>[Client Name]<span class="h1-sub">Brand Identity</span></h1>
+        <p class="lede">[One or two sentences naming what the page covers.]</p>
+      </div>
+      <nav class="toc" aria-label="Contents">
+        <a href="#s01"><span class="toc-num">01</span> Recap</a>
+        <a href="#s02"><span class="toc-num">02</span> Concept</a>
+        <a href="#s03"><span class="toc-num">03</span> Primary mark</a>
+        <a href="#s04"><span class="toc-num">04</span> Secondary mark</a>
+        <a href="#s05"><span class="toc-num">05</span> Variations</a>
+        <a href="#s06"><span class="toc-num">06</span> Applications</a>
+        <a href="#s07"><span class="toc-num">07</span> Brand kit</a>
+        <a href="#s08"><span class="toc-num">08</span> Project sequence</a>
+        <a href="#files"><span class="toc-num">09</span> Files</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section class="card" id="s01">
+    <div class="section-grid">
+      <div class="rail-number">01</div>
+      <div class="section-body">
+        <h2>Recap</h2>
+        <p>[The mood board selections that pointed here.]</p>
+
+        <div class="label">[Logotype references]</div>
+        <div class="tiles four">
+          <div class="tile"><figure><div class="frame ref"><span class="slot">02-02</span></div><figcaption><strong>02-02</strong></figcaption></figure></div>
+          <div class="tile"><figure><div class="frame ref"><span class="slot">02-04</span></div><figcaption><strong>02-04</strong></figcaption></figure></div>
+          <div class="tile"><figure><div class="frame ref"><span class="slot">02-09</span></div><figcaption><strong>02-09</strong></figcaption></figure></div>
+          <div class="tile"><figure><div class="frame ref"><span class="slot">02-12</span></div><figcaption><strong>02-12</strong></figcaption></figure></div>
+        </div>
+
+        <div class="label">[Mark references]</div>
+        <div class="tiles four">
+          <div class="tile"><figure><div class="frame ref"><span class="slot">03-13</span></div><figcaption><strong>03-13</strong></figcaption></figure></div>
+          <div class="tile"><figure><div class="frame ref"><span class="slot">03-14</span></div><figcaption><strong>03-14</strong></figcaption></figure></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="card" id="s02">
+    <div class="section-grid">
+      <div class="rail-number">02</div>
+      <div class="section-body">
+        <h2>Concept</h2>
+        <div class="opening">
+          <p>[Where the identity was drawn from.]</p>
+          <p>[What the mark is and how it behaves.]</p>
+        </div>
+
+        <div class="duo">
+          <div class="panel"><h3>[Detail]</h3><p>[A decision in the mark and what it came from.]</p></div>
+          <div class="panel"><h3>[Detail]</h3><p>[A decision in the mark and what it came from.]</p></div>
+        </div>
+        <div class="plink"><a href="[walkthrough]" target="_blank" rel="noopener">Watch the walkthrough <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="card" id="s03">
+    <div class="section-grid">
+      <div class="rail-number">03</div>
+      <div class="section-body">
+        <h2>Primary mark</h2>
+        <div class="pill-group start"><span class="pill light">Included in scope</span></div>
+        <p>[What the mark is made of. Each application is shown in black and reversed white.]</p>
+
+        <div class="show"><span class="slot">Primary mark, black</span></div>
+        <div class="showcap"><span><strong>Primary</strong> &middot; black</span><span>[Wordmark]</span></div>
+        <div class="show rev"><span class="slot">Primary mark, reversed</span></div>
+        <div class="showcap"><span><strong>Reversed</strong> &middot; white on black</span><span>[Wordmark]</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="card" id="s04">
+    <div class="section-grid">
+      <div class="rail-number">04</div>
+      <div class="section-body">
+        <h2>Secondary mark</h2>
+        <div class="pill-group start"><span class="pill light">Included in scope</span></div>
+        <p>[What the secondary application is and where it gets used.]</p>
+
+        <div class="pair">
+          <div><div class="show"><span class="slot">Secondary, black</span></div><div class="showcap"><span><strong>Secondary</strong> &middot; black</span><span>[Seal]</span></div></div>
+          <div><div class="show rev"><span class="slot">Secondary, reversed</span></div><div class="showcap"><span><strong>Reversed</strong> &middot; white</span><span>[Seal]</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="card" id="s05">
+    <div class="section-grid">
+      <div class="rail-number">05</div>
+      <div class="section-body">
+        <h2>Variations</h2>
+        <div class="pill-group start"><span class="pill light">Beyond scope</span></div>
+        <p>[How the mark flexes across uses and the space available.]</p>
+
+        <div class="label">[Wordmark variations]</div>
+        <div class="vargrid">
+          <div><div class="varpair"><div><span class="slot">Positive</span></div><div class="rev"><span class="slot">Reversed</span></div></div><div class="varcap"><strong>[Lockup]</strong> &middot; [where it gets used]</div></div>
+          <div><div class="varpair"><div><span class="slot">Positive</span></div><div class="rev"><span class="slot">Reversed</span></div></div><div class="varcap"><strong>[Icon]</strong> &middot; [where it gets used]</div></div>
+        </div>
+
+        <div class="label">[Supporting graphics]</div>
+        <div class="vargrid">
+          <div><div class="varpair"><div><span class="slot">Positive</span></div><div class="rev"><span class="slot">Reversed</span></div></div><div class="varcap"><strong>[Badge]</strong> &middot; [where it gets used]</div></div>
+          <div><div class="varpair"><div><span class="slot">Positive</span></div><div class="rev"><span class="slot">Reversed</span></div></div><div class="varcap"><strong>[Location]</strong> &middot; [where it gets used]</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="card" id="s06">
+    <div class="section-grid">
+      <div class="rail-number">06</div>
+      <div class="section-body">
+        <h2>Applications</h2>
+        <p>[The identity in use.]</p>
+
+        <div class="label">[Application]</div>
+        <p>[What the piece is and where it appears.]</p>
+        <div class="shots">
+          <figure class="shot"><span class="slot">Mockup</span></figure>
+        </div>
+
+        <div class="label">[Application]</div>
+        <div class="shots two">
+          <figure class="shot" style="aspect-ratio:4/5"><span class="slot">Mockup</span></figure>
+          <figure class="shot" style="aspect-ratio:4/5"><span class="slot">Mockup</span></figure>
+        </div>
+
+        <div class="label">[Small formats]</div>
+        <div class="shots four">
+          <figure class="shot" style="aspect-ratio:4/5"><span class="slot">Post</span></figure>
+          <figure class="shot" style="aspect-ratio:4/5"><span class="slot">Post</span></figure>
+          <figure class="shot" style="aspect-ratio:4/5"><span class="slot">Post</span></figure>
+          <figure class="shot" style="aspect-ratio:4/5"><span class="slot">Post</span></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="card" id="s07">
+    <div class="section-grid">
+      <div class="rail-number">07</div>
+      <div class="section-body">
+        <h2>Brand kit</h2>
+        <p>Everything that makes up the [Client Name] identity.</p>
+
+        <div class="label">Color</div>
+        <p>[Which color leads, and what the rest are for.]</p>
+        <div class="swatches">
+          <div class="swatch"><div class="chip" style="background:#000000"></div><div class="sn">Black</div><div class="sh">#000000</div></div>
+          <div class="swatch"><div class="chip edge" style="background:#FFFFFF"></div><div class="sn">White</div><div class="sh">#FFFFFF</div></div>
+          <div class="swatch"><div class="chip" style="background:#E2E4E6"></div><div class="sn">[Brand color]</div><div class="sh">#000000</div></div>
+          <div class="swatch"><div class="chip" style="background:#E2E4E6"></div><div class="sn">[Accent]</div><div class="sh">#000000</div></div>
+        </div>
+
+        <div class="label">Typography</div>
+        <div class="duo">
+          <div class="specimen" style="margin:0"><div class="spname">Primary &middot; [Typeface]</div><div class="spmeta">[What it is used for.]</div><div class="aa">Aa</div></div>
+          <div class="specimen" style="margin:0"><div class="spname">Supporting &middot; [Typeface]</div><div class="spmeta">[What it is used for.]</div><div class="aa">Aa</div></div>
+        </div>
+
+        <div class="label">Image treatment</div>
+        <p>[How photography is presented.]</p>
+        <div class="shots two">
+          <figure class="shot" style="aspect-ratio:6/5"><span class="slot">Untreated</span></figure>
+          <figure class="shot" style="aspect-ratio:6/5"><span class="slot">Treated</span></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="card" id="s08">
+    <div class="section-grid">
+      <div class="rail-number">08</div>
+      <div class="section-body">
+        <h2>Project sequence</h2>
+        <div class="seq">
+          <div class="seqrow done"><div class="sq">01</div><div><div class="sname">Kickoff</div><div class="sdesc">[One line.]</div></div><span class="pill done">Completed</span></div>
+          <div class="seqrow done"><div class="sq">02</div><div><div class="sname">Mood board</div><div class="sdesc">[One line.]</div></div><span class="pill done">Completed</span></div>
+          <div class="seqrow done"><div class="sq">03</div><div><div class="sname">Direction selected</div><div class="sdesc">[One line.]</div></div><span class="pill done">Completed</span></div>
+          <div class="seqrow"><div class="sq">04</div><div><div class="sname">Identity delivered</div><div class="sdesc">[What is handed over.]</div></div><span class="pill filled">In progress</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Files -->
+  <section class="card dark" id="files">
+    <h2>Download the files</h2>
+    <p>[Formats, and what is in the folder.]</p>
+    <a class="cta" href="[files]" target="_blank" rel="noopener">Download the logo files <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </section>
+
+  <footer class="botbar">
+    <svg class="logo" role="img" aria-label="Studio Parkside"><use href="#sp-logo"/></svg>
+    <div class="pill-group">
+      <span class="pill light">[Project name]</span>
+      <span class="pill meta">Identity</span>
+    </div>
+  </footer>
+
+</div>
+</main>
+
+</body>
+</html>
