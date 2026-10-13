@@ -21,8 +21,8 @@ a{color:var(--ink);text-underline-offset:3px}
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
 .stack{max-width:var(--maxw);margin:0 auto;display:flex;flex-direction:column;gap:var(--pad)}
 
-/* --- Fixed glass header, full page width. Logo left, the pill group
-       on the right. --- */
+/* --- Fixed glass header, full page width. Logo left, the client pill
+       on the right, centered against the logo. --- */
 .siteheader{
   position:fixed;top:0;left:0;right:0;z-index:60;height:var(--header-h);
   display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 34px;
@@ -367,8 +367,8 @@ details.block:not([open]) summary .tog::after{content:" +"}
 .card.dark h2{font-size:var(--t-section);font-weight:600;letter-spacing:-.024em;line-height:1.06;max-width:20ch}
 .card.dark p{color:rgba(255,255,255,.72);max-width:52ch;margin-top:16px}
 
-/* --- Footer. Logo left, pill group opposite: the project name on the
-       light tier, then the step on the meta tier. --- */
+/* --- Footer. Logo left, pill group opposite, all on the light tier:
+       the project name, the step, then the shared date. --- */
 .botbar{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 16px 40px;
   font-size:16.5px;color:var(--ink-soft)}
 
