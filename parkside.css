@@ -151,6 +151,11 @@ h1 .h1-sub{display:block;font-weight:400;color:rgba(255,255,255,.45)}
 .ilist li{position:relative;margin-bottom:6px}
 .ilist li:last-child{margin-bottom:0}
 .ilist li::before{content:"\00B7";position:absolute;left:-1.15em;color:var(--ink-muted)}
+/* A list under a lead-in line, in row text or section body. */
+.row-text p + .ilist{margin-top:6px}
+.section-body p:has(+ .ilist){margin-bottom:10px}
+.section-body > .ilist{margin-bottom:25px}
+.section-body > .ilist:last-child{margin-bottom:0}
 .inote{font-size:16.5px;line-height:1.5;max-width:58ch;color:var(--ink-muted);
   margin-top:14px;padding-top:13px;border-top:1px solid var(--hairline)}
 .inote ul{list-style:none;margin:6px 0 0;padding-left:1.15em}
