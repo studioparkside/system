@@ -40,6 +40,16 @@
   details.block summary .tog{display:none}
   h1,h2,h3,.label,.section-head{break-after:avoid}
   .row,.plist li,.seqrow,.panel,.note,.tile,.swatch,.show,.shot,.varpair,.speclist > div{break-inside:avoid}
+  /* Deck */
+  .deck-index, .deck-track, .slide-nav { display: none !important; }
+  .deck-frame, .deck-chapter { gap: 12px; }
+  .deck-slide { break-inside: avoid; border: 1pt solid var(--neutral-black); }
+  .slide-cover { background: var(--neutral-white); color: var(--neutral-black); }
+  .slide-img { border: 1pt solid var(--neutral-black); }
+  .slide-cover .slide-media { position: relative; height: auto; aspect-ratio: 16 / 9; margin-bottom: 12pt; }
+  .slide-cover::after { display: none; }
+  .slide-cover:has(.slide-media), .slide-cover:has(.slide-media) .slide-num, .slide-cover:has(.slide-media) .slide-tagline { color: var(--neutral-black); }
+  .slide-row,.slide-visual{break-inside:avoid}
   @page{margin:14mm}
 }
 /* ============================================================

@@ -15,7 +15,7 @@
 .ref-spec{font-size:var(--t-label);letter-spacing:-.016em;font-weight:650;border-bottom:1px solid var(--hairline);
   padding-bottom:14px;margin:64px 0 22px}
 .section-body h2 + p + .ref-spec,.section-body h2 + .ref-spec{margin-top:40px}
-.ref-note{font-size:16px;line-height:1.5;color:var(--ink-muted);max-width:62ch;margin-top:14px}
+.ref-note{font-size:16px;line-height:1.5;letter-spacing:var(--track-small);color:var(--ink-muted);max-width:62ch;margin-top:14px}
 .ref-demo{border:1px dashed var(--outline);border-radius:var(--radius-md);padding:28px;background:var(--card)}
 .ref-demo + .ref-demo{margin-top:10px}
 .ref-demo.flush{padding:0;border:0;background:transparent}
@@ -142,13 +142,6 @@
           <div class="swatch"><div class="chip" style="background:#000000"></div><div class="sn">Hairline strong</div><div class="sh">#000000</div></div>
         </div>
         <p class="ref-note">Outline edges cards, panels, and pills. Hairline separates rows. Group rule opens a group of rows, heavier than a hairline and lighter than ink.</p>
-
-        <div class="ref-spec">Accents</div>
-        <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#F9BC15"></div><div class="sn">Gold</div><div class="sh">#F9BC15 · takes ink</div></div>
-          <div class="swatch"><div class="chip" style="background:#2278CE"></div><div class="sn">Blue</div><div class="sh">#2278CE · takes white</div></div>
-        </div>
-        <p class="ref-note">One accent per page at most. Gold takes ink and never white. Blue takes white and never ink.</p>
 
         <p class="ref-note">Every page is light only. There is no dark mode and no theme toggle.</p>
       </div>
@@ -313,7 +306,8 @@
         <div class="plink"><a href="templates/kickoff/">Open the kickoff template <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
 
         <div class="label group"><span class="lnum">04</span>Mood board</div>
-        <p>An About card saying nothing is final, then one section per decision: name, layout, visual style, color, type, content. Project sequence and Parked close the page. The parts are in section 05.</p>
+        <p>Section 01, Overview, says nothing is final. Then one section per decision: name, layout, visual style, color, type, content. Project sequence and Parked close the page. The parts are in section 05.</p>
+        <p>A mood board comes in two forms, picked per project. The scroll page runs as section cards. The deck runs every section as 16:9 slides, one slide per scroll, with the DECK block in parkside.css and deck.js linked at the foot of the page. The deck has no template yet. Boulder Flipside brand character is the reference.</p>
         <div class="plink"><a href="templates/mood/">Open the mood board template <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
 
         <div class="label group"><span class="lnum">05</span>Comments</div>
@@ -401,10 +395,10 @@
 
         <div class="ref-spec">Swatches on white and black</div>
         <div class="swatches">
-          <div class="swatch"><div class="chip" style="background:#F9BC15"></div><div class="sn">Gold</div><div class="sh">#F9BC15</div></div>
-          <div class="swatch"><div class="chip" style="background:#2278CE"></div><div class="sn">Blue</div><div class="sh">#2278CE</div></div>
-          <div class="swatch on-black"><div class="chip" style="background:#F9BC15"></div><div class="sn">Gold</div><div class="sh">#F9BC15</div></div>
-          <div class="swatch on-black"><div class="chip" style="background:#2278CE"></div><div class="sn">Blue</div><div class="sh">#2278CE</div></div>
+          <div class="swatch"><div class="chip" style="background:#F09A2E"></div><div class="sn">Amber</div><div class="sh">#F09A2E</div></div>
+          <div class="swatch"><div class="chip" style="background:#2E96E0"></div><div class="sn">Sky</div><div class="sh">#2E96E0</div></div>
+          <div class="swatch on-black"><div class="chip" style="background:#F09A2E"></div><div class="sn">Amber</div><div class="sh">#F09A2E</div></div>
+          <div class="swatch on-black"><div class="chip" style="background:#2E96E0"></div><div class="sn">Sky</div><div class="sh">#2E96E0</div></div>
         </div>
         <p class="ref-note">Show a proposed palette on both. A client judging a color against one ground alone is judging it wrong.</p>
 
