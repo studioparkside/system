@@ -586,8 +586,22 @@ details.block:not([open]) summary .tog::after{content:" +"}
 /* ---------- Live. Wide screens with the script running. ---------- */
 @media screen {
   html:has(.deck.is-live) { scroll-snap-type: y proximity; }
+  /* The footer pins to the foot of the window in the same glass as the
+     header, so both frame every slide. The stage shortens to clear it,
+     and the body pads its foot so the last slide can still reach the top. */
+  body:has(.deck.is-live) { --foot-h: var(--header-h); padding-bottom: calc(var(--foot-h) + 12px); }
+  body:has(.deck.is-live) .botbar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 60;
+    height: var(--foot-h); padding: 0 34px;
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(26px) saturate(165%); backdrop-filter: blur(26px) saturate(165%);
+    border-top: 1px solid var(--outline);
+  }
+  @supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+    body:has(.deck.is-live) .botbar { background: var(--glass-solid); }
+  }
   .deck.is-live {
-    --stage-h: calc(100svh - var(--header-h) - 24px);
+    --stage-h: calc(100svh - var(--header-h) - var(--foot-h, 0px) - 24px);
     --stage-top: calc(var(--header-h) + 12px);
     align-self: center;
     width: min(calc(100vw - 24px - var(--deck-sbw, 0px)), 1640px);
