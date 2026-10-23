@@ -4,11 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>[Project Name] — Mood Board — Studio Parkside</title>
+<title>[Client Name] — [Project name] — Mood board</title>
 <!-- TEMPLATE: Mood board. Lifted from Boulder Events Calendar,
      _retired/bouldercalendar/mood. Placeholder copy is in brackets.
      No Confidential pill on a mood board. Client-specific components,
-     like the event cards on the source page, go below BASE END. -->
+     like the event cards on the source page, go below BASE END.
+     The deck form of the mood board is templates/mood-deck. Content
+     rules are shared between the two, so a change to one goes to the
+     other. -->
 <link rel="stylesheet" href="https://system.studioparkside.co/tokens.css">
 <link rel="stylesheet" href="https://system.studioparkside.co/parkside.css">
 <style>
@@ -72,8 +75,9 @@
         <a href="#s05"><span class="toc-num">05</span> Color</a>
         <a href="#s06"><span class="toc-num">06</span> Typography</a>
         <a href="#s07"><span class="toc-num">07</span> Content</a>
-        <a href="#s08"><span class="toc-num">08</span> Project sequence</a>
-        <a href="#s09"><span class="toc-num">09</span> Parked</a>
+        <a href="#s08"><span class="toc-num">08</span> Next steps</a>
+        <a href="#s09"><span class="toc-num">09</span> Project sequence</a>
+        <a href="#s10"><span class="toc-num">10</span> Parked</a>
       </nav>
     </div>
   </div>
@@ -84,8 +88,9 @@
       <div class="rail-number">01</div>
       <div class="section-body">
         <h2>Overview</h2>
-        <p>Nothing on this page is final. These are directions to react to, and the most useful thing you can tell me is what you'd like to stay away from.</p>
-        <p>Once the pieces come together on a live page, I may adjust what we look at here. Sizes, colors, fonts, and layout may need to shift once they are all together on the page. Your notes on this mood board lead those calls and my design judgment covers the rest, so the finished page will be close to the ideas presented here without matching it exactly.</p>
+        <p>Nothing on this page is final. These are directions to react to.</p>
+        <p>Comments on what you like are valuable, and so are the things you&rsquo;d like to stay away from, whether it&rsquo;s a color, a typeface, or a reference that misses.</p>
+        <div class="plink"><a href="[brief URL]">Open the project brief <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
       </div>
     </div>
   </section>
@@ -254,29 +259,29 @@
     <div class="section-grid">
       <div class="rail-number">08</div>
       <div class="section-body">
-        <h2>Project sequence</h2>
-
-        <div class="seq">
-          <div class="seqrow done">
-            <div class="sq">01</div>
-            <div><div class="sname">Kickoff</div><div class="sdesc">[What happened.]</div></div>
-            <span class="pill done">Completed</span>
-          </div>
-          <div class="seqrow">
-            <div class="sq">02</div>
-            <div><div class="sname">Mood board</div><div class="sdesc">[What this round covers and what moves it forward.]</div></div>
-            <span class="pill filled">In progress</span>
-          </div>
-          <div class="seqrow">
-            <div class="sq">03</div>
-            <div><div class="sname">[Next step]</div><div class="sdesc">[One line.]</div></div>
-            <span class="pill">Up next</span>
-          </div>
-          <div class="seqrow">
-            <div class="sq">04</div>
-            <div><div class="sname">Final assets</div><div class="sdesc">[What is handed over.]</div></div>
-            <span class="pill">Closes project</span>
-          </div>
+        <h2>Next steps</h2>
+        <p>[What the review decides, and what I&rsquo;ll do next.]</p>
+        <div class="label">Conversation</div>
+        <p>Here are some thought starters for discussing [what the review decides].</p>
+        <div class="rows">
+          <div class="row"><div class="row-num">08-01</div><div class="row-text">Which direction feels most like [Client Name]?</div></div>
+          <div class="row"><div class="row-num">08-02</div><div class="row-text">[A question about the audience the page has to reach.]</div></div>
+          <div class="row"><div class="row-num">08-03</div><div class="row-text">How does each one read for someone seeing it for the first time?</div></div>
+          <div class="row"><div class="row-num">08-04</div><div class="row-text">What would you want to stay away from?</div></div>
+        </div>
+        <div class="label">After the review</div>
+        <p>Once [the direction is set], I&rsquo;ll design [what comes next].</p>
+        <div class="rows">
+          <div class="row"><div class="row-num">08-05</div><div class="row-text"><strong>[Deliverable].</strong> [What it is, with the count.]</div></div>
+          <div class="row"><div class="row-num">08-06</div><div class="row-text"><strong>[Deliverable].</strong> [What it is, with the count.]</div></div>
+        </div>
+        <div class="label">What to expect</div>
+        <p>Colors, type, and layout may shift once they&rsquo;re all working together.</p>
+        <p>The finished [page] will be close to the direction you pick, without matching any reference exactly.</p>
+        <div class="label">From your team</div>
+        <div class="rows">
+          <div class="row"><div class="row-num">08-07</div><div class="row-text"><strong>[Item].</strong> [What it is.] <span class="pill sm done">Received</span></div></div>
+          <div class="row"><div class="row-num">08-08</div><div class="row-text"><strong>[Item].</strong> [What it is, and the file format needed.] <span class="pill sm">Needed</span></div></div>
         </div>
       </div>
     </div>
@@ -287,12 +292,50 @@
     <div class="section-grid">
       <div class="rail-number">09</div>
       <div class="section-body">
+        <h2>Project sequence</h2>
+
+        <div class="seq">
+          <div class="seqrow done">
+            <div class="sq">01</div>
+            <div><div class="sname">Kickoff</div><div class="sdesc">[What it covered.]</div></div>
+            <span class="pill done">Completed</span>
+          </div>
+          <div class="seqrow">
+            <div class="sq">02</div>
+            <div><div class="sname">Project brief</div><div class="sdesc">Everything from kickoff, with a tentative schedule.</div></div>
+            <span class="pill done">Completed</span>
+          </div>
+          <div class="seqrow">
+            <div class="sq">03</div>
+            <div><div class="sname">Mood board review</div><div class="sdesc">We look at [the directions] together.</div></div>
+            <span class="pill filled">In progress</span>
+          </div>
+          <div class="seqrow">
+            <div class="sq">04</div>
+            <div><div class="sname">[Next step]</div><div class="sdesc">[One line, with the day and date it is due.]</div></div>
+            <span class="pill">Up next</span>
+          </div>
+          <div class="seqrow">
+            <div class="sq">05</div>
+            <div><div class="sname">[Final step]</div><div class="sdesc">[What is shown and handed over.] All files go out the same day.</div></div>
+            <span class="pill">Project complete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="card" id="s10">
+    <div class="section-grid">
+      <div class="rail-number">10</div>
+      <div class="section-body">
         <h2>Parked</h2>
         <p>This list includes functions and ideas we&rsquo;ve discussed that sit outside the scope of this project. They&rsquo;re included here so we don&rsquo;t lose them.</p>
 
         <div class="rows">
-          <div class="row"><div class="row-num">09-01</div><div class="row-text"><strong>[Idea].</strong> [One line.]</div></div>
-          <div class="row"><div class="row-num">09-02</div><div class="row-text"><strong>[Idea].</strong> [One line.]</div></div>
+          <div class="row"><div class="row-num">10-01</div><div class="row-text"><strong>[Idea].</strong> [One line.]</div></div>
+          <div class="row"><div class="row-num">10-02</div><div class="row-text"><strong>[Idea].</strong> [One line.]</div></div>
         </div>
       </div>
     </div>
