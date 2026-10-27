@@ -72,7 +72,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .hero-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:64px}
 .hero-main{flex:1;min-width:0}
 h1{font-size:var(--t-display);line-height:.98;letter-spacing:-.034em;font-weight:650;max-width:14ch}
-h1 .h1-project{color:rgba(255,255,255,.45)}
+h1 .h1-project{display:block;color:rgba(255,255,255,.45)}
 h1 .h1-sub{display:block;font-weight:400;color:rgba(255,255,255,.45)}
 .hero .lede{margin-top:30px;font-size:20px;color:rgba(255,255,255,.66);letter-spacing:-.012em;max-width:46ch}
 .toc{display:flex;flex-direction:column;flex-shrink:0;min-width:320px;padding-top:6px}
@@ -749,7 +749,7 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .slide-visual .slide-img.slide-swatch { aspect-ratio: 1; background: #E2E4E6; }
 .slide-visuals.five { grid-auto-columns: 1fr; }
 .slide-cover h1.slide-title { max-width: none; }
-.slide-cover .h1-project { color: rgba(255,255,255,.45); }
+.slide-cover .h1-project { display: block; color: rgba(255,255,255,.45); }
 .slide-cover .h1-sub { display: block; font-weight: 400; color: rgba(255,255,255,.45); }
 .slide-row.slide-seq { grid-template-columns: 30% 1fr auto; column-gap: clamp(16px, 3cqw, 48px); }
 .slide-row.slide-seq .pill { align-self: center; }
