@@ -849,6 +849,15 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .total-card hr{border:0;border-top:1px solid var(--hairline);margin:26px 0 22px}
 .total-card .total-terms{font-size:18px;line-height:1.5;color:var(--ink-soft);max-width:76ch;margin:0 0 14px}
 .total-card .total-terms:last-child{margin-bottom:0}
+/* Selectable fee row. A <label class="fee-row pick"> with a checkbox in
+   the number column, for optional line items. The page runs the total. */
+.fee-row.pick{cursor:pointer}
+.fee-row.pick input{appearance:none;-webkit-appearance:none;margin:0;width:20px;height:20px;position:relative;top:3px;
+  border:1.5px solid var(--hairline-strong);border-radius:5px;background:var(--neutral-white);cursor:pointer}
+.fee-row.pick input:checked{background:var(--ink);border-color:var(--ink)}
+.fee-row.pick input:checked::after{content:"";position:absolute;left:5.5px;top:1.5px;width:5px;height:10px;
+  border:solid var(--neutral-white);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.fee-row.pick input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 @media(max-width:820px){
   .fee-row{grid-template-columns:44px 1fr;gap:6px 16px;padding:18px 0}
   .fee-row .fname{font-size:21px}
