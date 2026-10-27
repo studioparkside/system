@@ -39,7 +39,7 @@
   details.block .block-body{display:block !important}
   details.block summary .tog{display:none}
   h1,h2,h3,.label,.section-head{break-after:avoid}
-  .row,.plist li,.seqrow,.panel,.note,.tile,.swatch,.show,.shot,.varpair,.speclist > div{break-inside:avoid}
+  .row,.plist li,.seqrow,.panel,.note,.fee-row,.total-card,.tile,.swatch,.show,.shot,.varpair,.speclist > div{break-inside:avoid}
   /* Deck */
   .deck-index, .deck-track, .slide-nav { display: none !important; }
   .deck-frame, .deck-chapter { gap: 12px; }

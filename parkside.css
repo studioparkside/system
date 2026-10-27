@@ -826,3 +826,32 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 /* ============================================================
    PARKSIDE SYSTEM DECK v2 — END
    ============================================================ */
+
+/* ============================================================
+   PROPOSAL. The fee table and the total card, carried over
+   from the Campminder and Boulder B-Sides proposals.
+   ============================================================ */
+/* Bottom rule lives on the table so it spans the full column. */
+.fee-table{margin:60px 0 0;border-bottom:1px solid var(--hairline)}
+.fee-row{display:grid;grid-template-columns:56px 1fr 118px;gap:22px;align-items:baseline;
+  padding:22px 0;border-top:1px solid var(--hairline)}
+.fee-row:first-child{border-top-color:var(--hairline-strong)}
+.fee-row .fn{font-size:14.5px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink-soft);letter-spacing:.02em}
+.fee-row .fname{font-size:24px;font-weight:600;letter-spacing:-.02em}
+.fee-row .famt{font-size:24px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;
+  white-space:nowrap;letter-spacing:-.02em}
+.section-body p.fee-note{font-size:15.5px;line-height:1.5;color:var(--ink-soft);max-width:58ch;margin:0;padding:22px 0 0}
+.total-card{background:var(--neutral-white);border:1px solid var(--outline);border-radius:20px;
+  padding:34px 36px 36px;margin-top:34px}
+.total-card .total-label{font-size:19px;font-weight:650;letter-spacing:-.012em;margin-bottom:8px}
+.total-card .total-amt{font-size:clamp(34px,4vw,48px);font-weight:650;letter-spacing:-.028em;line-height:1;
+  font-variant-numeric:tabular-nums}
+.total-card hr{border:0;border-top:1px solid var(--hairline);margin:26px 0 22px}
+.total-card .total-terms{font-size:18px;line-height:1.5;color:var(--ink-soft);max-width:76ch;margin:0 0 14px}
+.total-card .total-terms:last-child{margin-bottom:0}
+@media(max-width:820px){
+  .fee-row{grid-template-columns:44px 1fr;gap:6px 16px;padding:18px 0}
+  .fee-row .fname{font-size:21px}
+  .fee-row .famt{grid-column:2;text-align:left;font-size:21px}
+  .total-card{padding:26px 22px 28px}
+}
