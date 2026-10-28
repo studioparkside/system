@@ -206,6 +206,10 @@ h1 .h1-sub{display:block;font-weight:400;color:rgba(255,255,255,.45)}
 .plist li ul{list-style:none;margin:8px 0 0}
 .plist li ul li{border-top:0;padding:3px 0 0;font-size:16.5px}
 .plist li ul li::before{content:"\00B7\2002"}
+/* Numbered panel list. The reference number hangs in its own column, the
+   way it does on ruled rows. Wrap the text in a span. */
+.plist.num li{display:grid;grid-template-columns:72px 1fr;gap:16px}
+.plist.num .row-num{padding-top:0;color:var(--ink)}
 
 /* --- Option boxes, short named choices in a two-up grid --- */
 .scan{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:26px 0}
