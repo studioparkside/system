@@ -198,7 +198,7 @@ h1 .h1-sub{display:block;font-weight:400;color:rgba(255,255,255,.45)}
   padding:32px 34px 34px;display:flex;flex-direction:column}
 .panel h3{font-size:var(--t-sub);font-weight:600;letter-spacing:-.02em;line-height:1.1;margin-bottom:12px}
 .panel p{font-size:var(--t-small);line-height:1.5;color:var(--ink-soft);max-width:40ch;margin:0}
-.plab{font-size:17px;font-weight:650;letter-spacing:-.008em;margin-bottom:14px}
+.plab{font-size:var(--t-label);font-weight:650;letter-spacing:-.016em;line-height:1.22;margin-bottom:18px}
 .plist{list-style:none}
 .plist li{font-size:17px;color:var(--ink-soft);line-height:1.45;padding:11px 0;border-top:1px solid var(--hairline)}
 .plist li:first-child{border-top:0;padding-top:0}
