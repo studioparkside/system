@@ -111,7 +111,7 @@ h1 .h1-sub{display:block;font-weight:400;color:rgba(255,255,255,.45)}
 .section-body h2 + .label,.section-body .sub-rule + .label{margin-top:5px}
 .section-body .label:first-child{margin-top:0}
 .label .lnum{color:var(--ink-soft);font-variant-numeric:tabular-nums;margin-right:10px;font-weight:600}
-.label.group{border-top:1px solid var(--group-rule);padding-top:22px}
+.label.group{border-top:1px solid var(--group-rule);padding-top:22px;font-size:var(--t-sub);letter-spacing:-.02em;line-height:1.15}
 .section-body .label.group{margin-top:60px}
 .section-body .label.group:first-of-type{margin-top:34px}
 .notelist{list-style:none;padding:0;counter-reset:note}
