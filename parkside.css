@@ -83,6 +83,24 @@ h1 .h1-sub{display:block;font-weight:400;color:rgba(255,255,255,.45)}
 .toc a:focus-visible{outline-color:var(--paper)}
 .toc-num{font-weight:600;font-variant-numeric:tabular-nums;color:var(--paper);min-width:22px}
 
+/* --- Brief with contents. The contents list moves out of the hero into
+       section 01, in a right column beside the brief. The hero then holds
+       the title alone, and the title runs the full width of the card so
+       the client, project, and page type each keep to one line. --- */
+.hero-main:only-child h1{max-width:none}
+.brief-grid{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:120px;align-items:start}
+.brief-grid .toc{min-width:0;padding-top:6px}
+.brief-grid .toc a{color:var(--ink-soft)}
+.brief-grid .toc a + a{border-top-color:var(--hairline)}
+.brief-grid .toc a:hover{color:var(--ink)}
+.brief-grid .toc a:focus-visible{outline-color:var(--ink)}
+.brief-grid .toc-num{color:var(--ink)}
+@media(max-width:1100px){ .brief-grid{gap:64px} }
+@media(max-width:820px){
+  .brief-grid{grid-template-columns:1fr;gap:0}
+  .brief-grid .toc{border-top-color:var(--hairline)}
+}
+
 /* --- Cover. A full-bleed image card above the hero, identity pages only. --- */
 .cover{border:1px solid var(--outline);border-radius:var(--radius);overflow:hidden;background:var(--panel);
   aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
