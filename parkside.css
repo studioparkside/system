@@ -154,6 +154,12 @@ h1 .h1-sub{display:block;font-weight:400;color:rgba(255,255,255,.45)}
 .row-text strong{font-weight:650;letter-spacing:-.006em}
 .row-text p{margin:0}
 .row-text p + p{margin-top:10px}
+/* Sub-items under a scope row's lead-in, on a middot. A list with its own
+   class, like .ilist, keeps its own styles. */
+.row-text ul:not([class]){margin:7px 0 0;padding-left:19px}
+.row-text ul:not([class]) li::marker{content:"\00B7\2002";color:var(--ink-muted)}
+.row-text ul:not([class]) li{margin-bottom:5px;line-height:1.45}
+.row-text ul:not([class]) li:last-child{margin-bottom:0}
 .rows.flat .row{grid-template-columns:1fr;gap:0}
 /* Schedule rows hang the date off the right so dates line up as a column. */
 .rows.sched .row{grid-template-columns:1fr auto;align-items:baseline}
