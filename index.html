@@ -225,9 +225,12 @@
             <div class="fee-table" style="margin-top:0">
               <div class="fee-row"><div class="fn">01</div><div><span class="fname">Kickoff</span></div><div class="famt">Included</div></div>
               <div class="fee-row"><div class="fn">02</div><div><span class="fname">Discovery</span></div><div class="famt">$10,000</div></div>
-              <label class="fee-row pick"><span class="fn"><input type="checkbox" aria-label="Select an optional item"></span><span><span class="fname">Optional item</span></span><span class="famt">$2,000</span></label>
             </div>
-            <p class="fee-note">Pricing applies only when services are bundled as shown.</p>
+            <div class="addons">
+              <label class="addon"><input type="checkbox"><span class="addon-name">Add-on name</span><span class="addon-desc">A short phrase on what it adds.</span><span class="addon-amt">$2,000</span><span class="addon-mark" aria-hidden="true"></span></label>
+              <label class="addon"><input type="checkbox" checked><span class="addon-name">Selected add-on</span><span class="addon-desc">The plus turns to a check.</span><span class="addon-amt">$3,500</span><span class="addon-mark" aria-hidden="true"></span></label>
+            </div>
+            <p class="fee-note">Select any add-ons to include them in the total.<br>Pricing applies only when services are bundled as shown.</p>
             <div class="total-card">
               <div class="total-label">Total</div>
               <div class="total-amt">$10,000</div>
@@ -236,7 +239,7 @@
             </div>
           </div>
         </div>
-        <p class="ref-note">Proposals only. Phase rows are numbered. An optional line item is a selectable row with a checkbox in the number column, and the page script adds it to the total.</p>
+        <p class="ref-note">Proposals only. Phase rows are numbered. Add-ons sit under the fee table as tiles, two to a row, and nowhere else on the page. Each one shows its name, a short description, and its price, and the page script adds a selected tile to the total.</p>
 
         <div class="ref-spec">Phase card</div>
         <div class="phase">
