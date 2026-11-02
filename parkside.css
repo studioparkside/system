@@ -488,6 +488,8 @@ details.block summary:hover .tog{color:var(--ink)}
          <article class="deck-chapter" id="…" data-name="…" data-num="01" data-group="…">
            <div class="deck-slide"> … </div>   one or more per chapter
          </article>
+       The cover chapter names the client in data-name and the project
+       in data-project, so the index opens on both, one per line.
        </div>
      </div>
      <div class="deck-track"> built by the script </div>
@@ -690,10 +692,11 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   .deck-index a:hover { color: var(--ink); }
   .deck-index a .n { font-weight: 600; font-variant-numeric: tabular-nums; }
   .deck-index a.on { color: var(--ink); font-weight: 500; }
-  /* The cover's entry reads as the deck title, bold and in ink, with no
-     number or pips. */
+  /* The cover's entry reads as the deck title, bold, the client in ink
+     and the project below it in muted gray, with no number or pips. */
   .deck-index a:first-child { display: block; font-weight: 700; font-size: 15px; color: var(--ink); padding: 0 0 16px; }
   .deck-index a:first-child .n, .deck-index a:first-child .deck-pips { display: none; }
+  .deck-index-project { display: block; color: var(--ink-muted); }
   .deck-pips { grid-column: 2; display: flex; gap: 4px; height: 0; overflow: hidden; transition: height 0.25s ease, margin 0.25s ease; }
   .deck-index a.on .deck-pips { height: 3px; margin-top: 6px; }
   .deck-pips i { width: 14px; height: 3px; border-radius: 2px; background: var(--hairline); transition: background-color 0.2s ease; }

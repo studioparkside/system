@@ -50,7 +50,8 @@
     a.href = '#' + ch.id;
     var pips = '';
     for (var k = 0; k < ch.slides.length; k++) pips += '<i></i>';
-    a.innerHTML = '<span class="n">' + (ch.el.dataset.num || '') + '</span><span>' + ch.el.dataset.name + '</span>' +
+    var project = ch.el.dataset.project ? '<span class="deck-index-project">' + ch.el.dataset.project + '</span>' : '';
+    a.innerHTML = '<span class="n">' + (ch.el.dataset.num || '') + '</span><span>' + ch.el.dataset.name + project + '</span>' +
       (ch.slides.length > 1 ? '<span class="deck-pips">' + pips + '</span>' : '');
     index.appendChild(a);
     return a;
