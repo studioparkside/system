@@ -865,6 +865,9 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .slide-visuals.posts .slide-visual .slide-img, .slide-visuals.stories .slide-visual .slide-img { margin-bottom: 0; }
 .slide-visuals.square .slide-visual .slide-img { aspect-ratio: 1; }
 .slide-visuals.wide .slide-visual .slide-img { aspect-ratio: 16 / 9; }
+/* Tall images, such as posters, at a width that keeps two in the slide. */
+.slide-visuals.tall { grid-auto-columns: minmax(0, 23cqw); }
+.slide-visuals.tall .slide-visual .slide-img { aspect-ratio: 2 / 3; }
 /* An empty story box runs dark, so the white chrome over it reads before the image is in. */
 .ig-story .slide-img { background: color-mix(in srgb, var(--ink) 55%, var(--card)); }
 
