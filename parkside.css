@@ -259,6 +259,11 @@ h1 .h1-sub{display:block;font-weight:400;color:rgba(255,255,255,.45)}
 .plink a:hover{border-bottom-color:var(--ink)}
 .plink svg{width:12px;height:12px;flex:none;transition:transform 140ms ease}
 .plink a:hover svg{transform:translate(2px,-2px)}
+/* Links out on the dark card, under the call to action. */
+.card.dark .plink{margin-top:26px}
+.card.dark .cta + .plink{margin-top:34px}
+.card.dark .plink a{color:var(--paper);border-bottom-color:rgba(255,255,255,.3)}
+.card.dark .plink a:hover{border-bottom-color:var(--paper)}
 .filelink{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:64ch;margin-top:32px;
   padding:18px 2px 17px;border-top:1px solid var(--hairline);text-decoration:none;
   font-size:18px;font-weight:600;letter-spacing:-.012em;color:var(--ink);transition:border-color .15s ease}
@@ -409,6 +414,87 @@ details.block summary:hover .tog{color:var(--ink)}
 .cta svg{width:12px;height:12px;flex:none}
 .card.dark h2{font-size:var(--t-section);font-weight:600;letter-spacing:-.024em;line-height:1.06;max-width:20ch}
 .card.dark p{color:rgba(255,255,255,.72);max-width:52ch;margin-top:16px}
+
+/* --- Texture system, identity pages. Two parts, built from the layer
+       files exported flat from Figma, bottom to top, each one a plain
+       <img> in a 1:1 sheet. The exploded stack floats the sheets apart
+       in 3D so each reads on its own, then presses them back into one
+       square. .open explodes it, and the page script adds and removes
+       the class on scroll and on the replay button. The parts row shows
+       each ingredient as a tile, with + and = between, and the finished
+       square at the end. Reduced motion and print show the pressed
+       stack with no button. --- */
+.tex-stage{--tex-z:60px;position:relative;aspect-ratio:16/10;margin-top:26px;border:1px solid var(--outline);border-radius:var(--radius-md);
+  background:var(--panel);overflow:hidden;perspective:1700px;display:grid;place-items:center}
+.tex-rig{position:relative;width:42%;aspect-ratio:1/1;transform-style:preserve-3d;
+  transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.tex-sheet{position:absolute;inset:0;border-radius:6px;transform-style:preserve-3d;
+  transition:transform 1.2s cubic-bezier(.2,.7,.2,1),background-color .7s ease,box-shadow .7s ease,outline-color .7s ease;
+  outline:1px solid transparent}
+.tex-sheet img{position:absolute;inset:0;width:100%;height:100%;display:block;border-radius:6px}
+.tex-tag{position:absolute;left:calc(100% + 24px);top:100%;font-size:var(--t-caption);font-weight:600;letter-spacing:-.006em;
+  color:var(--ink);white-space:nowrap;opacity:0;transition:opacity .5s ease;transform-origin:0 50%;
+  transform:translateY(-50%) rotateZ(32deg) rotateX(-58deg)}
+.tex-stage.open .tex-rig{transform:rotateX(58deg) rotateZ(-32deg)}
+.tex-stage.open .tex-sheet{box-shadow:0 22px 44px rgba(0,0,0,.14)}
+.tex-stage.open .tex-sheet.clear{background:rgba(255,255,255,.78);outline-color:rgba(0,0,0,.08)}
+.tex-stage.open .tex-sheet:nth-child(1){transform:translateZ(calc(var(--tex-z) * -2.5))}
+.tex-stage.open .tex-sheet:nth-child(2){transform:translateZ(calc(var(--tex-z) * -1.5))}
+.tex-stage.open .tex-sheet:nth-child(3){transform:translateZ(calc(var(--tex-z) * -.5))}
+.tex-stage.open .tex-sheet:nth-child(4){transform:translateZ(calc(var(--tex-z) * .5))}
+.tex-stage.open .tex-sheet:nth-child(5){transform:translateZ(calc(var(--tex-z) * 1.5))}
+.tex-stage.open .tex-sheet:nth-child(6){transform:translateZ(calc(var(--tex-z) * 2.5))}
+.tex-stage.open .tex-tag{opacity:1;transition-delay:.6s}
+.tex-replay{display:inline-flex;align-items:center;margin-top:18px;font:inherit;font-size:16.5px;font-weight:600;
+  letter-spacing:-.006em;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--outline);
+  padding:0 0 3px;cursor:pointer;transition:border-color 140ms ease}
+.tex-replay:hover{border-bottom-color:var(--ink)}
+/* Parts row. The figures are display:contents so the tiles share one row
+   and the captions another, with the + and = centered on the tiles. */
+.tex-parts{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr 30px 1fr;column-gap:10px;margin:26px 0 12px}
+.tex-parts figure{display:contents}
+.tex-part{grid-row:1;position:relative;aspect-ratio:1/1;border-radius:var(--radius-sm);overflow:hidden;
+  background:var(--neutral-white);border:1px solid #E2E4E6}
+.tex-part img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.tex-parts figcaption{grid-row:2;font-size:var(--t-caption);line-height:1.45;letter-spacing:var(--track-small);
+  color:var(--ink-soft);padding:14px 4px 0 2px}
+.tex-parts figcaption strong{display:block;color:var(--ink);font-weight:650}
+.tex-op{grid-row:1;align-self:center;justify-self:center;font-size:30px;line-height:1;color:var(--ink-muted)}
+.tex-parts figure:nth-of-type(1) > *{grid-column:1}
+.tex-parts figure:nth-of-type(2) > *{grid-column:3}
+.tex-parts figure:nth-of-type(3) > *{grid-column:5}
+.tex-parts figure:nth-of-type(4) > *{grid-column:7}
+.tex-op:nth-of-type(1){grid-column:2}
+.tex-op:nth-of-type(2){grid-column:4}
+.tex-op:nth-of-type(3){grid-column:6}
+@media(max-width:820px){
+  .tex-stage{--tex-z:34px;aspect-ratio:1/1}
+  .tex-rig{width:44%}
+  .tex-tag{display:none}
+  .tex-parts{grid-template-columns:1fr 26px 1fr;column-gap:8px}
+  .tex-parts figure:nth-of-type(2) > *{grid-column:3}
+  .tex-parts figure:nth-of-type(3) > *{grid-column:1}
+  .tex-parts figure:nth-of-type(4) > *{grid-column:3}
+  .tex-parts figure:nth-of-type(n+3) .tex-part{grid-row:3}
+  .tex-parts figure:nth-of-type(n+3) figcaption{grid-row:4}
+  .tex-parts figure:nth-of-type(-n+2) figcaption{padding-bottom:30px}
+  .tex-op:nth-of-type(2){display:none}
+  .tex-op:nth-of-type(3){grid-column:2;grid-row:3}
+}
+@media(prefers-reduced-motion:reduce){
+  .tex-rig,.tex-sheet,.tex-tag{transition:none}
+  .tex-stage.open .tex-rig,.tex-stage.open .tex-sheet{transform:none;box-shadow:none}
+  .tex-stage.open .tex-sheet.clear{background:transparent;outline-color:transparent}
+  .tex-stage.open .tex-tag{opacity:0}
+  .tex-replay{display:none}
+}
+@media print{
+  .tex-stage{perspective:none}
+  .tex-stage.open .tex-rig,.tex-stage.open .tex-sheet{transform:none;box-shadow:none}
+  .tex-stage.open .tex-sheet.clear{background:transparent;outline-color:transparent}
+  .tex-tag{opacity:0}
+  .tex-replay{display:none}
+}
 
 /* --- Footer. Logo left, pill group opposite, all on the light tier:
        the project name, the step, then the shared date. --- */

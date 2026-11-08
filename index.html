@@ -340,6 +340,26 @@
           <div class="seqrow"><div class="sq">03</div><div><div class="sname">Prototype</div><div class="sdesc">The step after.</div></div><span class="pill">Up next</span></div>
         </div>
 
+        <div class="ref-spec">Texture system</div>
+        <div class="tex-stage open">
+          <div class="tex-rig">
+            <div class="tex-sheet" style="background:#E2E4E6"><span class="tex-tag">Color</span></div>
+            <div class="tex-sheet" style="background:#D4D6D9"><span class="tex-tag">Texture</span></div>
+            <div class="tex-sheet clear"><span class="tex-tag">Text</span></div>
+            <div class="tex-sheet clear"><span class="tex-tag">Logos</span></div>
+          </div>
+        </div>
+        <div class="tex-parts">
+          <figure><div class="tex-part"><span class="slot" style="position:absolute;inset:0;display:grid;place-items:center">Color</span></div><figcaption><strong>Color</strong>#000000</figcaption></figure>
+          <div class="tex-op">+</div>
+          <figure><div class="tex-part"><span class="slot" style="position:absolute;inset:0;display:grid;place-items:center">Texture</span></div><figcaption><strong>Texture</strong>Name &middot; blend mode</figcaption></figure>
+          <div class="tex-op">+</div>
+          <figure><div class="tex-part"><span class="slot" style="position:absolute;inset:0;display:grid;place-items:center">Elements</span></div><figcaption><strong>Elements</strong>Text, imagery, logos</figcaption></figure>
+          <div class="tex-op">=</div>
+          <figure><div class="tex-part"><span class="slot" style="position:absolute;inset:0;display:grid;place-items:center">Result</span></div><figcaption><strong>Result</strong></figcaption></figure>
+        </div>
+        <p class="ref-note">Identity pages. One sheet per layer file, bottom to top, each a plain image in the sheet. Transparent layers take <code>clear</code> so they read as sheets when exploded. The page script adds <code>open</code> on scroll and on the replay button, and the stack presses back on its own. Shown open here.</p>
+
         <div class="ref-spec">Dark card and call to action</div>
         <div class="card dark">
           <h2>Ready to hand off</h2>
