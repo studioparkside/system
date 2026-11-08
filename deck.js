@@ -3,8 +3,7 @@
    block in parkside.css. Linked at the foot of a deck page. */
 
 /* Deck. Every slide is one stop. Scrolling, the arrow keys, and the
-   arrows inside each slide and at the foot of the index move one
-   slide at a time. A wheel or trackpad gesture moves one slide and
+   arrows at the foot of the index move one slide at a time. A wheel or trackpad gesture moves one slide and
    then waits for the gesture to finish, so a long scroll never skips
    past a slide. The index jumps to the first slide of a section. Live
    only on a wide, tall enough screen. Anywhere else the slides stay a plain run of cards.
@@ -61,19 +60,6 @@
   var prev = btn('Previous slide', '&#8592;', 'back'), next = btn('Next slide', '&#8594;');
   ctrl.appendChild(prev); ctrl.appendChild(next);
   index.appendChild(ctrl);
-
-  // Arrows inside every slide.
-  flat.forEach(function (f, g) {
-    var nav = document.createElement('div');
-    nav.className = 'slide-nav';
-    var back = btn('Previous slide', '&#8592;', 'back'), fwd = btn('Next slide', '&#8594;');
-    back.hidden = g === 0;
-    fwd.hidden = g === flat.length - 1;
-    back.addEventListener('click', function () { go(g - 1, true); });
-    fwd.addEventListener('click', function () { go(g + 1, true); });
-    nav.appendChild(back); nav.appendChild(fwd);
-    f.s.appendChild(nav);
-  });
 
   // One stop per slide.
   var stops = flat.map(function () {
@@ -151,15 +137,10 @@
   function update() { frame = 0; measure(); if (live) render(position()); }
   function schedule() { if (!frame) frame = requestAnimationFrame(update); }
 
-  function go(g, keepFocus) {
+  function go(g) {
     g = Math.max(0, Math.min(flat.length - 1, g));
     var top = window.scrollY + stops[g].getBoundingClientRect().top - stageTop();
     window.scrollTo({ top: top, behavior: reduce.matches ? 'auto' : 'smooth' });
-    if (keepFocus) {
-      var nav = flat[g].s.querySelector('.slide-nav');
-      var f = nav && nav.querySelector('.deck-btn:not([hidden]):not(.back)') || nav && nav.querySelector('.deck-btn:not([hidden])');
-      if (f) setTimeout(function () { f.focus({ preventScroll: true }); }, 50);
-    }
   }
 
   function inDeck() {

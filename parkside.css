@@ -618,10 +618,6 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .slide-visual p { font-size: clamp(14px, 1.5cqw, 20px); line-height: 1.4; }
 .slide-visual .slide-row-lab + p { margin-top: 0.2em; }
 
-/* ---------- Arrows inside a slide. Built by the script, shown only
-     while live. ---------- */
-.slide-nav { display: none; }
-
 /* ---------- Live. Wide screens with the script running. ---------- */
 @media screen {
   html:has(.deck.is-live) { scroll-snap-type: y proximity; }
@@ -715,24 +711,10 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   .deck-btn:disabled { opacity: 0.35; cursor: default; background: var(--card); }
   .deck-btn:focus-visible, .deck-index a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
-  /* The arrows inside a slide. Top right, small, and half transparent
-     until hovered, so the foot of every slide is free for images. */
-  .deck.is-live .slide-nav {
-    display: flex; gap: 8px;
-    position: absolute; right: clamp(16px, 2.2cqw, 30px); top: clamp(14px, 2cqw, 26px);
-    z-index: 2;
-    opacity: 0.55; transition: opacity 0.15s ease;
-  }
-  .deck.is-live .slide-nav:hover, .deck.is-live .slide-nav:focus-within { opacity: 1; }
-  .slide-nav .deck-btn { width: clamp(34px, 3.2cqw, 44px); height: clamp(34px, 3.2cqw, 44px); font-size: clamp(14px, 1.35cqw, 18px); }
   /* Forward is the main move, so it is solid. Back stays outlined. */
-  .slide-nav .deck-btn:not(.back) { background: var(--ink); border-color: var(--ink); color: var(--card); }
-  .slide-nav .deck-btn:not(.back):hover { background: var(--ink); }
-  .slide-nav .deck-btn[hidden] { display: none; }
-  .slide-nav .deck-btn:hover:not(:disabled) { transform: translateX(2px); }
-  .slide-nav .deck-btn.back:hover:not(:disabled) { transform: translateX(-2px); }
-  .slide-cover .slide-nav .deck-btn:not(.back) { background: var(--paper); border-color: var(--paper); color: var(--deep); }
-  .slide-split .slide-nav .deck-btn.back { background: var(--card); }
+  .deck-ctrl .deck-btn:not(.back) { background: var(--ink); border-color: var(--ink); color: var(--card); }
+  .deck-ctrl .deck-btn:not(.back):hover { background: var(--ink); }
+  .deck-ctrl .deck-btn:not(.back):disabled { background: var(--card); border-color: var(--outline); color: var(--ink); }
 
   /* The frame. Chapters stack in one place and the current one shows,
      centered. Nothing shows behind it. */
@@ -832,8 +814,6 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .slide-dark .slide-link { border-bottom-color: rgba(255,255,255,.4); }
 .slide-dark .slide-link:hover { border-bottom-color: var(--paper); }
 .slide-dark .slide-img { background: rgba(255,255,255,.08); }
-.slide-dark .slide-nav .deck-btn { background: transparent; border-color: rgba(255,255,255,.5); color: var(--paper); }
-.slide-dark .slide-nav .deck-btn:not(.back) { background: var(--paper); border-color: var(--paper); color: var(--deep); }
 
 /* ---------- Image covers. A cover photo set lower in its frame. ---------- */
 .slide-media.lower { object-position: 50% 64%; }
@@ -885,9 +865,6 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .slide-visuals.posts .slide-visual .slide-img, .slide-visuals.stories .slide-visual .slide-img { margin-bottom: 0; }
 .slide-visuals.square .slide-visual .slide-img { aspect-ratio: 1; }
 .slide-visuals.wide .slide-visual .slide-img { aspect-ratio: 16 / 9; }
-.slide-visuals.posts .ig-post, .slide-visuals.stories .ig-story { margin-bottom: clamp(10px, 1.3cqw, 16px); }
-.slide-visuals.posts { grid-auto-columns: minmax(0, 19cqw); }
-.slide-visuals.stories { grid-auto-columns: minmax(0, 18cqw); }
 /* An empty story box runs dark, so the white chrome over it reads before the image is in. */
 .ig-story .slide-img { background: color-mix(in srgb, var(--ink) 55%, var(--card)); }
 
