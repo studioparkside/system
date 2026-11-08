@@ -809,6 +809,10 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 /* The dark lede runs at the Display cut on a Mac, which fits tight, so its tracking opens up. */
 .slide-dark .slide-lede { font-size: clamp(22px, 3.6cqw, 48px); max-width: 30ch; letter-spacing: -0.004em; }
 .slide-dark .slide-row { border-top-color: var(--hairline-light); }
+.slide-dark .slide-row:first-child { border-top-color: rgba(255,255,255,.5); }
+/* Rows of equal standing, on <div class="slide-rows even">. No heavier rule opens the group. */
+.slide-rows.even .slide-row:first-child { border-top-color: var(--hairline); }
+.slide-dark .slide-rows.even .slide-row:first-child { border-top-color: var(--hairline-light); }
 .slide-dark .slide-row-lab { font-size: clamp(14px, 1.5cqw, 20px); }
 .slide-dark .slide-row p { font-size: clamp(16px, 2cqw, 27px); max-width: 52ch; }
 .slide-dark .slide-link { border-bottom-color: rgba(255,255,255,.4); }
