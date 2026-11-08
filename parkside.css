@@ -477,8 +477,8 @@ details.block summary:hover .tog{color:var(--ink)}
    at phone width, and on paper, the slides run one after another as
    cards. With the script on a wide screen the deck goes live: a
    sticky stage shows one slide at a time, every slide is one scroll
-   stop, and one wheel gesture moves one slide. The slides still to
-   come in a section stack behind the current one.
+   stop, and one wheel gesture moves one slide. One slide shows at a
+   time, with nothing stacked behind it.
 
    Markup:
    <section class="deck" data-deck>
@@ -501,7 +501,8 @@ details.block summary:hover .tog{color:var(--ink)}
    data-preview="<section id>" fills with that section's first image
    boxes and its swatches, built by deck.js.
    ============================================================ */
-.deck { --deck-step: 78svh; --deck-gap: 12px; position: relative; }
+/* One corner radius for the slide and the index card, so the two read as one piece. */
+.deck { --deck-step: 78svh; --deck-gap: 12px; --deck-radius: var(--radius-md); position: relative; }
 .deck-index, .deck-track { display: none; }
 .deck-frame { display: flex; flex-direction: column; gap: var(--deck-gap); }
 .deck-chapter { display: flex; flex-direction: column; gap: var(--deck-gap); scroll-margin-top: calc(var(--header-h) + 12px); }
@@ -516,7 +517,7 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   overflow: hidden;
   background: var(--card);
   border: 1px solid var(--outline);
-  border-radius: var(--radius);
+  border-radius: var(--deck-radius);
   padding: clamp(24px, 4.6cqw, 60px) clamp(24px, 5.4cqw, 72px);
   display: flex;
   flex-direction: column;
@@ -567,7 +568,7 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   position: relative;
   overflow: hidden;
   background: color-mix(in srgb, var(--ink) 7%, var(--card));
-  border-radius: calc(var(--radius) * 0.5);
+  border-radius: var(--radius-sm);
 }
 .slide-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
@@ -662,13 +663,13 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   .deck-stop:last-child { height: var(--stage-h); }
 
   /* The index. Chapter names in groups, the current one in ink, with a
-     pip per slide under it. The arrows at its foot move a chapter. */
+     pip per slide under it. The arrows at its foot move one slide. */
   .deck.is-live .deck-index {
     display: flex;
     flex-direction: column;
     background: var(--card);
     border: 1px solid var(--outline);
-    border-radius: calc(var(--radius) * 0.75);
+    border-radius: var(--deck-radius);
     padding: 18px 14px 14px 18px;
     font-family: var(--font);
     height: var(--slide-h, 100%);
@@ -733,12 +734,12 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   .slide-cover .slide-nav .deck-btn:not(.back) { background: var(--paper); border-color: var(--paper); color: var(--deep); }
   .slide-split .slide-nav .deck-btn.back { background: var(--card); }
 
-  /* The frame. Chapters stack in one place and the current one shows.
-     Room is left to the right of the slide for the cards behind it. */
+  /* The frame. Chapters stack in one place and the current one shows,
+     centered. Nothing shows behind it. */
   .deck.is-live .deck-frame { display: block; position: relative; container-type: size; }
   .deck.is-live .deck-chapter {
     position: absolute; inset: 0;
-    display: grid; place-items: center start;
+    display: grid; place-items: center;
     opacity: 0; visibility: hidden;
     transform: translateY(48px);
     transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), visibility 0s linear 0.6s;
@@ -747,17 +748,16 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   .deck.is-live .deck-chapter.is-on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
   .deck.is-live .deck-slide {
     grid-area: 1 / 1;
-    width: min(calc(100cqw - 30px), calc(100cqh * 16 / 9));
+    width: min(100cqw, calc(100cqh * 16 / 9));
     transform-origin: 100% 50%;
     transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s ease;
     box-shadow: 0 1px 0 var(--outline), 0 22px 44px -30px rgb(0 0 0 / 0.35);
   }
+  /* The slides still to come wait out of sight to the right and slide
+     in. A slide that has gone leaves to the left. */
   .deck.is-live .deck-slide[data-depth="0"] { z-index: 3; }
-  .deck.is-live .deck-slide[data-depth="1"] { z-index: 2; transform: translateX(15px) scale(0.955); }
-  .deck.is-live .deck-slide[data-depth="2"] { z-index: 1; transform: translateX(30px) scale(0.91); }
-  .deck.is-live .deck-slide[data-depth="far"] { opacity: 0; transform: translateX(40px) scale(0.88); }
+  .deck.is-live .deck-slide[data-depth="1"], .deck.is-live .deck-slide[data-depth="2"], .deck.is-live .deck-slide[data-depth="far"] { opacity: 0; transform: translateX(28px) scale(0.98); pointer-events: none; }
   .deck.is-live .deck-slide[data-depth="past"] { z-index: 4; opacity: 0; transform: translateX(-28px) scale(0.98); pointer-events: none; transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.25s ease; }
-  /* Cards behind the current one show their edge only. */
   .deck.is-live .deck-slide:not([data-depth="0"]) > * { opacity: 0; transition: opacity 0.2s ease; }
   .deck.is-live .deck-slide > * { transition: opacity 0.35s ease 0.1s; }
 }
@@ -837,6 +837,59 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 
 /* ---------- Image covers. A cover photo set lower in its frame. ---------- */
 .slide-media.lower { object-position: 50% 64%; }
+
+/* ---------- Instagram frames. A post or a story shown inside the
+     app's chrome, so a template reads the way it will on a phone. Wrap
+     a .slide-img in .ig-post or .ig-story inside a .slide-visual. The
+     handle goes in <b>. An avatar image goes inside .ig-avatar. ---------- */
+.ig-post, .ig-story { --ig: clamp(8px, 0.95cqw, 13px); font-family: var(--font); font-size: var(--ig); line-height: 1.3; letter-spacing: 0; }
+.ig-post { background: var(--neutral-white); border: 1px solid var(--outline); border-radius: calc(var(--ig) * 1.1); overflow: hidden; color: var(--ink); }
+.ig-head { display: flex; align-items: center; gap: 0.7em; padding: 0.8em 0.9em; }
+.ig-head b { font-weight: 600; }
+.ig-head span { color: var(--ink-muted); }
+.ig-avatar { flex: none; display: block; width: 2.2em; height: 2.2em; border-radius: 999px; background: color-mix(in srgb, var(--ink) 12%, var(--card)); overflow: hidden; position: relative; }
+.ig-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ig-post .slide-img { aspect-ratio: 4 / 5; border-radius: 0; margin: 0; }
+/* The action row. Heart, comment, and send on the left, save on the right, drawn as masks in the text color. */
+.ig-actions { display: flex; justify-content: space-between; padding: 0.8em 0.9em 0.5em; }
+.ig-actions::before, .ig-actions::after { content: ""; display: block; height: 1.7em; background: currentColor; }
+.ig-actions::before {
+  width: 6.6em;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20.5l-1.3-1.2C5.9 15 3 12.4 3 9.2 3 6.6 5 4.6 7.6 4.6c1.5 0 2.9.7 3.8 1.8a5 5 0 0 1 3.8-1.8c2.6 0 4.6 2 4.6 4.6 0 3.2-2.9 5.8-7.7 10.1L12 20.5z'/%3E%3C/svg%3E") 0 50% / 1.7em 1.7em no-repeat,
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.5c4.8 0 8.5 3.4 8.5 7.8s-3.7 7.8-8.5 7.8c-1 0-2-.1-2.9-.4L5 20.5l1-3.6A7.4 7.4 0 0 1 3.5 11.3C3.5 6.9 7.2 3.5 12 3.5z'/%3E%3C/svg%3E") 2.45em 50% / 1.7em 1.7em no-repeat,
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 3L3.5 10.2l7.3 2.9 2.9 7.4L21 3z'/%3E%3Cpath d='M10.8 13.1L21 3'/%3E%3C/svg%3E") 4.9em 50% / 1.7em 1.7em no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20.5l-1.3-1.2C5.9 15 3 12.4 3 9.2 3 6.6 5 4.6 7.6 4.6c1.5 0 2.9.7 3.8 1.8a5 5 0 0 1 3.8-1.8c2.6 0 4.6 2 4.6 4.6 0 3.2-2.9 5.8-7.7 10.1L12 20.5z'/%3E%3C/svg%3E") 0 50% / 1.7em 1.7em no-repeat,
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.5c4.8 0 8.5 3.4 8.5 7.8s-3.7 7.8-8.5 7.8c-1 0-2-.1-2.9-.4L5 20.5l1-3.6A7.4 7.4 0 0 1 3.5 11.3C3.5 6.9 7.2 3.5 12 3.5z'/%3E%3C/svg%3E") 2.45em 50% / 1.7em 1.7em no-repeat,
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 3L3.5 10.2l7.3 2.9 2.9 7.4L21 3z'/%3E%3Cpath d='M10.8 13.1L21 3'/%3E%3C/svg%3E") 4.9em 50% / 1.7em 1.7em no-repeat;
+}
+.ig-actions::after {
+  width: 1.7em;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3.5h12v17l-6-4.2-6 4.2v-17z'/%3E%3C/svg%3E") 50% 50% / 1.7em 1.7em no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3.5h12v17l-6-4.2-6 4.2v-17z'/%3E%3C/svg%3E") 50% 50% / 1.7em 1.7em no-repeat;
+}
+.ig-caption { padding: 0 0.9em 1em; font-size: 1em; line-height: 1.35; max-width: none; color: var(--ink); }
+.ig-caption b { font-weight: 600; margin-right: 0.3em; }
+/* A story. The image fills a phone screen, with the progress bars and
+   the handle over the top and the reply field at the foot. */
+.ig-story { position: relative; overflow: hidden; border-radius: calc(var(--ig) * 1.4); color: var(--paper); background: var(--deep); }
+.ig-story .slide-img { aspect-ratio: 9 / 16; border-radius: 0; margin: 0; }
+.ig-story::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgb(0 0 0 / 0.42), transparent 22%), linear-gradient(to top, rgb(0 0 0 / 0.42), transparent 20%); pointer-events: none; }
+.ig-story::after { content: ""; position: absolute; left: 0.8em; right: 0.8em; top: 0.8em; height: 0.2em; background-image: linear-gradient(rgba(255,255,255,.95), rgba(255,255,255,.95)); background-size: calc(25% - 0.3em) 100%; background-repeat: space; border-radius: 1px; }
+.ig-story .ig-head { position: absolute; left: 0; right: 0; top: 1.2em; z-index: 1; color: var(--paper); }
+.ig-story .ig-head span { color: rgba(255,255,255,.7); }
+.ig-story .ig-avatar { background: rgba(255,255,255,.3); }
+.ig-reply { position: absolute; left: 0.8em; right: 0.8em; bottom: 0.9em; z-index: 1; border: 1px solid rgba(255,255,255,.75); border-radius: 999px; padding: 0.55em 1em; font-size: 1em; line-height: 1.3; color: rgba(255,255,255,.85); max-width: none; }
+/* Templates in a row. Posts and stories take their own frame, so the
+   image box inside keeps its ratio. Square and wide CRMs set the ratio
+   on the row. */
+.slide-visuals.posts .slide-visual .slide-img, .slide-visuals.stories .slide-visual .slide-img { margin-bottom: 0; }
+.slide-visuals.square .slide-visual .slide-img { aspect-ratio: 1; }
+.slide-visuals.wide .slide-visual .slide-img { aspect-ratio: 16 / 9; }
+.slide-visuals.posts .ig-post, .slide-visuals.stories .ig-story { margin-bottom: clamp(10px, 1.3cqw, 16px); }
+.slide-visuals.posts { grid-auto-columns: minmax(0, 19cqw); }
+.slide-visuals.stories { grid-auto-columns: minmax(0, 18cqw); }
+/* An empty story box runs dark, so the white chrome over it reads before the image is in. */
+.ig-story .slide-img { background: color-mix(in srgb, var(--ink) 55%, var(--card)); }
 
 /* ---------- Mood board deck. Parts for a deck of directions, on
      <section class="deck deck-mood" data-deck>. ---------- */

@@ -3,11 +3,11 @@
    block in parkside.css. Linked at the foot of a deck page. */
 
 /* Deck. Every slide is one stop. Scrolling, the arrow keys, and the
-   arrows inside each slide move one slide at a time. A wheel or
-   trackpad gesture moves one slide and then waits for the gesture to
-   finish, so a long scroll never skips past a slide. The index jumps to
-   the first slide of a section. Live only on a wide, tall enough
-   screen. Anywhere else the slides stay a plain run of cards.
+   arrows inside each slide and at the foot of the index move one
+   slide at a time. A wheel or trackpad gesture moves one slide and
+   then waits for the gesture to finish, so a long scroll never skips
+   past a slide. The index jumps to the first slide of a section. Live
+   only on a wide, tall enough screen. Anywhere else the slides stay a plain run of cards.
    Preview boxes ([data-preview]) fill with the image boxes and swatches
    from the section they name, so they follow the boards. */
 (function () {
@@ -58,8 +58,8 @@
   });
   var ctrl = document.createElement('div');
   ctrl.className = 'deck-ctrl';
-  var up = btn('Previous section', '&#8593;'), down = btn('Next section', '&#8595;');
-  ctrl.appendChild(up); ctrl.appendChild(down);
+  var prev = btn('Previous slide', '&#8592;', 'back'), next = btn('Next slide', '&#8594;');
+  ctrl.appendChild(prev); ctrl.appendChild(next);
   index.appendChild(ctrl);
 
   // Arrows inside every slide.
@@ -137,8 +137,8 @@
     });
     chapters[f.c].at = f.i;
     paintChapter(f.c);
-    up.disabled = f.c === 0;
-    down.disabled = f.c === chapters.length - 1;
+    prev.disabled = g === 0;
+    next.disabled = g === flat.length - 1;
   }
 
   // A classic scrollbar takes width that 100vw counts. Measured so the
@@ -211,8 +211,8 @@
     go(chapters[c].first);
     try { history.replaceState(null, '', '#' + chapters[c].id); } catch (err) {}
   });
-  up.addEventListener('click', function () { var c = flat[position()].c; go(chapters[Math.max(0, c - 1)].first); });
-  down.addEventListener('click', function () { var c = flat[position()].c; go(chapters[Math.min(chapters.length - 1, c + 1)].first); });
+  prev.addEventListener('click', function () { go(position() - 1); });
+  next.addEventListener('click', function () { go(position() + 1); });
 
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule, { passive: true });
