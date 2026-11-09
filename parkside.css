@@ -417,15 +417,16 @@ details.block summary:hover .tog{color:var(--ink)}
 
 /* --- Texture system, identity pages. Two parts, built from the layer
        files exported flat from Figma, bottom to top, each one a plain
-       <img> in a 1:1 sheet. The exploded stack floats the sheets apart
+       <img> in a 1:1 sheet. The stack floats on the card with no frame
+       and nothing clipping it. The exploded stack floats the sheets apart
        in 3D so each reads on its own, then presses them back into one
        square. .open explodes it, and the page script adds and removes
        the class on scroll and on the replay button. The parts row shows
        each ingredient as a tile, with + and = between, and the finished
        square at the end. Reduced motion and print show the pressed
        stack with no button. --- */
-.tex-stage{--tex-z:60px;position:relative;aspect-ratio:16/10;margin-top:26px;border:1px solid var(--outline);border-radius:var(--radius-md);
-  background:var(--panel);overflow:hidden;perspective:1700px;display:grid;place-items:center}
+.tex-stage{--tex-z:60px;position:relative;aspect-ratio:16/10;margin-top:26px;
+  perspective:1700px;display:grid;place-items:center}
 .tex-rig{position:relative;width:42%;aspect-ratio:1/1;transform-style:preserve-3d;
   transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
 .tex-sheet{position:absolute;inset:0;border-radius:6px;transform-style:preserve-3d;
@@ -437,7 +438,7 @@ details.block summary:hover .tog{color:var(--ink)}
   transform:translateY(-50%) rotateZ(32deg) rotateX(-58deg)}
 .tex-stage.open .tex-rig{transform:rotateX(58deg) rotateZ(-32deg)}
 .tex-stage.open .tex-sheet{box-shadow:0 22px 44px rgba(0,0,0,.14)}
-.tex-stage.open .tex-sheet.clear{background:rgba(255,255,255,0);outline-color:rgba(0,0,0,.14);box-shadow:0 22px 44px rgba(0,0,0,.05)}
+.tex-stage.open .tex-sheet.clear{background:rgba(255,255,255,.1);outline-color:rgba(0,0,0,.14);box-shadow:0 22px 44px rgba(0,0,0,.05)}
 .tex-stage.open .tex-sheet:nth-child(1){transform:translateZ(calc(var(--tex-z) * -2.5))}
 .tex-stage.open .tex-sheet:nth-child(2){transform:translateZ(calc(var(--tex-z) * -1.5))}
 .tex-stage.open .tex-sheet:nth-child(3){transform:translateZ(calc(var(--tex-z) * -.5))}
@@ -450,6 +451,10 @@ details.block summary:hover .tog{color:var(--ink)}
 .tex-stage.open .tex-sheet:nth-child(3):nth-last-child(3){transform:translateZ(0)}
 .tex-stage.open .tex-sheet:nth-child(4):nth-last-child(2){transform:translateZ(var(--tex-z))}
 .tex-stage.open .tex-sheet:nth-child(5):nth-last-child(1){transform:translateZ(calc(var(--tex-z) * 2))}
+/* A three-sheet rig spreads around the same center. */
+.tex-stage.open .tex-sheet:nth-child(1):nth-last-child(3){transform:translateZ(calc(var(--tex-z) * -1.5))}
+.tex-stage.open .tex-sheet:nth-child(2):nth-last-child(2){transform:translateZ(0)}
+.tex-stage.open .tex-sheet:nth-child(3):nth-last-child(1){transform:translateZ(calc(var(--tex-z) * 1.5))}
 .tex-stage.open .tex-tag{opacity:1;transition-delay:.6s}
 .tex-replay{display:inline-flex;align-items:center;margin-top:18px;font:inherit;font-size:16.5px;font-weight:600;
   letter-spacing:-.006em;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--outline);
@@ -707,7 +712,7 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
      new footage comes last. ---------- */
 .slide-visuals { margin-top: auto; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: clamp(14px, 2cqw, 28px); }
 .slide-visual .slide-img { aspect-ratio: 4 / 3; margin-bottom: clamp(10px, 1.3cqw, 16px); }
-.slide-visual p { font-size: clamp(14px, 1.5cqw, 20px); line-height: 1.4; }
+.slide-visual p { font-size: clamp(13px, 1.3cqw, 17px); line-height: 1.4; }
 .slide-visual .slide-row-lab + p { margin-top: 0.2em; }
 
 /* ---------- Live. Wide screens with the script running. ---------- */
@@ -1016,16 +1021,21 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .slide-cover.captioned .slide-num, .slide-cover.captioned .slide-tagline { color: var(--ink); margin: 0; max-width: 60ch; }
 @media (max-width: 820px) { .slide-caption { grid-template-columns: 1fr; gap: 4px; } }
 
-/* ---------- Posters. Copy in a left column, the posters to the right
-     at the full height of the slide:
+/* ---------- Posters. Copy in a narrow left column, the posters to the
+     right bleeding off the top, bottom, and right edge of the slide.
+     No labels under them:
      <div class="deck-slide slide-posters"> head, body, .slide-visuals. ---------- */
-.slide-posters { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr; column-gap: clamp(24px, 4cqw, 56px); }
-.slide-posters .slide-body { grid-column: 1; grid-row: 2; align-self: end; }
-.slide-posters .slide-visuals { grid-column: 2; grid-row: 1 / 3; margin: 0; grid-auto-columns: 28cqw; }
-.slide-posters .slide-visual .slide-img { aspect-ratio: 2 / 3; }
+.slide-posters { display: grid; grid-template-columns: 21cqw 1fr; grid-template-rows: auto 1fr; column-gap: clamp(24px, 4cqw, 56px); padding-top: 0; padding-bottom: 0; padding-right: 0; }
+.slide-posters .slide-head { padding-top: clamp(24px, 4.6cqw, 60px); }
+.slide-posters .slide-body { grid-column: 1; grid-row: 2; align-self: end; padding-bottom: clamp(24px, 4.6cqw, 60px); }
+.slide-posters .slide-visuals { grid-column: 2; grid-row: 1 / 3; margin: 0; grid-auto-columns: 1fr; gap: clamp(8px, 1.2cqw, 16px); }
+.slide-posters .slide-visual { height: 100%; }
+.slide-posters .slide-visual .slide-img { aspect-ratio: auto; height: 100%; margin: 0; border-radius: 0; }
 @media (max-width: 820px) {
-  .slide-posters { display: flex; }
+  .slide-posters { display: flex; padding: clamp(24px, 4.6cqw, 60px) clamp(24px, 5.4cqw, 72px); }
+  .slide-posters .slide-head, .slide-posters .slide-body { padding: 0; }
   .slide-posters .slide-visuals { grid-auto-columns: 1fr; margin-top: 18px; }
+  .slide-posters .slide-visual .slide-img { height: auto; aspect-ratio: 2 / 3; border-radius: var(--radius-sm); }
 }
 /* ============================================================
    PARKSIDE SYSTEM DECK v2 — END
