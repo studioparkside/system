@@ -383,6 +383,8 @@ details.block summary:hover .tog{color:var(--ink)}
   align-items:center;justify-content:center;padding:76px 40px;margin-top:26px;min-height:260px}
 .show img{width:min(540px,82%);height:auto}
 .show.rev{background:var(--neutral-black);border-color:var(--neutral-black)}
+/* A tall mark, like an icon, set by height so it does not fill the card. */
+.show img.mark{width:auto;height:clamp(90px,12vw,150px)}
 .show .slot{color:#A3A6A9}
 .showcap{display:flex;justify-content:space-between;gap:20px;margin-top:12px;font-size:var(--t-caption);color:var(--ink-soft)}
 .showcap strong{color:var(--ink);font-weight:650}
@@ -1027,6 +1029,18 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   .slide-posters .slide-visuals { grid-auto-columns: 1fr; margin-top: 18px; }
   .slide-posters .slide-visual .slide-img { height: auto; aspect-ratio: 2 / 3; border-radius: var(--radius-sm); }
 }
+
+/* ---------- Logo box. A logo whole and centered on a plain ground,
+     never cropped: <div class="slide-img logo-box"><img src="….svg"></div>.
+     White by default, .rev runs it on black, and an inline background
+     sets a brand color. .sm sets the mark small, like a favicon. ---------- */
+.slide-img.logo-box { background: var(--neutral-white); box-shadow: inset 0 0 0 1px #E2E4E6; }
+.slide-img.logo-box.rev { background: var(--neutral-black); box-shadow: none; }
+.slide-img.logo-box[style] { box-shadow: none; }
+.slide-img.logo-box img { inset: 22%; width: 56%; height: 56%; object-fit: contain; }
+.slide-img.logo-box.sm img { inset: 41%; width: 18%; height: 18%; }
+/* The brand mark as an Instagram avatar, inside a colored circle. */
+.ig-avatar img.mark { inset: 22%; width: 56%; height: 56%; object-fit: contain; }
 /* ============================================================
    PARKSIDE SYSTEM DECK v2 — END
    ============================================================ */
