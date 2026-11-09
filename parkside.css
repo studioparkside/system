@@ -372,6 +372,10 @@ details.block summary:hover .tog{color:var(--ink)}
 .specimen .spname{font-size:17px;font-weight:650;letter-spacing:-.008em}
 .specimen .spmeta{font-size:15.5px;color:var(--ink-soft);margin-top:3px}
 .specimen .aa{font-size:clamp(64px,9vw,120px);line-height:1;letter-spacing:-.03em;margin-top:28px}
+/* A specimen runs as a column with the Aa at its foot, so two side by
+   side line up their Aa even when one description wraps longer. */
+.specimen{display:flex;flex-direction:column}
+.specimen .aa{margin-top:auto;padding-top:28px;text-box:trim-both cap alphabetic}
 
 /* --- Mark display, identity pages. The mark sits large on neutral, then
        reversed on black. A caption row names the application. --- */
@@ -808,10 +812,7 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   .deck-btn:disabled { opacity: 0.35; cursor: default; background: var(--card); }
   .deck-btn:focus-visible, .deck-index a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
-  /* Forward is the main move, so it is solid. Back stays outlined. */
-  .deck-ctrl .deck-btn:not(.back) { background: var(--ink); border-color: var(--ink); color: var(--card); }
-  .deck-ctrl .deck-btn:not(.back):hover { background: var(--ink); }
-  .deck-ctrl .deck-btn:not(.back):disabled { background: var(--card); border-color: var(--outline); color: var(--ink); }
+  /* Back and forward are both outlined. Neither is filled. */
 
   /* The frame. Chapters stack in one place and the current one shows,
      centered. Nothing shows behind it. */
@@ -932,22 +933,11 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .ig-avatar { flex: none; display: block; width: 2.2em; height: 2.2em; border-radius: 999px; background: color-mix(in srgb, var(--ink) 12%, var(--card)); overflow: hidden; position: relative; }
 .ig-avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ig-post .slide-img { aspect-ratio: 4 / 5; border-radius: 0; margin: 0; }
-/* The action row. Heart, comment, and send on the left, save on the right, drawn as masks in the text color. */
-.ig-actions { display: flex; justify-content: space-between; padding: 1.1em 0.9em 2em 1.25em; }
-.ig-actions::before, .ig-actions::after { content: ""; display: block; height: 1.7em; background: currentColor; }
-.ig-actions::before {
-  width: 6.6em;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20.5l-1.3-1.2C5.9 15 3 12.4 3 9.2 3 6.6 5 4.6 7.6 4.6c1.5 0 2.9.7 3.8 1.8a5 5 0 0 1 3.8-1.8c2.6 0 4.6 2 4.6 4.6 0 3.2-2.9 5.8-7.7 10.1L12 20.5z'/%3E%3C/svg%3E") 0 50% / 1.7em 1.7em no-repeat,
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.5c4.8 0 8.5 3.4 8.5 7.8s-3.7 7.8-8.5 7.8c-1 0-2-.1-2.9-.4L5 20.5l1-3.6A7.4 7.4 0 0 1 3.5 11.3C3.5 6.9 7.2 3.5 12 3.5z'/%3E%3C/svg%3E") 2.45em 50% / 1.7em 1.7em no-repeat,
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 3L3.5 10.2l7.3 2.9 2.9 7.4L21 3z'/%3E%3Cpath d='M10.8 13.1L21 3'/%3E%3C/svg%3E") 4.9em 50% / 1.7em 1.7em no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20.5l-1.3-1.2C5.9 15 3 12.4 3 9.2 3 6.6 5 4.6 7.6 4.6c1.5 0 2.9.7 3.8 1.8a5 5 0 0 1 3.8-1.8c2.6 0 4.6 2 4.6 4.6 0 3.2-2.9 5.8-7.7 10.1L12 20.5z'/%3E%3C/svg%3E") 0 50% / 1.7em 1.7em no-repeat,
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.5c4.8 0 8.5 3.4 8.5 7.8s-3.7 7.8-8.5 7.8c-1 0-2-.1-2.9-.4L5 20.5l1-3.6A7.4 7.4 0 0 1 3.5 11.3C3.5 6.9 7.2 3.5 12 3.5z'/%3E%3C/svg%3E") 2.45em 50% / 1.7em 1.7em no-repeat,
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 3L3.5 10.2l7.3 2.9 2.9 7.4L21 3z'/%3E%3Cpath d='M10.8 13.1L21 3'/%3E%3C/svg%3E") 4.9em 50% / 1.7em 1.7em no-repeat;
-}
-.ig-actions::after {
-  width: 1.7em;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3.5h12v17l-6-4.2-6 4.2v-17z'/%3E%3C/svg%3E") 50% 50% / 1.7em 1.7em no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3.5h12v17l-6-4.2-6 4.2v-17z'/%3E%3C/svg%3E") 50% 50% / 1.7em 1.7em no-repeat;
+/* The action row. The heart alone, drawn as a mask in the text color. */
+.ig-actions { display: flex; padding: 1.1em 0.9em 2em 1.25em; }
+.ig-actions::before { content: ""; display: block; width: 1.7em; height: 1.7em; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20.5l-1.3-1.2C5.9 15 3 12.4 3 9.2 3 6.6 5 4.6 7.6 4.6c1.5 0 2.9.7 3.8 1.8a5 5 0 0 1 3.8-1.8c2.6 0 4.6 2 4.6 4.6 0 3.2-2.9 5.8-7.7 10.1L12 20.5z'/%3E%3C/svg%3E") 0 50% / 1.7em 1.7em no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20.5l-1.3-1.2C5.9 15 3 12.4 3 9.2 3 6.6 5 4.6 7.6 4.6c1.5 0 2.9.7 3.8 1.8a5 5 0 0 1 3.8-1.8c2.6 0 4.6 2 4.6 4.6 0 3.2-2.9 5.8-7.7 10.1L12 20.5z'/%3E%3C/svg%3E") 0 50% / 1.7em 1.7em no-repeat;
 }
 .ig-caption { padding: 0 0.9em 1em; font-size: 1em; line-height: 1.35; max-width: none; color: var(--ink); }
 .ig-caption b { font-weight: 600; margin-right: 0.3em; }
