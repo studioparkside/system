@@ -993,7 +993,7 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 
 /* ---------- Slide title. A heading on a content slide, set under the
      head line: <h2 class="slide-h">. ---------- */
-.slide-h { font-family: var(--font); font-weight: 650; letter-spacing: -0.03em; font-size: clamp(26px, 4.2cqw, 58px); line-height: 1.05; margin-top: clamp(14px, 2cqw, 28px); }
+.slide-h { font-family: var(--font); font-weight: 400; letter-spacing: -0.04em; font-size: clamp(26px, 4.2cqw, 58px); line-height: 1.05; margin-top: clamp(14px, 2cqw, 28px); }
 
 /* ---------- Long lede on the deep fill. Two or three paragraphs as
      <div class="slide-lede long"><p>…</p></div>, set smaller so they fit. ---------- */
