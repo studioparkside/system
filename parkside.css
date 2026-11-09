@@ -437,13 +437,19 @@ details.block summary:hover .tog{color:var(--ink)}
   transform:translateY(-50%) rotateZ(32deg) rotateX(-58deg)}
 .tex-stage.open .tex-rig{transform:rotateX(58deg) rotateZ(-32deg)}
 .tex-stage.open .tex-sheet{box-shadow:0 22px 44px rgba(0,0,0,.14)}
-.tex-stage.open .tex-sheet.clear{background:rgba(255,255,255,.78);outline-color:rgba(0,0,0,.08)}
+.tex-stage.open .tex-sheet.clear{background:rgba(255,255,255,0);outline-color:rgba(0,0,0,.14);box-shadow:0 22px 44px rgba(0,0,0,.05)}
 .tex-stage.open .tex-sheet:nth-child(1){transform:translateZ(calc(var(--tex-z) * -2.5))}
 .tex-stage.open .tex-sheet:nth-child(2){transform:translateZ(calc(var(--tex-z) * -1.5))}
 .tex-stage.open .tex-sheet:nth-child(3){transform:translateZ(calc(var(--tex-z) * -.5))}
 .tex-stage.open .tex-sheet:nth-child(4){transform:translateZ(calc(var(--tex-z) * .5))}
 .tex-stage.open .tex-sheet:nth-child(5){transform:translateZ(calc(var(--tex-z) * 1.5))}
 .tex-stage.open .tex-sheet:nth-child(6){transform:translateZ(calc(var(--tex-z) * 2.5))}
+/* A five-sheet rig spreads around the same center. */
+.tex-stage.open .tex-sheet:nth-child(1):nth-last-child(5){transform:translateZ(calc(var(--tex-z) * -2))}
+.tex-stage.open .tex-sheet:nth-child(2):nth-last-child(4){transform:translateZ(calc(var(--tex-z) * -1))}
+.tex-stage.open .tex-sheet:nth-child(3):nth-last-child(3){transform:translateZ(0)}
+.tex-stage.open .tex-sheet:nth-child(4):nth-last-child(2){transform:translateZ(var(--tex-z))}
+.tex-stage.open .tex-sheet:nth-child(5):nth-last-child(1){transform:translateZ(calc(var(--tex-z) * 2))}
 .tex-stage.open .tex-tag{opacity:1;transition-delay:.6s}
 .tex-replay{display:inline-flex;align-items:center;margin-top:18px;font:inherit;font-size:16.5px;font-weight:600;
   letter-spacing:-.006em;color:var(--ink);background:none;border:0;border-bottom:1px solid var(--outline);
