@@ -418,6 +418,13 @@ details.block summary:hover .tog{color:var(--ink)}
 .card.dark .cta{color:var(--deep)}
 .cta:hover{background:#E9EAEC}
 .cta svg{width:12px;height:12px;flex:none}
+/* More links beside the call to action, as open pills in one row:
+   <div class="cta-row"><a class="cta">…</a><a class="cta open">…</a></div>.
+   The outline is an inset shadow so open and filled pills match in size. */
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.cta-row .cta{margin-top:0}
+.card.dark .cta.open{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}
+.card.dark .cta.open:hover{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px var(--paper)}
 .card.dark h2{font-size:var(--t-section);font-weight:600;letter-spacing:-.024em;line-height:1.06;max-width:20ch}
 .card.dark p{color:rgba(255,255,255,.72);max-width:52ch;margin-top:16px}
 
