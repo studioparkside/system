@@ -376,6 +376,11 @@ details.block summary:hover .tog{color:var(--ink)}
    side line up their Aa even when one description wraps longer. */
 .specimen{display:flex;flex-direction:column}
 .specimen .aa{margin-top:auto;padding-top:28px;text-box:trim-both cap alphabetic}
+/* .aa.smooth rounds off a font traced from scans, whose stair-stepped
+   outlines read as pixels at specimen size. A slight blur, then contrast
+   pulls the edge back sharp. The shadow carries the white below the
+   baseline so the feet have a ground. Black ink on the white panel only. */
+.specimen .aa.smooth{background:var(--panel);box-shadow:0 .2em 0 var(--panel);filter:blur(.01em) contrast(10)}
 
 /* --- Mark display, identity pages. The mark sits large on neutral, then
        reversed on black. A caption row names the application. --- */
