@@ -1037,10 +1037,24 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .slide-img.logo-box { background: var(--neutral-white); box-shadow: inset 0 0 0 1px #E2E4E6; }
 .slide-img.logo-box.rev { background: var(--neutral-black); box-shadow: none; }
 .slide-img.logo-box[style] { box-shadow: none; }
-.slide-img.logo-box img { inset: 22%; width: 56%; height: 56%; object-fit: contain; }
+.slide-img.logo-box img { inset: 30%; width: 40%; height: 40%; object-fit: contain; }
 .slide-img.logo-box.sm img { inset: 41%; width: 18%; height: 18%; }
 /* The brand mark as an Instagram avatar, inside a colored circle. */
 .ig-avatar img.mark { inset: 22%; width: 56%; height: 56%; object-fit: contain; }
+
+/* ---------- Flat deck. <section class="deck flat" data-deck>. On
+     desktop the slides and the index drop the card look, with no
+     border, corner, or shadow, on a white page. A hairline runs between
+     the index and the slides. Phone width keeps the cards. ---------- */
+@media screen {
+  body:has(.deck.flat.is-live) { background: var(--neutral-white); }
+  body:has(.deck.flat.is-live) .botbar { background: var(--neutral-white); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .deck.flat.is-live .deck-stage { column-gap: 32px; }
+  .deck.flat.is-live .deck-slide { border: 0; border-radius: 0; box-shadow: none; }
+  .deck.flat.is-live .deck-slide:not(.slide-dark):not(.slide-cover) { background: var(--neutral-white); }
+  .deck.flat.is-live .deck-index { background: none; border: 0; border-right: 1px solid var(--hairline); border-radius: 0; padding: 4px 22px 0 4px; }
+  .deck.flat.is-live .deck-btn { background: var(--neutral-white); }
+}
 /* ============================================================
    PARKSIDE SYSTEM DECK v2 — END
    ============================================================ */
