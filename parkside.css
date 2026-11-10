@@ -1082,6 +1082,12 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
    style="background:…"><img src="….svg"></i></div>. */
 .logo-box .mark-avatar { position: absolute; left: 50%; top: 50%; height: 62%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 999px; overflow: hidden; display: block; }
 .slide-img.logo-box .mark-avatar img { inset: 22%; width: 56%; height: 56%; object-fit: contain; }
+/* The brand mark in a circle with the card outline, sitting on the slide
+   with no box behind it: <div class="slide-img slide-img-lead mark-ring">
+   <i><img src="….svg" alt="…"></i></div>. */
+.slide-img.mark-ring { background: none; }
+.mark-ring > i { position: absolute; left: 50%; top: 50%; height: 62%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 1px solid var(--outline); border-radius: 999px; display: block; }
+.slide-img.mark-ring img { inset: 24%; width: 52%; height: 52%; object-fit: contain; }
 /* The favicon in a browser address field, at the size a browser shows it:
    <div class="slide-img logo-box"><div class="browser-field"><img
    src="….svg" alt=""><span>Name</span></div></div>. */

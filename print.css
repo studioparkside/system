@@ -46,6 +46,8 @@
   .deck-slide { break-inside: avoid; border: 1pt solid var(--neutral-black); }
   .slide-cover { background: var(--neutral-white); color: var(--neutral-black); }
   .slide-img { border: 1pt solid var(--neutral-black); }
+  .slide-img.mark-ring { border: 0; }
+  .mark-ring > i { border: 1pt solid var(--neutral-black); }
   .slide-cover .slide-media { position: relative; height: auto; aspect-ratio: 16 / 9; margin-bottom: 12pt; }
   .slide-cover::after { display: none; }
   .slide-cover:has(.slide-media), .slide-cover:has(.slide-media) .slide-num, .slide-cover:has(.slide-media) .slide-tagline { color: var(--neutral-black); }
