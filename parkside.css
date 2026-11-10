@@ -395,6 +395,10 @@ details.block summary:hover .tog{color:var(--ink)}
 .showcap strong{color:var(--ink);font-weight:650}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
 .pair .show{margin-top:0}
+/* Both boxes in a pair run the same height, so the captions line up when
+   the two images differ in shape. */
+.pair>div:has(>.show){display:flex;flex-direction:column}
+.pair>div>.show{flex:1}
 /* Variation grid. Each item is a positive and reversed pair. */
 .vargrid{display:grid;grid-template-columns:1fr 1fr;gap:28px 12px;margin-top:26px}
 .varpair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
