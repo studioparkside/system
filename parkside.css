@@ -1052,6 +1052,11 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .slide-img.logo-box[style] { box-shadow: none; }
 .slide-img.logo-box img { inset: 30%; width: 40%; height: 40%; object-fit: contain; }
 .slide-img.logo-box.sm img { inset: 41%; width: 18%; height: 18%; }
+/* .lg runs a logotype across most of the box's width. */
+.slide-img.logo-box.lg img { inset: 0 9%; width: 82%; height: 100%; }
+/* One visual on its own, at the width of one in a pair:
+   <div class="slide-visuals single">. */
+.slide-visuals.single { grid-auto-columns: calc((100% - clamp(14px, 2cqw, 28px)) / 2); }
 /* The brand mark as an Instagram avatar, inside a colored circle. */
 .ig-avatar img.mark { inset: 22%; width: 56%; height: 56%; object-fit: contain; }
 /* The brand mark as a social avatar, a circle of brand color centered in
