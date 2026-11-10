@@ -1054,14 +1054,16 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .slide-img.logo-box.sm img { inset: 41%; width: 18%; height: 18%; }
 /* .lg runs a logotype across most of the box's width. */
 .slide-img.logo-box.lg img { inset: 0 9%; width: 82%; height: 100%; }
-/* ---------- Brand slide. A logotype across the whole slide on a brand
-     color, with the head and lede in white: <div class="deck-slide
-     slide-brand" style="background:…"> head, <img class="slide-wordmark"
-     src="….svg" alt="…">, <p class="slide-lede">. ---------- */
+/* ---------- Wordmark slide. A logotype across the whole slide:
+     <div class="deck-slide"> head, <img class="slide-wordmark"
+     src="….svg" alt="…">, <p class="slide-body">. Add .slide-brand and
+     style="background:…" to run it on a brand color, with the head and
+     lede in white. ---------- */
+.slide-wordmark { display: block; width: 100%; height: auto; margin: auto 0; }
+.slide-wordmark + .slide-body { margin: 0; }
 .slide-brand { color: var(--paper); border-color: transparent; }
 .slide-brand .slide-head, .slide-brand .slide-head .slide-num, .slide-brand .slide-head-sub { color: var(--paper); }
 .slide-brand .slide-head-sub::before { color: rgba(255,255,255,.5); }
-.slide-brand .slide-wordmark { display: block; width: 100%; height: auto; margin: auto 0; }
 .slide-brand .slide-lede { margin: 0; padding: 0; font-size: clamp(18px, 2.25cqw, 30px); max-width: 56ch; }
 /* One visual on its own, at the width of one in a pair:
    <div class="slide-visuals single">. */
