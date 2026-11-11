@@ -413,6 +413,13 @@ details.block summary:hover .tog{color:var(--ink)}
 /* --- Shots. Mockups and application images, full width or two up.
        Four up for small repeated formats like social posts. --- */
 .shots{display:grid;grid-template-columns:1fr;gap:12px;margin:26px 0}
+/* An image with its specs in a column to the right:
+   <div class="spec-pair"><div class="shots">…</div><div class="speclist">…</div></div> */
+.spec-pair{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:start;margin:26px 0}
+.spec-pair > .shots,.spec-pair > .speclist{margin:0}
+.spec-pair > .speclist > div{grid-template-columns:minmax(0,1fr)}
+.spec-pair > .speclist > div:first-child{padding-top:0;border-top:0}
+@media(max-width:820px){ .spec-pair{grid-template-columns:1fr;gap:26px} }
 .shots.two{grid-template-columns:1fr 1fr}
 .shots.four{grid-template-columns:repeat(4,1fr)}
 .shot{margin:0;border:1px solid var(--outline);border-radius:var(--radius-md);overflow:hidden;background:var(--panel);
@@ -1136,7 +1143,29 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
      column, with the copy under it:
      <div class="slide-img mark-ring stack"><i><img src="….svg" alt="…"></i></div>
      then <div class="slide-exec">. ---------- */
-.slide-img.mark-ring.stack { width: clamp(110px, 20cqw, 300px); aspect-ratio: 1; margin: auto 0 0; overflow: visible; }
+.slide-img.mark-ring.stack { width: clamp(150px, 34cqw, 560px); aspect-ratio: 1; margin: auto 0 0; overflow: visible; }
+
+/* ---------- Even type. <section class="deck even" data-deck>. The head
+     line and body copy set at one size on every slide. A split slide's
+     copy column is narrower, so it takes a larger share of its own width
+     to land at the same size. ---------- */
+.deck.even .slide-head, .deck.even .slide-body { font-size: clamp(15px, 1.47cqw, 20px); }
+.deck.even .slide-split .slide-head, .deck.even .slide-split .slide-body { font-size: clamp(15px, 3.44cqw, 20px); }
+.deck.even .slide-posters .slide-head, .deck.even .slide-posters .slide-body { font-size: clamp(15px, 1.38cqw, 20px); }
+/* Live, the size comes from the slide's own width, worked out from the
+   window, so padding never shifts it. Pairs with .deck.flat.full. */
+@media screen {
+  .deck.even.is-live { --slide-w: min(100vw - 24px - var(--deck-sbw, 0px) - 204px, var(--stage-h) * 16 / 9); }
+  .deck.even.is-live .slide-head, .deck.even.is-live .slide-body { font-size: clamp(15px, calc(var(--slide-w) * 0.0131), 20px); }
+}
+
+/* ---------- Posters slide head on one line. It runs over the images,
+     which suits mockups on a white ground. ---------- */
+.slide-posters .slide-head { white-space: nowrap; position: relative; z-index: 1; }
+
+/* ---------- Narrow lede. A long lede kept to a thinner column, for a
+     cover whose image fills the right side: .slide-lede.long.narrow. ---------- */
+.slide-dark .slide-lede.narrow { max-width: 27ch; }
 .mark-ring.stack > i { left: 0; top: 0; height: 100%; transform: none; }
 .mark-ring.stack + .slide-exec { margin-top: clamp(20px, 3.2cqw, 44px); }
 /* ============================================================
