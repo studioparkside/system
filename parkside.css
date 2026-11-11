@@ -393,6 +393,7 @@ details.block summary:hover .tog{color:var(--ink)}
 .show .slot{color:#A3A6A9}
 .showcap{display:flex;justify-content:space-between;gap:20px;margin-top:12px;font-size:var(--t-caption);color:var(--ink-soft)}
 .showcap strong{color:var(--ink);font-weight:650}
+.showcap + p{margin-top:26px}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
 .pair .show{margin-top:0}
 /* Both boxes in a pair run the same height, so the captions line up when
@@ -1112,6 +1113,32 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   .deck.flat.is-live .deck-index { background: none; border: 0; border-right: 1px solid var(--hairline); border-radius: 0; padding: 4px 22px 0 4px; }
   .deck.flat.is-live .deck-btn { background: var(--neutral-white); }
 }
+
+/* ---------- Full width. <section class="deck full" data-deck>. The
+     deck runs the width of the window with no cap, so the slides grow
+     on a large screen until the window's height stops them. The footer
+     runs slimmer to give the slides more height. ---------- */
+@media screen {
+  .deck.full.is-live { width: calc(100vw - 24px - var(--deck-sbw, 0px)); }
+  body:has(.deck.full.is-live) { --foot-h: 64px; }
+}
+
+/* ---------- Image on the right. A cover image at the slide's full
+     height, pushed right, its left edge fading into the deep fill, so
+     the copy sits on the left: <img class="slide-media right">. Pair
+     with .slide-dark for the head and the long lede. ---------- */
+.slide-cover .slide-media.right { left: auto; right: -14cqw; width: auto; height: 100%; -webkit-mask-image: linear-gradient(to right, transparent, #000 32%); mask-image: linear-gradient(to right, transparent, #000 32%); }
+@media (max-width: 820px) {
+  .slide-cover .slide-media.right { left: 0; right: 0; width: 100%; -webkit-mask-image: none; mask-image: none; opacity: 0.45; }
+}
+
+/* ---------- Stacked brand mark. The mark in its ring in the left
+     column, with the copy under it:
+     <div class="slide-img mark-ring stack"><i><img src="….svg" alt="…"></i></div>
+     then <div class="slide-exec">. ---------- */
+.slide-img.mark-ring.stack { width: clamp(110px, 20cqw, 300px); aspect-ratio: 1; margin: auto 0 0; overflow: visible; }
+.mark-ring.stack > i { left: 0; top: 0; height: 100%; transform: none; }
+.mark-ring.stack + .slide-exec { margin-top: clamp(20px, 3.2cqw, 44px); }
 /* ============================================================
    PARKSIDE SYSTEM DECK v2 — END
    ============================================================ */
