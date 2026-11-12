@@ -1039,7 +1039,7 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
      doing so. Without the script, on paper, or with reduced motion,
      the lit image shows from the start and holds. ---------- */
 .light-on.is-dark .slide-media.lit { opacity: 0; }
-.light-on.is-lit .slide-media.lit { animation: light-on 2s step-end 0.3s both, light-again 5.5s step-end 2s infinite; }
+.light-on.is-lit .slide-media.lit { animation: light-on 2s step-end 1.3s both, light-again 5.5s step-end 3s infinite; }
 @keyframes light-on {
   0%   { opacity: 0; }
   24%  { opacity: 0.9; }
