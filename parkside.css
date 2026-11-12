@@ -1038,7 +1038,7 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
      It plays once. Without the script, on paper, or with reduced motion,
      the lit image shows from the start. ---------- */
 .light-on.is-dark .slide-media.lit { opacity: 0; }
-.light-on.is-lit .slide-media.lit { animation: light-on 1.7s step-end 0.3s both; }
+.light-on.is-lit .slide-media.lit { animation: light-on 2s step-end 0.3s both; }
 @keyframes light-on {
   0%   { opacity: 0; }
   24%  { opacity: 0.9; }
