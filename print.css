@@ -50,6 +50,8 @@
   .mark-ring > i { border: 1pt solid var(--neutral-black); }
   .slide-cover .slide-media { position: relative; height: auto; aspect-ratio: 16 / 9; margin-bottom: 12pt; }
   .slide-cover::after { display: none; }
+  .light-on .slide-media:not(.lit) { display: none; }
+  .light-on .slide-media.lit { opacity: 1 !important; animation: none !important; }
   .slide-cover:has(.slide-media), .slide-cover:has(.slide-media) .slide-num, .slide-cover:has(.slide-media) .slide-tagline { color: var(--neutral-black); }
   .slide-row,.slide-visual{break-inside:avoid}
   .slide-dark { background: var(--neutral-white); color: var(--neutral-black); }

@@ -1031,6 +1031,30 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .slide-cover.bare > :not(.slide-media) { text-shadow: 0 1px 18px rgb(0 0 0 / 0.35); }
 .slide-media.upper { object-position: 50% 18%; }
 
+/* ---------- Light-on cover. A cover with two images of the same frame,
+     the unlit one first and the lit one second as
+     <img class="slide-media lit">. deck.js holds the unlit image the
+     first time the slide shows, then the lit one flickers on and stays.
+     It plays once. Without the script, on paper, or with reduced motion,
+     the lit image shows from the start. ---------- */
+.light-on.is-dark .slide-media.lit { opacity: 0; }
+.light-on.is-lit .slide-media.lit { animation: light-on 1.7s step-end 0.3s both; }
+@keyframes light-on {
+  0%   { opacity: 0; }
+  24%  { opacity: 0.9; }
+  27%  { opacity: 0.05; }
+  31%  { opacity: 0.7; }
+  33%  { opacity: 0; }
+  55%  { opacity: 1; }
+  58%  { opacity: 0.3; }
+  61%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .light-on.is-dark .slide-media.lit { opacity: 1; }
+  .light-on.is-lit .slide-media.lit { animation: none; }
+}
+
 /* ---------- Captioned cover. A full-width mockup with its label and
      line in a strip at the foot of the card, off the image:
      <div class="deck-slide slide-cover captioned"> the image, then

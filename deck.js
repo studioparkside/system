@@ -73,6 +73,29 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   var live = false, current = -1, frame = 0;
 
+  // Light-on covers. Each holds its unlit image until the slide first
+  // shows, then the lit image flickers on, once the lit image has loaded.
+  // In the deck the current slide sets it off. In the plain run of cards
+  // it goes when most of the slide is in view.
+  var dark = reduce.matches ? [] : [].slice.call(deck.querySelectorAll('.light-on')).filter(function (s) {
+    return s.querySelector('.slide-media.lit');
+  });
+  dark.forEach(function (s) { s.classList.add('is-dark'); });
+  function light(s) {
+    if (!s.classList.contains('is-dark')) return;
+    var img = s.querySelector('.slide-media.lit');
+    function on() { s.classList.remove('is-dark'); s.classList.add('is-lit'); }
+    if (img.complete) on(); else img.addEventListener('load', on, { once: true });
+  }
+  var seen = dark.length && 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (live || !e.isIntersecting) return;
+      light(e.target);
+      seen.unobserve(e.target);
+    });
+  }, { threshold: 0.6 }) : null;
+  dark.forEach(function (s) { if (seen) seen.observe(s); else light(s); });
+
   function setLive(on) {
     live = on;
     deck.classList.toggle('is-live', on);
@@ -123,6 +146,7 @@
     });
     chapters[f.c].at = f.i;
     paintChapter(f.c);
+    light(f.s);
     prev.disabled = g === 0;
     next.disabled = g === flat.length - 1;
   }
