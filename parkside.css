@@ -1034,11 +1034,12 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 /* ---------- Light-on cover. A cover with two images of the same frame,
      the unlit one first and the lit one second as
      <img class="slide-media lit">. deck.js holds the unlit image the
-     first time the slide shows, then the lit one flickers on and stays.
-     It plays once. Without the script, on paper, or with reduced motion,
-     the lit image shows from the start. ---------- */
+     first time the slide shows, then the lit one flickers on. After
+     about four seconds lit it cuts out and flickers back, and keeps
+     doing so. Without the script, on paper, or with reduced motion,
+     the lit image shows from the start and holds. ---------- */
 .light-on.is-dark .slide-media.lit { opacity: 0; }
-.light-on.is-lit .slide-media.lit { animation: light-on 2s step-end 0.3s both; }
+.light-on.is-lit .slide-media.lit { animation: light-on 2s step-end 0.3s both, light-again 5.5s step-end 2s infinite; }
 @keyframes light-on {
   0%   { opacity: 0; }
   24%  { opacity: 0.9; }
@@ -1049,6 +1050,19 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
   58%  { opacity: 0.3; }
   61%  { opacity: 1; }
   100% { opacity: 1; }
+}
+/* The repeat. Four seconds lit, a quick cut, the same stutter, then lit. */
+@keyframes light-again {
+  0%    { opacity: 1; }
+  72.7% { opacity: 0; }
+  77.3% { opacity: 0.9; }
+  78.4% { opacity: 0.05; }
+  79.8% { opacity: 0.7; }
+  80.5% { opacity: 0; }
+  88.5% { opacity: 1; }
+  89.6% { opacity: 0.3; }
+  90.7% { opacity: 1; }
+  100%  { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .light-on.is-dark .slide-media.lit { opacity: 1; }
