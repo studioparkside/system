@@ -1290,6 +1290,13 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .section-body .phase-body > .label:first-child{margin-top:0;padding-top:0;border-top:0}
 .phase-body .rows{margin:0}
 .phase-body .rows.flat > .row:last-child{padding-bottom:0}
+/* Notes list. One dependency or condition per bullet on a middot, then the
+   close condition as a paragraph after the list. */
+.section-body .phase-body > ul:not([class]){max-width:60ch;margin:0 0 20px;padding-left:19px}
+.section-body .phase-body > ul:not([class]):last-child{margin-bottom:0}
+.phase-body > ul:not([class]) li::marker{content:"\00B7\2002";color:var(--ink-muted)}
+.phase-body > ul:not([class]) li{margin-bottom:8px}
+.phase-body > ul:not([class]) li:last-child{margin-bottom:0}
 /* Numbered flat rows, for questions a phase sets out to answer. The number
    sits in its own column in the soft ink so it reads apart from the text. */
 .rows.flat.num .row{grid-template-columns:96px 1fr;gap:26px}
