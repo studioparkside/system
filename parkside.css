@@ -1302,6 +1302,30 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .rows.flat.num .row{grid-template-columns:96px 1fr;gap:26px}
 .rows.num .row-num{font-weight:500;letter-spacing:-.006em;color:var(--ink-soft);padding-top:2px}
 .section-body > .phase:last-child{margin-bottom:0}
+/* Phase accordion. A phase card as <details class="phase" open>, open by
+   default and closed case by case. The summary is the phase head, with the
+   one-line intro in .phase-sum under the name and a thin plus at the right
+   that turns to a minus when open. A page with closed phases includes the
+   print script that opens them for print. */
+details.phase > summary{list-style:none;cursor:pointer;position:relative;padding-right:92px}
+details.phase > summary::-webkit-details-marker{display:none}
+details.phase > summary .phase-title{display:block;min-width:0}
+details.phase > summary .phase-sum{display:block;margin-top:10px;font-size:18px;font-weight:400;letter-spacing:-.008em;
+  line-height:1.45;color:var(--ink-soft);max-width:56ch}
+details.phase > summary .tog{position:absolute;right:36px;top:38px;width:24px;height:24px;font-size:0;color:var(--ink-muted);
+  transition:color .15s ease}
+details.phase > summary .tog::before,
+details.phase > summary .tog::after{content:"";position:absolute;left:50%;top:50%;width:22px;height:1.5px;
+  margin:-.75px 0 0 -11px;background:currentColor;transition:transform .2s ease}
+details.phase > summary .tog::after{transform:rotate(90deg)}
+details.phase[open] > summary .tog::after{transform:rotate(0deg)}
+details.phase > summary:hover .tog{color:var(--ink)}
+details.phase > summary:focus-visible{outline-offset:-4px}
+@media(max-width:820px){
+  details.phase > summary{padding-right:64px}
+  details.phase > summary .tog{right:24px;top:26px}
+  details.phase > summary .phase-sum{font-size:16.5px}
+}
 /* Out of scope rows. Ruled rows on a panel with no number column. */
 .rows.terms .row{grid-template-columns:1fr;gap:0}
 @media(max-width:820px){

@@ -261,10 +261,9 @@
         <p class="ref-note">Proposals only. Phase rows are numbered. Add-ons sit under the fee table as tiles, two to a row, and nowhere else on the page. Each one shows its name, a short description, and its price, and the page script adds a selected tile to the total.</p>
 
         <div class="ref-spec">Phase card</div>
-        <div class="phase">
-          <div class="phase-head"><span class="phase-num">Phase 02</span><span>Research</span></div>
+        <details class="phase" open>
+          <summary class="phase-head"><span class="phase-num">Phase 02</span><span class="phase-title">Research<span class="phase-sum">Industry research and conversations with your buyers.</span></span><span class="tog" aria-hidden="true"></span></summary>
           <div class="phase-body">
-            <p>Industry research and conversations with your buyers.</p>
             <div class="label">Research questions</div>
             <div class="rows flat num">
               <div class="row"><div class="row-num">02-01</div><div class="row-text">The business goals behind the project</div></div>
@@ -283,8 +282,8 @@
             <ul><li>Interviews run on your buyers&rsquo; schedules.</li><li>Introductions to your buyers come from you.</li></ul>
             <p>This phase closes once the interviews are complete.</p>
           </div>
-        </div>
-        <p class="ref-note">Proposals only. One card per phase, from the Campminder proposals. Rows set at body size in full ink. Numbered rows, rows flat num, hold questions a phase sets out to answer. Out of scope runs as rows terms, ruled rows on a panel with no number column.</p>
+        </details>
+        <p class="ref-note">Proposals only. One card per phase, from the Campminder proposals. Each phase is an accordion, open by default, with its one-line intro in the head under the name. Phases close case by case, like a proposal whose scope splits into two main parts. A page with closed phases includes the print script that opens them for print. Rows set at body size in full ink. Numbered rows, rows flat num, hold questions a phase sets out to answer. Out of scope runs as rows terms, ruled rows on a panel with no number column.</p>
 
         <div class="ref-spec">Panels</div>
         <div class="duo">
