@@ -1302,6 +1302,19 @@ body:not(:has(.siteheader)) .deck-chapter { scroll-margin-top: 12px; }
 .rows.flat.num .row{grid-template-columns:96px 1fr;gap:26px}
 .rows.num .row-num{font-weight:500;letter-spacing:-.006em;color:var(--ink-soft);padding-top:2px}
 .section-body > .phase:last-child{margin-bottom:0}
+/* Phase accordion. <details class="phase" open> with <summary class="phase-head">
+   and a .tog last in the head. Open by default. The thin plus sits at the far
+   right and turns to a minus when open. Prints open. */
+details.phase > summary{list-style:none;cursor:pointer;user-select:none}
+details.phase > summary::-webkit-details-marker{display:none}
+details.phase > summary .tog{position:relative;flex:none;width:24px;height:24px;margin-left:auto;align-self:center;
+  font-size:0;color:var(--ink-muted);transition:color .15s ease}
+details.phase > summary .tog::before,
+details.phase > summary .tog::after{content:"";position:absolute;left:50%;top:50%;width:22px;height:1.5px;
+  margin:-.75px 0 0 -11px;background:currentColor;transition:transform .2s ease}
+details.phase > summary .tog::after{transform:rotate(90deg)}
+details.phase[open] > summary .tog::after{transform:rotate(0deg)}
+details.phase > summary:hover .tog{color:var(--ink)}
 /* Out of scope rows. Ruled rows on a panel with no number column. */
 .rows.terms .row{grid-template-columns:1fr;gap:0}
 @media(max-width:820px){

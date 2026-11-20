@@ -38,6 +38,7 @@
   .cta{border:1pt solid #000}
   details.block .block-body{display:block !important}
   details.block summary .tog{display:none}
+  details.phase > summary .tog{display:none}
   h1,h2,h3,.label,.section-head{break-after:avoid}
   .row,.plist li,.seqrow,.panel,.note,.fee-row,.addon,.total-card,.tile,.swatch,.show,.shot,.varpair,.speclist > div{break-inside:avoid}
   /* Deck */
