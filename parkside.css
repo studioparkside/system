@@ -1330,3 +1330,35 @@ details.phase > summary:hover .tog{color:var(--ink)}
   .fee-row .famt{grid-column:2;text-align:left;font-size:21px}
   .total-card{padding:26px 22px 28px}
 }
+
+/* ============================================================
+   SHEET. Opt-in with <body class="sheet">. Section cards that sit
+   next to each other join into one white sheet on the ground, split
+   by hairlines with more air between them. Dark cards stay their own
+   pieces. Cards are kept for what a client weighs, the phases, the
+   total, the levels, and the add-ons, as a quiet fill on the sheet.
+   Pages sent before the sheet do not carry the class and keep the
+   stacked cards. Screen only. Print flattens every surface anyway.
+   ============================================================ */
+@media screen{
+  body.sheet{--sheet-y:128px;--sheet-fill:#F4F5F6}
+  body.sheet .stack > section.card:not(.dark){background:var(--neutral-white);border:0;
+    padding:var(--sheet-y) var(--cardpad-x)}
+  body.sheet .stack > section.card:not(.dark) + section.card:not(.dark){margin-top:calc(-1 * var(--pad));
+    border-top:1px solid var(--hairline);border-top-left-radius:0;border-top-right-radius:0}
+  body.sheet .stack > section.card:not(.dark):has(+ section.card:not(.dark)){
+    border-bottom-left-radius:0;border-bottom-right-radius:0}
+  body.sheet .phase,body.sheet .total-card,body.sheet .level{background:var(--sheet-fill);border-color:transparent}
+  body.sheet .addon{background:var(--sheet-fill)}
+  body.sheet .addon:not(:hover):not(:has(input:checked)){border-color:transparent}
+  body.sheet .phase-body{border-top-color:#E3E5E7}
+  /* Ruled rows lose their panel. A schedule is a list, not a choice. */
+  body.sheet .section-body > .rows{background:transparent;border:0;border-radius:0;padding:0;
+    border-top:1px solid var(--hairline-strong)}
+}
+@media screen and (max-width:820px){
+  body.sheet{--sheet-y:64px}
+}
+/* ============================================================
+   SHEET — END
+   ============================================================ */
